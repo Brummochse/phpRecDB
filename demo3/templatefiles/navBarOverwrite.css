@@ -1,0 +1,20 @@
+.navbarcontainer {
+    width: 960px;
+    height: 70px;
+    background: url(images/img01.png) repeat-x left top;
+    margin: 0px  !important;
+    padding-top: 25px  !important;
+    text-align: left !important;
+}
+
+#navBarLinks {
+    background:none !important;
+}
+
+#navBar A {
+    color:white !important;
+}
+
+#navbar {
+
+}

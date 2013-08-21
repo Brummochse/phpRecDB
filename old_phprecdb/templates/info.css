@@ -1,0 +1,84 @@
+@import "signature.css";
+
+/*color definitions begin*/
+#phpRecDbInfo #infopage {
+	color:#000000;
+}
+#phpRecDbInfo #infopage {
+	background: #FFFFFF;
+}
+#phpRecDbInfo #recordinginfo,#participants, #setlist, #notes, #screenshots,#youtubesamples {
+	background-color:#DDDDDD;
+	border:#BBBBBB solid 5px;
+}
+#phpRecDbInfo #headerinfo{
+        background-color:#DDDDDD;
+	border:#BBBBBB solid 5px;
+}
+#phpRecDbInfo #headerinfo,
+#phpRecDbInfo label {
+	color:#000000;
+}
+#phpRecDbInfo #tradestatus{
+	color:#FF0000;
+}
+/*#sign A,
+#sign A:hover {
+	color:#444444;
+}*/
+/*color definitions end*/
+
+#phpRecDbInfo {
+	text-align: center; 
+}
+#phpRecDbInfo #infopage {
+	width:790px;
+	border:0px;
+	font-family:"Verdana";
+	font-size: 13px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center; 
+}
+#phpRecDbInfo div {
+	text-align:left;
+}
+
+#phpRecDbInfo #recordinginfo,#participants, #setlist, #notes, #screenshots,#youtubesamples {
+	margin:5px;
+	padding:3px;
+}
+#phpRecDbInfo #headerinfo{
+	margin:5px;
+	padding:3px;
+	height:15px;
+}
+
+#phpRecDbInfo #concertinfo {
+	margin:5px;
+	padding:3px;
+	text-align:center;
+	width:790px;
+}
+
+#phpRecDbInfo label {
+	font-weight:bolder;
+}
+
+#phpRecDbInfo img {
+	margin: 0px;
+	padding: 0px;
+	border:0px;
+}
+#phpRecDbInfo #dates{
+	text-align:right;
+	float:right;
+	font-weight:bolder;
+}
+#phpRecDbInfo #tradestatus{
+	font-weight:bolder;
+	float:left;
+}
+#phpRecDbInfo #embeddedVideos {
+	text-align: center;
+}

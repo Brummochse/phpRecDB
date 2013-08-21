@@ -1,0 +1,1 @@
+<?php ini_set('max_input_vars', '2000'); phpinfo(); ?>
