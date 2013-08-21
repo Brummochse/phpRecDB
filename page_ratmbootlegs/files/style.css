@@ -1,0 +1,54 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family:"Verdana";
+	color:#FFFFFF;
+
+	background-color: black;
+	background-image: url(bg.jpg);
+	background-position: top center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+
+	min-width: 100%;
+
+}
+#top_menu
+{
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	font-family:"arial";
+}
+#top_menu ul 
+{
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+}
+#top_menu li
+{
+	margin:5px;
+	display:inline;
+	background-color:#660000;
+	font-size:14px;
+}
+#top_menu img
+{
+	height:60px;
+}
+#top_menu A 
+{
+	text-decoration:  none;
+	color: #FF0000;
+	font-weight:bold;
+}
+#top_menu A:hover 
+{
+	text-decoration: underline;
+	color: #FF0000;
+}
+
+
+/*  ratm              */

@@ -1,0 +1,13 @@
+- ajax fehlermeldung wenn löschen fehlschlägt (nö doch nich)
+
+- list presets bootleg type sorti machen
+
+- add record / edit concert - date checken (z.b. 1995-04-84), hinweise für unknown (z.b. 2001-05-00)
+
+- wenn ein record gelöscht wird, dann wird artist menu nich geupdated (weil gridview selbst mit ajax updatet und das artist menu nciht refreshed wird)
+- actionAssignRecordsToSublist / actionDeleteRecord / actionDeleteRecords optimieren (extrem langsam bei vielen records)
+
+- autocomplete wurde mit neuer yiibooster 1.0.7 version nicht mehr mit autofocus gehighlighted
+=> deshalb wure aus alter version jquery-ui-bootstrap.css kopiert, damit gehts wieder
+
+-link signatreu nicht vollständig

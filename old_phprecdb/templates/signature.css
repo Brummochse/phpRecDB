@@ -1,0 +1,13 @@
+#sign {
+	margin-top:30px;
+	text-align: center;
+	font-size: 0.7em;
+}
+#sign A {
+	TEXT-DECORATION: underline;
+	font-weight:bold;
+}
+#sign A:hover {
+	TEXT-DECORATION: none;
+	font-weight:bolder;
+}

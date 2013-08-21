@@ -1,0 +1,130 @@
+@import "signature.css";
+
+/*color definitions begin*/
+#phpRecDbList #list,
+#phpRecDbList .artist,
+/*#phpRecDbList A,
+#phpRecDbList A:hover,*/
+#phpRecDbList #reccount {
+	color:#000000;	
+}
+#phpRecDbList #list,
+#phpRecDbList .year,
+#phpRecDbList .buttons,
+#phpRecDbList .tradestatus {
+	background:none !important;
+} 
+#phpRecDbList .tradestatus,
+#phpRecDbList .year {
+	color:#FF0000;
+} 
+#phpRecDbList tbody tr.rec1 td  {
+	background-color:#DDDDDD;
+}
+#phpRecDbList tbody tr.rec2 td {
+	background-color:#BBBBBB;
+}
+
+#phpRecDbList .videoOrAudio {
+    color: #333333;
+}
+
+/*
+#phpRecDbList .datetext,
+#phpRecDbList .artisttext {
+	color:#AAAAAA;
+}
+#phpRecDbList .date {
+	color:#888888;
+}
+#phpRecDbList .year A,
+#phpRecDbList .year A:hover {
+	color:#FF0000;
+}
+*/
+/*color definitions end*/
+
+
+#phpRecDbList {
+	padding: 0;
+	font-family:"Verdana";
+}
+#phpRecDbList A {
+	TEXT-DECORATION: none;
+	font-weight:bold;
+}
+#phpRecDbList A:hover {
+	TEXT-DECORATION: underline;
+	font-weight:bolder;
+}
+#phpRecDbList #list {
+	font-size: 10px;
+	text-align: left;
+	margin-left:auto;
+	margin-right:auto;
+}
+#phpRecDbList #list td{
+	padding-left:3px;
+	padding-right:3px;
+}
+#phpRecDbList .artistcell td{
+	padding-top:20px;
+	padding-bottom:2px;
+	font-size: 10px;
+}
+#phpRecDbList .artist {
+	font-weight:bolder;
+	font-size: 13px;
+	margin-right:10px;
+	margin-left:5px;
+}
+#phpRecDbList .year {
+	font-weight:bolder;
+	font-size: 12px;
+	padding-top:10px;
+	padding-bottom:2px;
+}
+#phpRecDbList .datecell td {
+	padding-top:20px;
+	padding-bottom:0px;
+	border-top:#000000 solid 2px;
+}
+#phpRecDbList .datetext {
+	font-weight:600;
+}
+#phpRecDbList .artisttext {
+	font-weight:600;
+}
+#phpRecDbList .datesplit td {
+	padding-top:20px;
+	padding-bottom:0px;
+	border-top:#000000 solid 2px;
+}
+#phpRecDbList .date {
+	margin-left:10px;
+	font-weight:bolder;
+	font-size: 14px;
+	TEXT-DECORATION: underline;
+}
+#phpRecDbList .year A {
+	TEXT-DECORATION: underline;
+	font-weight:bold;
+}
+#phpRecDbList .year A:hover {
+	TEXT-DECORATION: none;
+	font-weight:bolder;
+}
+#phpRecDbList .yearselector {
+ text-align: right;
+}
+#phpRecDbList #reccount {
+	margin-top:30px;
+	margin-left:5px;
+	font-size: 12px;
+}
+#phpRecDbList .videoOrAudio {
+    font-weight:bolder;
+    font-size: 12px;
+    padding-top:10px;
+    padding-bottom:2px;
+}

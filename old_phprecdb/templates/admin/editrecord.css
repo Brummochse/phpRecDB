@@ -1,0 +1,65 @@
+#phpRecDb {
+	margin-top:40px;
+	width:750px;
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#phpRecDb #concertinfo {
+	text-align:center;
+}
+
+#phpRecDb #col_property
+{
+        width:250px;
+}
+#phpRecDb #col_example
+{
+	width:200px;
+}
+#phpRecDb #col_value
+{
+	width:300px;
+
+}
+#phpRecDb #setlist
+{
+	height:200px;
+}
+#phpRecDb #propertyTable {
+	border: 2px solid #000000;
+	text-align:left;
+	margin-bottom:10px;
+}
+
+#phpRecDb #propertyTable td 
+{
+	padding:7px;
+}
+
+#phpRecDb input[type=text] {
+	width:100%;
+}
+
+#phpRecDb textarea {
+	width:100%;
+}
+
+#phpRecDb #right{
+	text-align:right;
+	float:right;
+}
+#phpRecDb #left{
+	float:left;
+}
+
+#phpRecDb #sublists {
+	border: 2px solid #000000;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+}

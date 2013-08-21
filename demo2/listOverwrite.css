@@ -1,0 +1,28 @@
+#sign A,
+#sign A:hover,
+#phpRecDbList A,
+#phpRecDbList A:hover {
+    color: #9C2A00 !important;
+}
+#phpRecDbList #list,
+#phpRecDbList .artist,
+
+#phpRecDbList #reccount {
+	color:#000000 !important;
+}
+#phpRecDbList #list,
+#phpRecDbList .year,
+#phpRecDbList .buttons,
+#phpRecDbList .tradestatus {
+	background-color:#FEEFD0 !important;
+}
+#phpRecDbList .tradestatus,
+#phpRecDbList .year {
+	color:#333333 !important;
+}
+tbody tr.rec1 td {
+	background-color:#8B8636 !important;
+}
+tbody tr.rec2 td {
+	background-color:#89AB61 !important;
+}
