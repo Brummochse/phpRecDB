@@ -41,9 +41,11 @@ class SignatureController extends AdminController {
             Yii::app()->signatureManager->generateSignature($model);
         
         if (!$model->isNewRecord && $model->enabled) {
-            $staticSidDirUrl = $this->getStaticSigDirUrl($model->name);
-            $pushParams['signatureStaticUrl'] = $staticSidDirUrl . '/' . SignatureManager::SIG_FILENAME;
-            $pushParams['signatureDynamicUrl'] = $staticSidDirUrl;
+            $staticSigDirUrl = $this->getStaticSigDirUrl($model->name);
+            $baseUrl = (isset($_SERVER['HTTPS'])?'https':'http').'://' . $_SERVER['HTTP_HOST'].Yii::app()->baseUrl;
+            $pushParams['signaturePreviewUrl'] = $staticSigDirUrl . '/' . SignatureManager::SIG_FILENAME;
+            $pushParams['signatureStaticUrl'] = $baseUrl. '/'. $pushParams['signaturePreviewUrl'];
+            $pushParams['signatureDynamicUrl'] = $baseUrl. '/'. $staticSigDirUrl;
         }
 
         $this->render('update', $pushParams);

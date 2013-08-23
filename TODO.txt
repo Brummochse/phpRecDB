@@ -11,3 +11,5 @@
 => deshalb wure aus alter version jquery-ui-bootstrap.css kopiert, damit gehts wieder
 
 -link signatreu nicht vollständig
+
+-autocomplete geht nicht mehr

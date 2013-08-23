@@ -5,6 +5,7 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
     'headerButtons' => array(
         array(
             'class' => 'bootstrap.widgets.TbButtonGroup',
+            'type' => 'inverse', 
             'buttons' => array(
                 array('label' => 'View User', 'url' => array('profile'))
             ),
