@@ -15,7 +15,6 @@
         'htmlOptions' => array('class' => 'well'),
             ));
     ?>
-
     <?php echo $form->textFieldRow($model, 'username', array('class' => 'input-small','autocomplete'=>'off')); ?>
     <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'input-small')); ?>
     <?= $welcomeMessage ?>

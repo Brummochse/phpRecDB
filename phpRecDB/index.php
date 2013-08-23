@@ -1,7 +1,7 @@
 <?
 ////////////generating time////////////////
-$starttime = explode(' ', microtime());
-$starttime = $starttime[1] + $starttime[0];
+//$starttime = explode(' ', microtime());
+//$starttime = $starttime[1] + $starttime[0];
 //////////////////////////////////////////
 ?>
 <?php
@@ -9,12 +9,12 @@ $starttime = $starttime[1] + $starttime[0];
         $prdb = new phpRecDB();
         $prdb->adminPanel();
 ?>
-<div style="text-align: center; font-size: 0.6em; color: grey;margin-top: 10px;">
 <?
 ////////////generating time////////////////
-$mtime = explode(' ', microtime());
-$totaltime = $mtime[0] + $mtime[1] - $starttime;
-printf('Page generated in %.3f seconds.', $totaltime);
+//$mtime = explode(' ', microtime());
+//$totaltime = $mtime[0] + $mtime[1] - $starttime;
+//echo '<div style="text-align: center; font-size: 0.6em; color: grey;margin-top: 10px;">';
+//printf('Page generated in %.3f seconds.', $totaltime);
+//echo '</div>';
 //////////////////////////////////////////
 ?>
-</div>

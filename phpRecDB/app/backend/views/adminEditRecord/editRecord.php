@@ -5,7 +5,7 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
     'headerButtons' => array(
         array(
             'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'Secondary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'type' => 'inverse', 
             'buttons' => array(
                 array('items' => array(
                         array('label' => 'add Video Record', 'url' => Yii::app()->createUrl('adminEditRecord/addVideoRecord', array(ParamHelper::PARAM_CONCERT_ID => $concertId))),
@@ -17,6 +17,7 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonGroup',
+            'type' => 'inverse', 
             'buttons' => array(
                 array('label' => 'Edit', 'htmlOptions' => array('onclick' => '$("#editconcertmodal").dialog("open"); return false;'))
             ),
