@@ -35,7 +35,16 @@ class WatermarkController extends AdminController {
                 $watermarkScreenshotUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . Yii::app()->params['watermarkTestScreenshot']);
 
                 if ($model->watermarkThumbnail) {
+                    
+//                       $destFileInfo = new FileInfo();
+//                       $destFileInfo->dir =Yii::app()->params['miscPath'] . DIRECTORY_SEPARATOR;
+//                       $path_parts = pathinfo(Yii::app()->params['watermarkTestThumbnail']);
+//                       $destFileInfo->fileNameBase = $path_parts['basename'];
+//                       $destFileInfo->fileExtension = $path_parts['extension'];
+                    
                     $watermarkThumbnailPath = Yii::app()->params['miscPath'] . DIRECTORY_SEPARATOR . Yii::app()->params['watermarkTestThumbnail'];
+                    
+                    //TODO: auf neue methodensignatur anpassen
                     Yii::app()->screenshotManager->watermarkThumbnail($model, Yii::app()->params['emptyScreenshot'], $watermarkThumbnailPath);
                     $watermarkthumbnailUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . Yii::app()->params['watermarkTestThumbnail']);
                 }

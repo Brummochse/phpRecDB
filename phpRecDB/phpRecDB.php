@@ -17,7 +17,7 @@
   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+//defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 //only for depracted message
 define("LAST_RECORDS_PER_DAY", 3);

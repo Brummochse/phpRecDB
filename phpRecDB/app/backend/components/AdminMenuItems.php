@@ -46,7 +46,12 @@ class AdminMenuItems {
                     array('label' => 'Sublist Management', 'url' => array('sublist/admin')),
                     array('label' => 'Theme', 'url' => array('adminBase/theme')),
                     array('label' => 'Signature Management', 'url' => array('signature/admin')),
-                    array('label' => 'Watermark', 'url' => array('watermark/index')),
+                    array('label' => 'Screenshots',
+                        'items' => array(
+                            array('label' => 'Watermark', 'url' => array('watermark/index')),
+                            array('label' => 'Screenshot Compression', 'url' => array('adminBase/screenshotCompression')),
+                        )
+                    ),
                     array('label' => 'List Presets',
                         'items' => array(
                             array('label' => 'Aspect Ratio', 'url' => array('aspectratio/admin')),
@@ -62,7 +67,6 @@ class AdminMenuItems {
                             array('label' => 'Users', 'url' => array('user/admin'), 'visible' => Yii::app()->user->isAdmin()),
                             array('label' => 'My Profile', 'url' => array('user/profile')),
                         )
-
                     )
                 ),
             ),
