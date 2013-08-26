@@ -196,4 +196,20 @@ class AdminBaseController extends AdminController {
         $this->redirect(Yii::app()->user->loginUrl);
     }
 
+    public function actionScreenshotCompression() {
+         $model = ScreenshotCompressionForm::createFromSettingsDb();
+
+        if (isset($_POST['ScreenshotCompressionForm'])) {
+            $model->attributes = $_POST['ScreenshotCompressionForm'];
+
+            if ($model->validate()) {
+                $model->saveToSettingsDb();
+            }
+        }
+
+        $this->render('screenshotCompression', array(
+            'model' => $model)
+        );
+    }
+    
 }

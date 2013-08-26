@@ -5,21 +5,27 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
     'headerButtons' => array(
         array(
             'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse', 
+            'type' => 'inverse',
             'buttons' => array(
                 array('items' => array(
                         array('label' => 'add Video Record', 'url' => Yii::app()->createUrl('adminEditRecord/addVideoRecord', array(ParamHelper::PARAM_CONCERT_ID => $concertId))),
                         array('label' => 'add Audio Record', 'url' => Yii::app()->createUrl('adminEditRecord/addAudioRecord', array(ParamHelper::PARAM_CONCERT_ID => $concertId))),
-                        ($allowDeleteRecord) ? '---':array(),
+                        ($allowDeleteRecord) ? '---' : array(),
                         ($allowDeleteRecord) ? array('label' => 'delete selected Record', 'url' => Yii::app()->createUrl('adminEditRecord/deleteRecord', array(ParamHelper::PARAM_RECORD_ID => $recordId))) : array(),
-                )),
+                    )),
             )
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse', 
+            'type' => 'inverse',
             'buttons' => array(
-                array('label' => 'Edit', 'htmlOptions' => array('onclick' => '$("#editconcertmodal").dialog("open"); return false;'))
+                array(
+                    'label' => 'Edit',
+                    'type' => 'inverse',
+                    'htmlOptions' => array(
+                        'data-toggle' => 'modal',
+                        'data-target' => '#editConcert',
+                    )),
             ),
         ),
     )
@@ -39,45 +45,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
     'htmlOptions' => array('class' => 'well'),
     'tabs' => $tabs)
 );
-
-
-
-
 $this->endWidget();
 
-$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-    'id' => 'editconcertmodal',
-    'options' => array(
-        'title' => 'Edit Concert',
-        'width' => 600,
-        'autoOpen' => false,
-        'resizable' => false,
-        'modal' => true,
-        'overlay' => array(
-            'backgroundColor' => '#000',
-            'opacity' => '0.5'
-        ),
-    ),
-));
+$this->renderPartial('_editConcert', array('recordId' => $recordId, 'concertFormModel' => $concertFormModel));
 ?>
-<div class="form">
-    <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id' => 'inlineForm',
-        'type' => 'horizontal',
-        'htmlOptions' => array('class' => 'well'),
-        'action' => Yii::app()->createUrl('adminEditRecord/updateConcertInfo', array(ParamHelper::PARAM_RECORD_ID => $recordId)),
-            ));
-    echo CHtml::errorSummary($concertFormModel);
-    echo CHtml::activeHiddenField($concertFormModel, 'artist');
-
-    $this->renderPartial('/adminBase/concertForm', array('model' => $concertFormModel, 'form' => $form));
-    ?>
-
-    <div class="form-actions">
-        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => 'OK')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-</div>
-<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
