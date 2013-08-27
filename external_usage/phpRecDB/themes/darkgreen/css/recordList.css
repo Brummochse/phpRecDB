@@ -1,0 +1,210 @@
+/* GridView */
+
+.grid-view 
+{
+    color: #FFFFFF;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid-view table
+{
+    color: #000000;
+}
+
+.grid-view .date-col
+{
+	font-weight: bold;
+}
+
+.grid-view .location-col
+{
+	font-weight: bold;
+}
+
+.grid-view .artist-col
+{
+	font-weight: bold;
+}
+
+.grid-view .splittext
+{
+    font-weight:bold;
+    color: #FFFFFF;
+    padding: 20px 15px 3px 15px;
+}
+
+
+.grid-view .videoaudio
+{
+    color: #FFFFFF;
+    margin-top: 7px;
+    font-style:  italic;
+    font-size: 110%;
+}
+
+.grid-view .splittext a
+{
+    font-size: 130%;
+    margin-right: 10px;
+}
+
+.grid-view-loading
+{
+    background:url(../images/ajax-loader.gif) no-repeat !important;
+}
+
+li.page, li.next, li.previous {margin:0}
+
+.grid-view tbody .buttons
+{
+    background:none !important;
+}
+
+.grid-view tbody .trade-status
+{
+    background:none !important;
+    color: #FF0000;
+    font-weight:bold;
+}
+
+.grid-view table.items
+{
+    width: 100%;
+    text-align: left;
+}
+
+.grid-view table.items th
+{
+    color: #FFFFFF;
+    border-bottom:1px solid #ddd;
+    background:transparent;
+
+}
+
+.grid-view table.items th
+{
+    padding: 0.3em;
+    font-size: 120%;
+}
+
+.grid-view table.items td
+{
+    padding: 0px 3px 0px 3px;
+}
+
+.grid-view table.items th a
+{
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.grid-view table.items th a:hover
+{
+    color: #fff;
+    text-decoration: underline;
+}
+
+
+.grid-view table.items tr.even td
+{
+    background: #DDDDDD;
+}
+
+.grid-view table.items tr.odd td
+{
+    background: #BBBBBB;
+}
+
+.grid-view table.items tr.selected
+{
+
+}
+
+.grid-view table.items tr.even:hover td,
+.grid-view table.items tr.even:hover td a,
+.grid-view table.items tr.odd:hover td,
+.grid-view table.items tr.odd:hover td a
+{
+    background: #AAA ;
+}
+
+.grid-view .summary
+{
+    margin: 0 0 5px 0;
+    text-align: right;
+}
+
+
+/* Styles for ClinkPager */
+ul.yiiPager
+{
+    border:0;
+    margin:0;
+    padding:0;
+    line-height:100%;
+    display:inline;
+}
+
+ul.yiiPager li
+{
+    display:inline;
+}
+
+ul.yiiPager a:link,
+ul.yiiPager a:visited
+{
+    border:solid 1px #ccc;
+    color:inherit;
+    font-weight:bold;
+    padding:2px 8px;
+    text-decoration:none;
+    -moz-border-radius:3px; -webkit-border-radius:3px; border-radius: 3px;
+}
+
+ul.yiiPager .page a
+{
+    font-weight: 600;
+}
+
+ul.yiiPager a:hover
+{
+    background:#777777;
+    color:#fff;
+}
+
+ul.yiiPager .selected a
+{
+    background:#777777;
+    color:#fff;
+    font-weight:bold;
+   
+}
+
+ul.yiiPager .hidden a
+{
+    border:1px solid #ccc;
+    color:inherit;
+}
+
+/**
+ * Hide first and last buttons by default.
+*/
+ul.yiiPager .first,
+ul.yiiPager .last
+{
+    display:none;
+}
+
+div.demo_box{
+    -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;
+}
+
+div.grid-view {
+    -moz-background-clip:border;
+    -moz-background-inline-policy:continuous;
+    -moz-background-origin:padding;
+    padding:5px;
+}
