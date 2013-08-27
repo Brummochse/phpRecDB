@@ -196,6 +196,33 @@ class AdminBaseController extends AdminController {
         $this->redirect(Yii::app()->user->loginUrl);
     }
 
+    public function actionScreenshotStatistics() {
+        
+        $dirIter = new RecursiveDirectoryIterator(Yii::app()->params['screenshotsPath']);
+        $recursiveIterator = new RecursiveIteratorIterator($dirIter,
+                RecursiveIteratorIterator::SELF_FIRST,
+                RecursiveIteratorIterator::CATCH_GET_CHILD);
+
+        $filesCount= 0;
+        $size= 0;
+
+        foreach($recursiveIterator as $element) {
+            switch($element->getType()) {
+                case 'file':
+                    $filesCount++;
+                    $size += $element->getSize();
+                    break;
+            }
+        }
+
+        $sizeInMb=  sprintf("%.2f", $size/1024/1024);
+        
+        
+        $this->render('screenshotStatistics', array(
+            'filesCount' => $filesCount,'filesSize'=>$sizeInMb)
+        );
+    }
+    
     public function actionScreenshotCompression() {
          $model = ScreenshotCompressionForm::createFromSettingsDb();
 
