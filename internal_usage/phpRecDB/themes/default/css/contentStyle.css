@@ -1,0 +1,24 @@
+#sign {
+	margin-top:30px;
+	text-align: center;
+}
+#sign A {
+	text-decoration: underline;
+	font-weight:bold;
+}
+#sign A:hover {
+	text-decoration: none;
+	font-weight:bolder;
+}
+
+#content {
+    width: 900px; 
+    margin-left: auto;
+    margin-right: auto; 
+    margin-top: 20px;
+    font-family:"Arial"; 
+}
+
+.contentSize {
+    font-size: 0.7em
+}
