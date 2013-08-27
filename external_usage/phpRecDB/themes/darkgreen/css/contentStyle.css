@@ -1,0 +1,26 @@
+#sign {
+	margin-top:30px;
+        padding-bottom: 10px;
+	text-align: center;
+}
+#sign A {
+	text-decoration: underline;
+	font-weight:bold;
+}
+#sign A:hover {
+	text-decoration: none;
+	font-weight:bolder;
+}
+
+#content {
+    margin-left: auto;margin-right: auto;
+}
+
+.contentSize {
+    font-size: 1em
+}
+
+.panel {
+    margin-left: -15px;
+    margin-top: -15px;
+}
