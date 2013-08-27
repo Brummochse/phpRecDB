@@ -22,5 +22,5 @@ for /D %%i in (../phpRecDB/app/common/libs/yiiframework/views/*) do rd /S/Q "../
 
 rd /s /q "../phpRecDB/app/backend/extensions/bootstrap/assets/js/ckeditor/"
 
-copy /Y "overridefiles/dbConfig.php" "../phpRecDB/settings/"
-copy /Y "overridefiles/jquery-ui.min.js" "..\phpRecDB\app\common\libs\yiiframework\web\js\source\jui\js\"
+copy /Y "overridefiles\dbConfig.php" "../phpRecDB/settings/"
+copy /Y "overridefiles\jquery-ui.min.js" "..\phpRecDB\app\common\libs\yiiframework\web\js\source\jui\js\"

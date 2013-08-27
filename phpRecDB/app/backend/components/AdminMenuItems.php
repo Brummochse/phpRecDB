@@ -49,7 +49,8 @@ class AdminMenuItems {
                     array('label' => 'Screenshots',
                         'items' => array(
                             array('label' => 'Watermark', 'url' => array('watermark/index')),
-                            array('label' => 'Screenshot Compression', 'url' => array('adminBase/screenshotCompression')),
+                            array('label' => 'Compression', 'url' => array('adminBase/screenshotCompression')),
+                            array('label' => 'Statistics', 'url' => array('adminBase/screenshotStatistics')),
                         )
                     ),
                     array('label' => 'List Presets',

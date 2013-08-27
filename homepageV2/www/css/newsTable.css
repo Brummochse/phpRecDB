@@ -1,0 +1,17 @@
+#newsTable {
+    border: solid 1px #777777;
+    text-align: left;
+    padding: 5px;
+}
+
+#newsTable label {
+    font-weight: bolder;
+    padding-left: 20px;
+}
+
+#newsTable p {
+
+    padding-left: 150px;
+    padding-bottom: 10px;
+    border: #000000;
+}

@@ -1,12 +1,5 @@
 <?php
 
-class FileInfo {
-
-    public $dir = '';
-    public $fileNameBase = '';
-    public $fileExtension = '';
-}
-
 class ImgSource {
 
     public $sourceUploadedFile = null; //CUploadedFile
