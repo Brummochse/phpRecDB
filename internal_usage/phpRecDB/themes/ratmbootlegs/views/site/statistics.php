@@ -1,3 +1,0 @@
-<?php
-$this->widget('Statistician');
-?>

@@ -6,13 +6,13 @@ class ImgSource {
     public $sourceSimpleImage = null; //SimpleImage    
 
     public static function createFromCUploadedFile($sourceUploadedFile) {
-        $newImgSource = new static;
+        $newImgSource = new ImgSource();
         $newImgSource->sourceUploadedFile = $sourceUploadedFile;
         return $newImgSource;
     }
 
     public static function createFromSimpleImage($sourceSimpleImage) {
-        $newImgSource = new static;
+        $newImgSource = new ImgSource();
         $newImgSource->sourceSimpleImage = $sourceSimpleImage;
         return $newImgSource;
     }

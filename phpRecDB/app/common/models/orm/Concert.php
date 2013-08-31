@@ -115,7 +115,7 @@ class Concert extends CActiveRecord {
         $city = $this->city != null ? $this->city->name : "";
         $venue = $this->venue != null ? $this->venue->name : "";
 
-        return $this::generateString($date, $country, $city, $venue, $this->supplement, $this->misc);
+        return Concert::generateString($date, $country, $city, $venue, $this->supplement, $this->misc);
     }
 
     public static function generateString($date = null, $country = null, $city = null, $venue = null, $supplement = null, $misc = null) {

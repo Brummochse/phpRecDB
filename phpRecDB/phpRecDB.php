@@ -1,24 +1,26 @@
 <?php
-
 /*
-  This file is part of phpRecDB.
-
-  phpRecDB is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  phpRecDB is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of phpRecDB.
+ *
+ * phpRecDB is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License.
+ *
+ * phpRecDB is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with phpRecDB. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @author <the-patient@gmx.de>
+ * @link http://www.phprecdb.de.vu
+ * @copyright 2009-2013 <the-patient@gmx.de>
+ * @license http://www.gnu.org/licenses/
  */
 
-defined('YII_DEBUG') or define('YII_DEBUG', true);
-
+//defined('YII_DEBUG') or define('YII_DEBUG', true);
 //only for depracted message
 define("LAST_RECORDS_PER_DAY", 3);
 
@@ -38,10 +40,9 @@ class phpRecDB implements PrdServiceProvider {
         echo "[ERROR: The method <b>printNavigationBar</b> is not longer supported by phpRecDB. Please remove the method-call.]";
     }
 
-     /**
+    /**
      * public methods from PrdServiceProvider
      */
-    
     public function printVideoList($collapsed = true) {
         $this->doPrintList($collapsed, ListActionMap::RECORDS_Video);
     }
@@ -99,7 +100,6 @@ class phpRecDB implements PrdServiceProvider {
         Yii::createWebApplication($config)->run();
     }
 
-
     private function doPrintNews($newsCount, $newsType, $action) {
         //check old deprecated news type LAST_RECORDS_PER_DAY
         if ($newsType == LAST_RECORDS_PER_DAY) {
@@ -121,7 +121,6 @@ class phpRecDB implements PrdServiceProvider {
     /**
      * yii startups configs
      */
-    
     private function getBackendConfig() {
         $dbSettings = $this->getDbSettings();
         $backendConfig = require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'backend' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'backend.php');
@@ -142,12 +141,12 @@ class phpRecDB implements PrdServiceProvider {
         $frontendConfig = require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'frontend.php');
         $commonConfig = require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'common.php');
 
-        $config= array_merge_recursive($frontendConfig, $commonConfig, $dbSettings);
-        
+        $config = array_merge_recursive($frontendConfig, $commonConfig, $dbSettings);
+
         //set theme
         if (strlen($this->theme) > 0)
             $config['theme'] = $this->theme;
-        
+
         return $config;
     }
 

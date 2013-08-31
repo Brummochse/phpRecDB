@@ -171,7 +171,7 @@ class Record extends CActiveRecord {
            $sublists[] = $sublist->label;
         }
 
-        return $this::generateString($length, $quality, $rectype, $media, $summedia, $source, $sourceIdentification, $visible, $sublists);
+        return Record::generateString($length, $quality, $rectype, $media, $summedia, $source, $sourceIdentification, $visible, $sublists);
     }
 
     public static function generateString($length = null, $quality = null, $rectype = null, $media = null, $summedia = null, $source = null, $sourceIdentification = null, $visible = null, $sublists = array()) {

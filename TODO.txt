@@ -11,6 +11,3 @@
 => deshalb wure aus alter version jquery-ui-bootstrap.css kopiert, damit gehts wieder
 - autocomplete wurde mit neuer yii-1.1.14.f0fee9 version nicht mehr mit autofocus gehighlighted
 => deshalb wure aus alter version jquery-ui.min.js kopiert, damit gehts wieder
-
-
--autocomplete geht nicht mehr

@@ -13,6 +13,7 @@ return array(
     'language'=>'en_us',
     'sourceLanguage'=>'en_us',
 
+    'charset'=>'utf-8',
     'components' => array(
         'settingsManager' => array('class' => 'SettingsManager'),
         'assetManager' => array(
