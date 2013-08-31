@@ -1,8 +1,3 @@
-<?php
-//$this->widget('ArtistMenu', array(
-//    'items' => $items,
-//));
-?>  
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->params['wwwUrl']; ?>/css/recordDetail.css" />
 
 <div id='phpRecDbInfo'>

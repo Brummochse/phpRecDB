@@ -8,7 +8,7 @@ abstract class Renderer {
         $this->controller = $controller;
     }
 
-    public function renderList(\ListDataConfig $listDataConfig) {
+    public function renderList(ListDataConfig $listDataConfig) {
         $dataFetcher = new RecordsListFetcher($listDataConfig);
         $this->renderView("list", array('data' => $dataFetcher->getData()));
     }

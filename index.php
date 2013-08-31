@@ -6,6 +6,7 @@ $starttime = $starttime[1] + $starttime[0];
 ?>
 
 <?php
+header('Content-Type:text/html; charset=UTF-8');
 include_once "phpRecDB/phpRecDB.php";
 $prdb = new phpRecDB();
 //$prdb->setTheme("ratmbootlegs");

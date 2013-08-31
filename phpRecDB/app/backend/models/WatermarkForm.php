@@ -16,6 +16,16 @@ class WatermarkForm extends SettingsDbModel {
     public static $ALIGN_ENUM = array('center', 'left', 'right');
     public static $VALIGN_ENUM = array('middle', 'top', 'bottom');
 
+     /*
+     * redundant code, is needed because only in php and above
+     * it is possible to use the method form the parent class
+     */
+     public static function createFromSettingsDb() {
+        $settingsDbModel = new WatermarkForm();
+        $settingsDbModel->loadFromSettingsDb();
+        return $settingsDbModel;
+    }
+    
     protected function givePropertiesDbMap() {
         return array(
             'enable' => 'watermark_textEnabled',

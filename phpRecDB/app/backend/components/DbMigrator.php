@@ -106,7 +106,9 @@ class DbMigrator extends MigrateCommand {
         
         $exists=Yii::app()->db->createCommand("SHOW TABLES LIKE '".$this->migrationTable."'")->queryScalar();
         if (!$exists) {
+            ob_start(); //surrounded with ob_start&ob_get_clean to avoid this message: "Creating migration history table "dbmigration"...done. " -> causing error with alreday sended header
             $this->createMigrationHistoryTable();
+            ob_get_clean();
         }
         return CHtml::listData(Yii::app()->db->createCommand()
                                 ->select('version, apply_time')

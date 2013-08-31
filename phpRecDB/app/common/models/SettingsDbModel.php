@@ -11,11 +11,16 @@ abstract class SettingsDbModel extends CFormModel {
 
     protected abstract function givePropertiesDbMap();
 
-    public static function createFromSettingsDb() {
-        $settingsDbModel = new static;
-        $settingsDbModel->loadFromSettingsDb();
-        return $settingsDbModel;
-    }
+    /**
+     *  new static is only available in php 5.3
+     * 
+     * to support older versions this code is copied redundant to all child classes
+     */
+//    public static function createFromSettingsDb() {
+//        $settingsDbModel = new static;
+//        $settingsDbModel->loadFromSettingsDb();
+//        return $settingsDbModel;
+//    }
 
     public function saveToSettingsDb() {
 

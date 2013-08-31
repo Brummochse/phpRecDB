@@ -1,5 +1,5 @@
 
-On this 3 demo sites you can see how the software works:
+<p>On this demo site you can see how the software works:</p>
 <ul>
     <li>
         <a href="demo/">demo site</a>

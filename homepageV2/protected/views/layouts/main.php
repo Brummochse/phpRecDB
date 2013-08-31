@@ -20,7 +20,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/www/css/site.c
             <div id='inner' class='bg1'>
 
                 <div style="padding: 10px;">
-                    <?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl . '/www/img/logo.png'),'?r=site/page&view=home'); ?>
+                    <?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl . '/www/img/logo.png'), '?r=site/page&view=home'); ?>
                 </div>
 
                 <?php
@@ -35,11 +35,24 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/www/css/site.c
                                 array('label' => 'Home', 'url' => '?r=site/page&view=home'),
                                 array('label' => 'Demo', 'url' => '?r=site/page&view=demo'),
                                 array('label' => 'Download', 'url' => '?r=site/page&view=download'),
-                                array('label' => 'Guides','items' => array(
-                                     array('label' => 'Install / Upgrade', 'url' => '?r=site/page&view=installguide'),
-                                     array('label' => 'Themes', 'url' => '?r=site/page&view=themes'),
-                                )),
-                                array('label' => 'How to use it?', 'url' => '?r=site/page&view=howtouseit'),
+                                array('label' => 'Info', 'items' => array(
+                                        array('label' => 'Requirements', 'url' => ''),
+                                        array('label' => 'Deatures', 'url' => ''),
+                                    )),
+                                array('label' => 'Guides', 'items' => array(
+                                        array('label' => 'Install / Upgrade', 'items' => array(
+                                                array('label' => 'new Installation', 'url' => '?r=site/page&view=installNew'),
+                                                array('label' => 'Upgrade existing Site', 'url' => '?r=site/page&view=installUpgrade'),
+                                            )),
+                                        array('label' => 'Themes', 'url' => '?r=site/page&view=themes'),
+                                        array('label' => 'Site Integration', 'items' => array(
+                                                array('label' => 'Script Integration Strategies', 'url' => '?r=site/page&view=scriptIntegration'),
+                                                array('label' => 'Internal', 'url' => '?r=site/page&view=internalIntegration'),
+                                                array('label' => 'External', 'url' => '?r=site/page&view=externalIntegration'),
+                                            )),
+                                    )),
+                                // array('label' => 'How to use it?', 'url' => '?r=site/page&view=howtouseit'),
+                                array('label' => 'API', 'url' => '?r=site/page&view=api'),
                                 array('label' => 'FAQ', 'url' => '?r=site/page&view=faq'),
                                 array('label' => 'Contact', 'url' => '?r=site/page&view=contact'),
                             ),
@@ -51,9 +64,10 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/www/css/site.c
                 <div id='content'>
                     <?= $content ?>
                 </div>
-                
+
                 <div style="margin-top: 20px;height: 15px;background: #222222;  "></div>
             </div>
+            <script>var d = 'phprecdb.de.vu';</script><script src="http://68698685.statistiq.com/68698685.js"></script>
         </div>
     </body>
 </html>
