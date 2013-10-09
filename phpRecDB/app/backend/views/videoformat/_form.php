@@ -8,7 +8,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'label'); ?>
-		<?php echo $form->textField($model,'label',array('size'=>4,'maxlength'=>4)); ?>
+		<?php echo $form->textField($model,'label'); ?>
 		<?php echo $form->error($model,'label'); ?>
 	</div>
 

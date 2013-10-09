@@ -12,7 +12,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $form->textFieldRow($model, 'name', array('size' => 60, 'maxlength' => 255)); ?>
     <?php echo $form->checkBoxRow($model, 'enabled'); ?>
     <?php echo $form->textFieldRow($model, 'additionalText', array('size' => 60, 'maxlength' => 255)); ?>
-    <?php echo $form->dropDownListRow($model, 'recordsCount',Helper::generateCountedArray(1,20)); ?>    
+    <?php echo $form->dropDownListRow($model, 'fontSize',Helper::generateCountedArray(5,20)); ?>    
+    <?php echo $form->dropDownListRow($model, 'recordsCount',Helper::generateCountedArray(1,20)); ?> 
     <?php echo $form->checkBoxRow($model, 'bgTransparent'); ?>
     <?php echo $form->colorpickerRow($model, 'bgColor', array('size' => 7, 'maxlength' => 7)); ?>
     <?php echo $form->colorpickerRow($model, 'color1', array('size' => 7, 'maxlength' => 7)); ?>

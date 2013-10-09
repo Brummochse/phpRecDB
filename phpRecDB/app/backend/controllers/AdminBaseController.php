@@ -19,26 +19,7 @@ class AdminBaseController extends AdminController {
         );
     }
 
-    public function actionSublist() {
-
-        if (($sublistModel = ParamHelper::decodeSublistModel()) != NULL) {
-
-            $isCollapsed = true;
-            $isAdmin = true;
-            $listDataConfig = new SublistListDataConfig($sublistModel->id, $isCollapsed, $isAdmin);
-            $dataFetcher = new RecordsListFetcher($listDataConfig);
-
-
-            $this->render('listRecords', array(
-                'title' => 'manage sublist: ' . CHtml::encode($sublistModel->label),
-                'data' => $dataFetcher->getData(),
-            ));
-        }
-        else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-    }
-
-    public function actionExistingConcertChoice() {
+      public function actionExistingConcertChoice() {
         if (isset($_POST['choice'])) {
             $addRecordFormModel = Yii::app()->session[self::ADD_RECORD_FORM_MODEL];
             unset(Yii::app()->session[self::ADD_RECORD_FORM_MODEL]);
@@ -61,16 +42,48 @@ class AdminBaseController extends AdminController {
         $this->render('home');
     }
 
-    public function actionListRecords() {
-        $isCollapsed = true;
-        $isAdmin = true;
-        $listDataConfig = new AllListDataConfig($isCollapsed, $isAdmin);
+    private function renderList($listDataConfig,$title,$listOptionsModel) {
         $dataFetcher = new RecordsListFetcher($listDataConfig);
 
         $this->render('listRecords', array(
-            'title' => 'manage records',
+            'title' => $title,
             'data' => $dataFetcher->getData(),
+            'listOptionsModel' => $listOptionsModel,
         ));
+        
+    }
+    
+    private function getListOptionModel($listId) {
+        $listOptionsModel = ListOptionsForm::createFromSettingsDb($listId);
+        if (isset($_POST['ListOptionsForm'])) {
+            $listOptionsModel->attributes = $_POST['ListOptionsForm'];
+
+            if ($listOptionsModel->validate()) {
+                $listOptionsModel->saveToSettingsDb();
+            }
+        }
+        return $listOptionsModel;
+    }
+    public function actionListRecords() {
+        $listId=''; //empty string means "global list"
+        $listOptionsModel = $this->getListOptionModel($listId);
+        $isAdmin = true;
+        $listDataConfig = new AllListDataConfig($listOptionsModel->collapsed, $isAdmin);
+        
+        $this->renderList($listDataConfig,'manage records',$listOptionsModel);
+    }
+
+    public function actionSublist() {
+
+        if (($sublistModel = ParamHelper::decodeSublistModel()) != NULL) {
+            $listOptionsModel = $this->getListOptionModel($sublistModel->id);
+            $isAdmin = true;
+            $listDataConfig = new SublistListDataConfig($sublistModel->id, $listOptionsModel->collapsed, $isAdmin);
+            
+            $this->renderList($listDataConfig,'manage sublist: ' . CHtml::encode($sublistModel->label),$listOptionsModel);
+        }
+        else
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     public function actionAddRecord() {

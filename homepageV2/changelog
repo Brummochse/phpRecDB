@@ -1,0 +1,6 @@
+1.1
+- bugfixing: length limitation in backend views for list preset forms
+- bugfixing: newslist/signature shows form smae artists are no sorted chronologic (and not longer for daytime when they werde added)
+- bugfixing: signature list supports now full utf8 charset
+- added: signature text size is now changeable
+- added: backend lists collapseable option

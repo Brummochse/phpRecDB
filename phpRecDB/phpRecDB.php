@@ -20,7 +20,9 @@
  * @license http://www.gnu.org/licenses/
  */
 
-//defined('YII_DEBUG') or define('YII_DEBUG', true);
+header('Content-Type:text/html; charset=UTF-8');
+
+defined('YII_DEBUG') or define('YII_DEBUG', true);
 //only for depracted message
 define("LAST_RECORDS_PER_DAY", 3);
 

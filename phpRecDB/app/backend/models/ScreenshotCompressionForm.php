@@ -17,7 +17,7 @@ class ScreenshotCompressionForm extends SettingsDbModel {
     }
 
     /*
-     * redundant code, is needed because only in php and above
+     * redundant code, is needed because only in php 5.3 and above
      * it is possible to use the method form the parent class
      */
      public static function createFromSettingsDb() {

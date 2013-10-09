@@ -87,7 +87,7 @@
 
     <?php if (isset($v[RI::YOUTUBESAMPLES])) { ?>
         <div class='infobox'><label>Youtube Samples:</label><br/>
-            <div style="text-align: center">;
+            <div style="text-align: center">
                 <?php
                 foreach ($v[RI::YOUTUBESAMPLES] as $youtube) {
                     echo $youtube->title;
