@@ -15,6 +15,7 @@
  * @property string $color3
  * @property integer $quality
  * @property integer $recordsCount
+ * @property integer $fontSize
  */
 class Signature extends CActiveRecord {
 
@@ -41,14 +42,11 @@ class Signature extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, bgColor, color1, color2, color3, recordsCount', 'required'),
-            array('enabled, bgTransparent, quality, recordsCount', 'numerical', 'integerOnly' => true),
+            array('name, bgColor, color1, color2, color3, recordsCount,fontSize', 'required'),
+            array('enabled, bgTransparent, quality, recordsCount,fontSize', 'numerical', 'integerOnly' => true),
             array('name, additionalText', 'length', 'max' => 255),
             array('name', 'match', 'pattern' => '/[A-Za-z0-9]+/', 'message' => 'only letters and numbers are allowed!'),
             array('bgColor, color1, color2, color3', 'length', 'max' => 7),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, name, enabled, additionalText, bgTransparent, bgColor, color1, color2, color3, quality, recordsCount', 'safe', 'on' => 'search'),
         );
     }
 
@@ -78,6 +76,7 @@ class Signature extends CActiveRecord {
             'color3' => 'Color3',
             'quality' => 'Quality',
             'recordsCount' => 'Records Count',
+            'fontSize' => 'Font Size'
         );
     }
 
@@ -102,6 +101,7 @@ class Signature extends CActiveRecord {
         $criteria->compare('color3', $this->color3, true);
         $criteria->compare('quality', $this->quality);
         $criteria->compare('recordsCount', $this->recordsCount);
+        $criteria->compare('fontSize', $this->fontSize);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
@@ -111,7 +111,8 @@ class Signature extends CActiveRecord {
     public function getRecords() {
 
         $criteria = new CDbCriteria;
-        $criteria->order = 'created DESC';
+        $criteria->order = 'date(created) DESC,concert.date';
+        $criteria->with = 'concert';
         $criteria->limit = $this->recordsCount;
         $criteria->offset = 0;
         $criteria->addCondition('visible=true');

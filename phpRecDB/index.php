@@ -19,7 +19,6 @@
  * @copyright 2009-2013 <the-patient@gmx.de>
  * @license http://www.gnu.org/licenses/
  */
-header('Content-Type:text/html; charset=UTF-8');
 include_once "phpRecDB.php";
 $prdb = new phpRecDB();
 $prdb->adminPanel();

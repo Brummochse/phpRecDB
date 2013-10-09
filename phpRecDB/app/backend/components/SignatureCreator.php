@@ -2,18 +2,25 @@
 
 class SignatureCreator {
 
-    private $fontHeight = 11;
     private $image = null;
-    private $currentHeigth = 0;
-    private $currentWidth = 0;
+    private $curY = 0; //current height
+    private $curX = 0; //current Width
     private $maxWidth = 0;
     private $signature = null;
+    private $fontFile;
+    private $fontFileBold;
+    private $rowSpace = 2; //in pixels
 
     public function __construct(Signature $signature) {
         if ($signature != NULL) {
             $this->signature = $signature;
 
-            /* begin write test image to check the maximum widh , this lines setting the maxWidth variable */
+            //set font files
+            $this->fontFile = Yii::app()->params['fontFolder'] . DIRECTORY_SEPARATOR . Yii::app()->params['signatureFont'];
+            $this->fontFileBold = Yii::app()->params['fontFolder'] . DIRECTORY_SEPARATOR . Yii::app()->params['signatureFontBold'];
+
+
+            /* begin write test image to check the maximum width , this lines setting the maxWidth variable */
             $this->createEmptyImage(1000);
             $this->printAdditionalText();
             $this->printRecords();
@@ -27,7 +34,7 @@ class SignatureCreator {
             $this->createEmptyImage($this->maxWidth);
             $this->printAdditionalText();
             $this->printRecords();
-            $this->addBanner();
+            $this->addFooter();
         }
     }
 
@@ -49,20 +56,24 @@ class SignatureCreator {
     }
 
     private function createEmptyImage($imageWidth) {
-        $this->currentHeigth = 0;
-        $this->currentWidth = 0;
+        $this->curY = 0;
+        $this->curX = 0;
 
         $width = $imageWidth;   //Breite des Bildes
-        $height = ($this->signature->recordsCount + 1) * $this->fontHeight + 2;
+        $height = ($this->signature->recordsCount + 1) * ($this->signature->fontSize + $this->rowSpace) + $this->rowSpace + 2;
 
         $additionalText = $this->signature->additionalText;
         if ($additionalText != null && strlen($additionalText) > 0) {
-            $height +=$this->fontHeight;
+            $height +=$this->signature->fontSize + $this->rowSpace;
         }
 
         $this->image = imagecreatetruecolor($width, $height);
         $bgColor = $this->getBcColor();
         ImageFilledRectangle($this->image, 0, 0, $width, $height, $bgColor);
+    }
+
+    private function incrementRow() {
+        $this->curY +=$this->signature->fontSize + $this->rowSpace;
     }
 
     private function printRecords() {
@@ -86,7 +97,7 @@ class SignatureCreator {
 
             if ($recordModel->video != NULL) {
                 $videoOrAudio = VA::vaIdToStr(VA::VIDEO);
-            } else  if ($recordModel->audio != NULL) {
+            } else if ($recordModel->audio != NULL) {
                 $videoOrAudio = VA::vaIdToStr(VA::AUDIO);
             } else {
                 $videoOrAudio = VA::vaIdToStr(VA::UNDEFINED);
@@ -99,6 +110,7 @@ class SignatureCreator {
     }
 
     private function addARecord($created, $videoOrAudio, $artist, $date, $placeInfo, $sourceidentification) {
+        $this->incrementRow();
         $this->addCreatedInfo($created);
         $this->addVideoOrAudioInfo($videoOrAudio);
         $this->addArtistInfo($artist);
@@ -106,55 +118,58 @@ class SignatureCreator {
         $this->addPlaceInfo($placeInfo);
         $this->addSourceIdentificationInfo($sourceidentification);
 
-        $this->currentHeigth +=$this->fontHeight;
-        $this->currentWidth = 0;
+        $this->curX = 0;
     }
 
-    private function printText($text, $font, $color, $space = 0) {
-        $text_width = imagefontwidth($font);
-        $width = $text_width * strlen($text);
-        $this->currentWidth +=$space;
-        ImageString($this->image, $font, $this->currentWidth, $this->currentHeigth, $text, $color);
-        $this->currentWidth +=$width;
+    private function printText($text, $fontType, $color, $space = 0) {
+        $this->curX +=$space;
 
-        if ($this->currentWidth > $this->maxWidth) {
-            $this->maxWidth = $this->currentWidth;
+        $textAngle = 0;
+        $dimension = imagettftext($this->image, $this->signature->fontSize, $textAngle, $this->curX, $this->curY, $color, $fontType, $text);
+        $dimensionLeft = $dimension[0];
+        $dimensionRight = $dimension[2];
+        $width = $dimensionRight - $dimensionLeft;
+
+        $this->curX +=$width;
+
+        if ($this->curX > $this->maxWidth) {
+            $this->maxWidth = $this->curX;
         }
     }
 
     private function printAdditionalText() {
         $additionalText = $this->signature->additionalText;
         if ($additionalText != null && strlen($additionalText) > 0) {
-            $font = 3;
 
             $color = $this->getColor1();
 
-            $this->printText($additionalText, $font, $color, 0);
-            $this->currentHeigth +=$this->fontHeight;
-            $this->currentWidth = 0;
+            $this->incrementRow();
+            $this->printText($additionalText, $this->fontFileBold, $color, 3);
+            $this->curX = 0;
         }
     }
 
-    private function addBanner() {
+    private function addFooter() {
         $text = "www.phpRecDB.de.vu";
-
-        $font = 3;
-
-        $text_width = imagefontwidth($font);
-        $width = $text_width * strlen($text);
 
         $color = $this->getColor1();
 
+        $this->incrementRow();
         $text2 = "created by phpRecDB " . Yii::app()->params['version'];
-        $this->printText($text2, $font, $color, 0);
-        ImageString($this->image, $font, $this->maxWidth - $width, $this->currentHeigth, $text, $color);
+        $this->printText($text2, $this->fontFileBold, $color, 3);
+
+        $textDimension = imagettfbbox($this->signature->fontSize, 0, $this->fontFileBold, $text);
+        $dimensionLeft = $textDimension[0];
+        $dimensionRight = $textDimension[2];
+        $textWidth = $dimensionRight - $dimensionLeft;
+
+        imagettftext($this->image, $this->signature->fontSize, 0, $this->maxWidth - $textWidth, $this->curY, $color, $this->fontFileBold, $text);
     }
 
     private function addCreatedInfo($created) {
         $text = "added " . substr($created, 0, 10);
-        $font = 2;
         $color = $this->getColor3();
-        $this->printText($text, $font, $color, 0);
+        $this->printText($text, $this->fontFile, $color, 0);
     }
 
     private function addSourceIdentificationInfo($sourceidentification) {
@@ -163,33 +178,28 @@ class SignatureCreator {
             $text = "(" . $sourceidentification . ")";
         }
 
-        $font = 2;
         $color = $this->getColor1();
-        $this->printText($text, $font, $color, 5);
+        $this->printText($text, $this->fontFile, $color, 5);
     }
 
     private function addPlaceInfo($placeInfo) {
-        $font = 3;
         $color = $this->getColor3();
-        $this->printText($placeInfo, $font, $color, 5);
+        $this->printText($placeInfo, $this->fontFile, $color, 5);
     }
 
     private function addDateInfo($date) {
-        $font = 3;
         $color = $this->getColor1();
-        $this->printText($date, $font, $color, 5);
+        $this->printText($date, $this->fontFileBold, $color, 5);
     }
 
     private function addArtistInfo($artist) {
-        $font = 3;
         $color = $this->getColor2();
-        $this->printText($artist, $font, $color, 5);
+        $this->printText($artist, $this->fontFileBold, $color, 5);
     }
 
     private function addVideoOrAudioInfo($videoOrAudio) {
-        $font = 2;
         $color = $this->getColor1();
-        $this->printText($videoOrAudio, $font, $color, 10);
+        $this->printText($videoOrAudio, $this->fontFile, $color, 10);
     }
 
     //////////////////////////////

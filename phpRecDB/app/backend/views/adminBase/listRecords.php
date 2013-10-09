@@ -3,13 +3,28 @@
 $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => CHtml::encode($title),
     'htmlOptions' => array('class' => 'bootstrap-box-big'),
+    'headerButtons' => array(
+        array(
+            'class' => 'bootstrap.widgets.TbButtonGroup',
+            'type' => 'inverse',
+            'buttons' => array(
+                array(
+                    'label' => 'Options',
+                    'type' => 'inverse',
+                    'htmlOptions' => array(
+                        'data-toggle' => 'modal',
+                        'data-target' => '#listOptions',
+                    )),
+            ),
+        ),
+    )
 ));
 
 $form = $this->beginWidget('CActiveForm', array(
     'enableAjaxValidation' => true,
         ));
 
-$this->widget('RecordList', array('data' => $data,'id'=>'recordlist-grid'));
+$this->widget('RecordList', array('data' => $data, 'id' => 'recordlist-grid'));
 ?>
 
 <script>
@@ -29,3 +44,5 @@ $this->endWidget();
 <?php $this->endWidget(); ?>
 
 <?php $this->endWidget(); ?>
+
+<?php $this->renderPartial('_listOptions',array('model'=>$listOptionsModel)); ?>

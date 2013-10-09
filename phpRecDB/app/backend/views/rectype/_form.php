@@ -14,13 +14,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'label'); ?>
-		<?php echo $form->textField($model,'label',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textField($model,'label'); ?>
 		<?php echo $form->error($model,'label'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'shortname'); ?>
-		<?php echo $form->textField($model,'shortname',array('size'=>3,'maxlength'=>3)); ?>
+		<?php echo $form->textField($model,'shortname'); ?>
 		<?php echo $form->error($model,'shortname'); ?>
 	</div>
 

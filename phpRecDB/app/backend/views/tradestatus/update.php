@@ -1,6 +1,6 @@
 <?php
 $this->beginWidget('bootstrap.widgets.TbBox', array(
-    'title' => 'Update Tradestatus "'.$model->label."'",
+    'title' => 'Manage Tradestatus "'.$model->label."'",
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
     'headerButtons' => array(
         array(
