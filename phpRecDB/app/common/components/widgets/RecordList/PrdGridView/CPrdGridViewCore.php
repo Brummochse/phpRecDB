@@ -12,7 +12,6 @@ class CPrdSort extends CSort {
         }
         return $orderBy;
     }
-
 }
 
 abstract class CAbstractPrdGridView extends CGridView {

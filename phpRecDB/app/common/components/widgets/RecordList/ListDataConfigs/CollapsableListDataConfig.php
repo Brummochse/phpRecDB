@@ -14,7 +14,7 @@ class CollapsableListDataConfig extends ListDataConfig {
         }
 
         //
-        $this->defaultOrder = 'Artist, misc, VideoType DESC,AudioType DESC,Date'; 
+        $this->defaultOrder = 'Artist, misc, VideoType DESC,AudioType DESC,Date,Version'; 
         $this->sortAttributes = array(
             'Date',
             'Artist',

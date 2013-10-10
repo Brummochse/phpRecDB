@@ -4,3 +4,4 @@
 - bugfixing: signature list supports now full utf8 charset
 - added: signature text size is now changeable
 - added: backend lists collapseable option
+- bugfixing: when a concert has several records, the different versions are sorted now alphabetical
