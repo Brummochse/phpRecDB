@@ -5,7 +5,6 @@ class AdminMenuItems {
     private static $instance = NULL;
 
     private function __construct() {
-        
     }
 
     public static function getInstance() {
@@ -68,7 +67,8 @@ class AdminMenuItems {
                             array('label' => 'Users', 'url' => array('user/admin'), 'visible' => Yii::app()->user->isAdmin()),
                             array('label' => 'My Profile', 'url' => array('user/profile')),
                         )
-                    )
+                    ),
+                    array('label' => 'List Columns', 'url' => array('listConfig/admin')),
                 ),
             ),
             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('adminBase/logout')),

@@ -94,8 +94,6 @@ class RecordsListFetcher {
             return NULL;
         }
 
-        $orderBy = CPrdGridViewCore::evaluateOrderBy($dataProvider);
-
         //////////////////////////////
         //$colAdminCheckBox
         $colAdminCheckBox = array();
@@ -109,60 +107,9 @@ class RecordsListFetcher {
             );
         }
 
-        //////////////////////////////
-        //$colsLeft
-        $colsLeft = array(
-            array(
-                'name' => 'Artist',
-                'class' => 'CPrdDataColumn',
-                'htmlOptions' => array('class' => 'artist-col'),
-            ),
-            array(
-                'name' => 'Date',
-                'class' => 'CPrdDataColumn',
-                'htmlOptions' => array('class' => 'date-col'),
-            )
-        );
-
-        //////////////////////////////
-        //$colsRight
-        $colsRight = array(
-            array(
-                'name' => 'Length',
-                'value' => 'isset($data["Length"])?CHtml::encode($data["Length"]." min"):""',
-                 'htmlOptions'=>array('class' => 'length-col'),
-            ),
-            array(
-                'name' => 'Quality',
-                'value' => 'isset($data["Quality"])?CHtml::encode($data["Quality"]."/10"):""',
-            ),
-            'Type',
-            'Medium',
-            'Source',
-            'Version',
-        );
-
-        //////////////////////////////
-        //$colsPlace
-        if ($orderBy == 'Country' || $orderBy == 'City' || $orderBy == 'Venue' || $orderBy == 'Supplement') {
-            $colsPlace = array(
-                'Country',
-                'City',
-                'Venue'
-            );
-        } else {
-            $colsPlace = array(
-                array(
-                    'class' => 'CPrdDataColumn',
-                    'name' => 'Location',
-                    'header' => $dataProvider->sort->link('Country', 'Location', array('class' => 'sort-link')),
-                    'type' => 'raw',
-                    'htmlOptions' => array('class' => 'location-col'),
-                    'value' => 'CHtml::encode(stripslashes((isset($data["Country"])?$data["Country"].(isset($data["City"])?", ":""):"") . (isset($data["City"])?$data["City"].(isset($data["Venue"])?" - ":""):"").$data["Venue"]." ".$data["Supplement"]))',
-                )
-            );
-        };
-
+        $colStock=new ColumnStock();
+        $infoCols=$colStock->getCols($dataProvider);
+        
         //////////////////////////////
         //$colButtons
         $colButtonOptions = array(
@@ -190,7 +137,7 @@ class RecordsListFetcher {
             )
         );
 
-        return array_merge($colAdminCheckBox, $colsLeft, $colsPlace, $colsRight, $colButtons, $colTradeStatus);
+        return array_merge($colAdminCheckBox, $infoCols, $colButtons, $colTradeStatus);
     }
 
     ///////////////////////////////////////////////////////
