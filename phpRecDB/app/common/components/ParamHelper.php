@@ -8,6 +8,7 @@ class ParamHelper {
     const PARAM_SCREENSHOT_ID = 'sid';
     const PARAM_SUBLIST_ID = 'said';
     const PARAM_CONCERT_ID = 'cid';
+    const PARAM_SELECTED_COLS = 'selcols';
 
     public static $PARAM_SUGGEST_MODE = array("mode" => "suggest");
 
