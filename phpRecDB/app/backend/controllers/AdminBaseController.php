@@ -252,4 +252,27 @@ class AdminBaseController extends AdminController {
         );
     }
     
+     public function actionListColConfig() {
+        if (isset($_POST[ParamHelper::PARAM_SELECTED_COLS])) {
+            Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME, $_POST[ParamHelper::PARAM_SELECTED_COLS]);
+        }
+
+        $selectedColsStr = Yii::app()->settingsManager->getPropertyValue(ColumnStock::SETTINGS_DB_NAME);
+        $selectedCols = explode(',', $selectedColsStr);
+
+        $allCols = ColumnStock::getAllColNames();
+        
+        $selectedCols=array_intersect($selectedCols,$allCols);
+        $availableCols = array_diff($allCols, $selectedCols);
+
+        $availableCols = Helper::parallelArray($availableCols); //means id and content is the same in the list
+        $selectedCols = Helper::parallelArray($selectedCols);
+
+
+
+        $this->render('listColConfig', array(
+            'colsSelected' => $selectedCols,
+            'colsAvailable' => $availableCols)
+        );
+    }
 }

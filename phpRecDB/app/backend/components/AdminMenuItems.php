@@ -68,7 +68,7 @@ class AdminMenuItems {
                             array('label' => 'My Profile', 'url' => array('user/profile')),
                         )
                     ),
-                    array('label' => 'List Columns', 'url' => array('listConfig/admin')),
+                    array('label' => 'List Columns', 'url' => array('adminBase/listColConfig')),
                 ),
             ),
             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('adminBase/logout')),

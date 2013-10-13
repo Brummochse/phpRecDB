@@ -29,15 +29,7 @@ class RecordsListFetcher {
      * @return string
      */
     private function createWhereClause($andParts, $generateWhere = false) {
-        $whereClause = "";
-        foreach ($andParts as $andPart) {
-            if ($andPart != NULL && strlen($andPart) > 0) {
-                if (strlen($whereClause) > 0) {
-                    $whereClause.=" AND ";
-                }
-                $whereClause.=$andPart;
-            }
-        }
+        $whereClause=  implode(" AND ", $andParts);
 
         if (strlen($whereClause) > 0 && $generateWhere) {
             $whereClause = " WHERE " . $whereClause;
@@ -56,11 +48,11 @@ class RecordsListFetcher {
             "" => array("id as RecordId", "sumlength as Length", "quality as Quality", "sourceidentification as Version"),
             "concert" => array("id", "misc", "date as Date", "supplement as Supplement"),
             "concert.artist" => array("name as Artist", "id as ArtistId"),
-            "concert.country" => "name as Country",
+            "concert.country" => array("name as Country"),
             "concert.city" => "name as City",
             "concert.venue" => "name as Venue",
             "rectype" => "shortname as Type",
-            "medium" => "label as Medium",
+            "medium" => "shortname as Medium",
             "source" => "shortname as Source",
             "tradestatus" => "shortname as TradeStatus",
             "video" => "recordings_id IS NOT NULL As VideoType",
