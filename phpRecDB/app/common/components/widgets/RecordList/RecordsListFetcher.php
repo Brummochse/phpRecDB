@@ -1,26 +1,35 @@
 <?php
 
-
 class RecordsListFetcher {
 
-    const DATA_PROVIDER ='dataProvider';
-    const COLUMNS ='columns';
-    const ARTIST_ITEMS ='artistItems';
-    
+    const DATA_PROVIDER = 'dataProvider';
+    const COLUMNS = 'columns';
+    const ARTIST_ITEMS = 'artistItems';
+
     private $config;
+    private $columnStock;
 
     public function __construct($listDataConfig) {
         $this->config = $listDataConfig;
     }
 
     public function getData() {
-        $data=array();
-        $data[self::DATA_PROVIDER] = $this->getListDataProvider();
-        $data[self::COLUMNS] = $this->evalColumns($data['dataProvider']);
+        $data = array();
+
+        $data[self::DATA_PROVIDER] = NULL;
+        $data[self::COLUMNS] = NULL;
+        if ($this->config->isRecordListVisible()) {
+            $this->columnStock = new ColumnStock();
+            $dataProvider = $this->getListDataProvider();
+            $data[self::DATA_PROVIDER] = $dataProvider;
+            $data[self::COLUMNS] = $this->columnStock->getColDefinitions($dataProvider, $this->config->isAdmin());
+        }
+        //
         $data[self::ARTIST_ITEMS] = $this->getArtistData();
-        
+
         return $data;
     }
+
     /**
      * combines conditions for a sql where-clause with a AND's
      * 
@@ -29,7 +38,7 @@ class RecordsListFetcher {
      * @return string
      */
     private function createWhereClause($andParts, $generateWhere = false) {
-        $whereClause=  implode(" AND ", $andParts);
+        $whereClause = implode(" AND ", $andParts);
 
         if (strlen($whereClause) > 0 && $generateWhere) {
             $whereClause = " WHERE " . $whereClause;
@@ -37,30 +46,10 @@ class RecordsListFetcher {
         return $whereClause;
     }
 
-    public function getListDataProvider() {
+    private function getListDataProvider() {
 
-        if (!$this->config->isRecordListVisible()) {
-            return NULL;
-        }
-
-        //
-        $cols = array(
-            "" => array("id as RecordId", "sumlength as Length", "quality as Quality", "sourceidentification as Version"),
-            "concert" => array("id", "misc", "date as Date", "supplement as Supplement"),
-            "concert.artist" => array("name as Artist", "id as ArtistId"),
-            "concert.country" => array("name as Country"),
-            "concert.city" => "name as City",
-            "concert.venue" => "name as Venue",
-            "rectype" => "shortname as Type",
-            "medium" => "shortname as Medium",
-            "source" => "shortname as Source",
-            "tradestatus" => "shortname as TradeStatus",
-            "video" => "recordings_id IS NOT NULL As VideoType",
-            "audio" => "recordings_id IS NOT NULL As AudioType",
-        );
-
-        //add additional cols
-        $cols = array_merge_recursive($cols, $this->config->getAdditionalRecordListCols());
+        $additionalCols=$this->config->getAdditionalRecordListCols();
+        $cols=$this->columnStock->getQueryBuilderSettings($additionalCols);
         //
         $sourceModelName = "Record";
         $queryBuilder = new QueryBuilderAdapter();
@@ -79,57 +68,6 @@ class RecordsListFetcher {
             'sort' => $sort,
         ));
         return $dataProvider;
-    }
-
-    public function evalColumns($dataProvider) {
-        if (!$this->config->isRecordListVisible()) {
-            return NULL;
-        }
-
-        //////////////////////////////
-        //$colAdminCheckBox
-        $colAdminCheckBox = array();
-        if ($this->config->isAdmin()) {
-            $colAdminCheckBox[] =
-                    array(
-                        'id' => Terms::CHECKBOX_ID,
-                        'class' => 'CCheckBoxColumn',
-                        'selectableRows' => '2', //multiple
-                        'value' => '$data["RecordId"]'
-            );
-        }
-
-        $colStock=new ColumnStock();
-        $infoCols=$colStock->getCols($dataProvider);
-        
-        //////////////////////////////
-        //$colButtons
-        $colButtonOptions = array(
-            'class' => 'CButtonColumn',
-            'htmlOptions' => array('class' => 'buttons'),
-        );
-        if ($this->config->isAdmin()) {
-            $colButtonOptions['template'] = '{update}{delete}';
-            $colButtonOptions['updateButtonUrl'] = 'ParamHelper::createRecordUpdateUrl($data["RecordId"])';
-            $colButtonOptions['deleteButtonUrl'] = 'ParamHelper::createRecordDeleteUrl($data["RecordId"])';
-            $colButtonOptions['deleteConfirmation'] = Yii::t('ui', 'Are you sure to delete this record?');
-        } else {
-            $colButtonOptions['viewButtonUrl'] = 'ParamHelper::createRecordDetailUrl($data["RecordId"])';
-            $colButtonOptions['template'] = '{view}';
-        }
-        $colButtons = array($colButtonOptions);
-
-        //////////////////////////////
-        //$colTradeStatus
-        $colTradeStatus = array(
-            array(
-                'header' => '',
-                'htmlOptions' => array('class' => 'trade-status'),
-                'value' => 'CHtml::encode($data["TradeStatus"])',
-            )
-        );
-
-        return array_merge($colAdminCheckBox, $infoCols, $colButtons, $colTradeStatus);
     }
 
     ///////////////////////////////////////////////////////
@@ -180,7 +118,7 @@ class RecordsListFetcher {
      * creates a array of items (artistname => link), using for a drop down menu
      */
 
-    public function getArtistData() {
+    private function getArtistData() {
 
         if (!$this->config->isArtistMenuVisible()) {
             return null;
@@ -188,10 +126,10 @@ class RecordsListFetcher {
 
         $artistData = $this->getArtists();
 
-        if ($artistData== NULL || count($artistData)==0) {
-             return null;
+        if ($artistData == NULL || count($artistData) == 0) {
+            return null;
         }
-        
+
         $items = array(
             array('label' => 'all artists', 'url' => ParamHelper::createArtistListUrl(-1))
         );
