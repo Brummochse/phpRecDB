@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>Rezter's New Way Theme Tutorial</title>
+		<style type="text/css">
+			body {
+				background: url(images/ui/background.jpg) repeat #000;
+				color: #fff;
+				font-family: sans-serif;
+				border-top: 5px solid #000;
+				margin: 0;
+				border: 0;
+				padding: 0;
+			}
+			a {
+				color: #da2a2a;
+				text-decoration: none;
+			}
+			a:hover {
+				color: #fff;
+			}
+			#content {
+				background: url(images/white25.png) repeat;
+				width: 760px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 20px;
+			}
+			h1 {
+				background: #000;
+				margin: 0;
+				text-transform: uppercase;
+				padding: 10px;
+				float: left;
+			}
+			#list {
+				background: #000;
+				margin: 0;
+				margin-top: 10px;
+				padding: 10px;
+				float: left;
+			}
+			h2 {
+				margin: 0;
+				font-size: large;
+			}
+
+				#list ol {
+					list-style-type: lower-roman;
+				}
+			.box {
+				background: url(images/black50.png) repeat;
+				padding: 10px;
+			}
+				.box span.highlight {
+					background: #000;
+					padding: 5px;
+					letter-spacing: 2px;
+					font-size: 10px;
+					top: -2px;
+					margin: 1px;
+					position: relative;
+				}
+				.box ol li {
+					margin-bottom: 9px;
+				}
+		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+	<body>
+		<div id="content">
+			<h1>Rezter's New Way Theme Tutorial</h1>
+			<div id="list">
+				<h2>How can I help?</h2>
+				<ol>
+					<li>
+						<a href="#title">I want to change the title of my page</a>
+					</li>
+					<li>
+						<a href="#email">I want to change the email address on my contact page</a>
+					</li>
+					<li>
+						<a href="#background">I want to change the background image for my page</a>
+					</li>
+					<li>
+						<a href="#header">I want to replace the header text with an image</a>
+					</li>
+				</ol>
+			</div>
+			<br style="clear: both;" />
+			<h3 id="title">I want to change the title of my page</h3>
+			<div class="box">
+				<ol>
+					<li>Locate this folder: <span class="highlight">phpRecDB/themes/NewWay/views/layouts</span></li>
+					<li>Edit this file: <span class="highlight">_title.php</span></li>
+					<li>Replace all the text in this document with what you want to appear as the title of your page.</li>
+					<li>Save and upload the files to your server.</li>
+				</ol>
+			</div>
+			<h3 id="email">I want to change the email address on my contact page</h3>
+			<div class="box">
+				<ol>
+					<li>Locate this folder: <span class="highlight">phpRecDB/themes/NewWay/views/site/pages</span></li>
+					<li>Edit this file: <span class="highlight">_email.php</span></li>
+					<li>Replace all the text in this document with the email address you want to appear on your contact page.</li>
+					<li>Save and upload the files to your server.</li>
+				</ol>
+			</div>
+			<h3 id="background">I want to change the background image for my page</h3>
+			<div class="box">
+				<ol>
+					<li>Find/create the image you would like to use as your background.</li>
+					<li>Optimize the image for the web.
+						<ol>
+							<li>If you want the image to fill the whole background I would suggest a resolution of <span class="highlight">1920 x 1080</span></li>
+							<li>To prevent the filesize becoming very large and taking longer to load, I would suggest saving the image as a <span class="highlight">JPEG</span> at <span class="highlight">30% quality</span></li>
+						</ol>
+					</li>
+					<li>Save/rename the image as the following: <span class="highlight">background.jpg</span></li>
+					<li>Put the final image in the following folder: <span class="highlight">phpRecDB/themes/NewWay/images</span><br />This should overwrite the background image.</li>
+					<li>Save and upload the files to your server.</li>
+				</ol>
+			</div>
+			<h3 id="header">I want to replace the header text with an image</h3>
+			<div class="box">
+				<ol>
+					<li>Find/create the image you would like to use as your header.</li>
+					<li>Optimize the image for the web.
+						<ol>
+							<li>To prevent disturbing the navigation on the right, I would suggest setting the width to <span class="highlight">470 pixels</span> or less</li>
+							<li>To prevent the filesize becoming very large and taking longer to load, I would suggest saving the image as a <span class="highlight">JPEG</span> at <span class="highlight">30% quality</span></li>
+						</ol>
+					</li>
+					<li>Save/rename the image as the following: <span class="highlight">header.jpg</span></li>
+					<li>Put the final image in the following folder: <span class="highlight">phpRecDB/themes/NewWay/images</span></li>
+					<li>Locate this folder: <span class="highlight">phpRecDB/themes/NewWay/views/layouts</span></li>
+					<li>Edit this file: <span class="highlight">internal.php</span></li>
+					<li>Find this section of code: <span class="highlight">&lt;div id="header"&gt;</span></li>
+					<li>Delete all the code between: <span class="highlight">&lt;div id="header"&gt;</span> and the very next <span class="highlight">&lt;/div&gt;</span></li>
+					<li>After <span class="highlight">&lt;div id="header"&gt;</span> enter the following code:<br /><br /><span class="highlight">&lt;img src="phpRecDB/themes/NewWay/images/header.jpg" alt="" /&gt;</span></li>
+					<li>Save and upload the files to your server.</li>
+				</ol>
+			</div>
+		</div>
+	</body>
+</html>
