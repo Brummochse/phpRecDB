@@ -1,0 +1,138 @@
+body {
+	background: #ccc url(../images/background.jpg) no-repeat center fixed;
+	color: #fff;
+	font-family: sans-serif;
+	border-top: 5px solid #000;
+}
+
+a {
+	color: #da2a2a;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+
+#MainSection {
+	width: 940px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 45px;
+	z-index: 50;
+	position: relative;
+}
+
+#header {
+	float: left;
+	text-transform: uppercase;
+	font-size: 32px;
+	background: #000;
+	color: #fff;
+	font-weight: bold;
+	padding: 10px;
+	max-width: 470px;
+}
+	#header img {
+		max-width: 470px;
+	}
+
+#topNav {
+	float: right;
+	text-transform: uppercase;
+	font-size: 14px;
+}
+
+	#topNav a {
+		background: #000;
+		color: #fff;
+		letter-spacing: 2px;
+		margin-left: 2px;
+		padding: 10px;
+		display: inline-block;
+	}
+	#topNav a:hover {
+		background: #da2a2a;
+		color: #fff;
+		text-decoration: none;		
+	}
+
+#section {
+	clear: both;
+	margin: 0px;
+	padding: 0px;
+	padding-top: 10px;
+}
+
+#footer {
+	background: #000;
+	font-size: 10px;
+	text-transform: uppercase;
+	position: fixed;
+	z-index: 100; 
+	bottom: 0; 
+	left: 0;
+	width: 100%;
+}
+#BottomBarContent {
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#Credits {
+	float: left;
+	padding: 10px;
+}
+#BackToTop {
+	float: right;
+	padding-right: 10px;
+}
+	#BackToTop a {
+		background: #da2a2a;
+		color: #fff;
+		padding: 10px;
+		display: block;
+	}
+	#BackToTop a:hover {
+		background: #fff;
+		color: #da2a2a;
+		text-decoration: none;		
+	}
+
+#ContactPage {
+	width: 450px;
+	text-align: center;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left: -225px;
+	margin-top: -120px;
+}
+#ContactPage #blocker {
+	margin-top: 10px;
+	background: #000;
+	padding: 20px;
+	font-size: 14px;
+}
+
+#ContactPage h2 {
+	margin-top: 20px;
+	font-size: 18px;
+	text-transform: uppercase;
+	color: #da2a2a;;
+}
+
+#ContactTail {
+	background: url(../images/contact.png);
+	width: 70px;
+	height: 60px;
+	margin-left: 40px;
+	margin-top: -2px;
+}
+#EmailLogo {
+	background: url(../images/email.png);
+	width: 50px;
+	height: 50px;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}

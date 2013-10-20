@@ -12,4 +12,4 @@ test($a);
 
 echo "<br><br>a:<br><br>";
 print_r($a);
-?>
+?>zz

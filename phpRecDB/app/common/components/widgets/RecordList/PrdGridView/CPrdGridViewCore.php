@@ -211,7 +211,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
             foreach ($this->columns as $column) {
                 if ($this->isOrderedColumn($column)) {
                     echo "<tr>";
-                    $colSpan = $this->colCount - 1 - 2; //- 2 = info link col and tradestatus col
+                    $colSpan = $this->colCount - 1 /*- 2*/; //- 2 = info link col and tradestatus col
                     echo '<th colspan="' . $colSpan . '" >';
                     echo $column->renderHeaderCellContent();
                     echo "</th>";
@@ -223,7 +223,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
 
 
         echo "<tr>\n";
-        for ($i = 0; $i < $this->colCount - 2; $i++) { //- 2 = info link col and tradestatus col
+        for ($i = 0; $i < $this->colCount /*- 2*/; $i++) { //- 2 = info link col and tradestatus col
             if (!($this->orderBy == $this->mainColumn && $this->isOrderedColumn($this->columns[$i]))) {
                 $this->columns[$i]->renderHeaderCell();
             }
