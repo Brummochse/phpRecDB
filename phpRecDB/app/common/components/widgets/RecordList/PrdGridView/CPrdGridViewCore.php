@@ -289,7 +289,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
 
         ////////////////////////////////////////////////////
         // date added splitter row
-        if ($this->orderBy == 'Date(created)' && isset($this->dataProvider->data[$row]['created'])) {
+        if ($this->orderBy == 'Date (created)' && isset($this->dataProvider->data[$row]['created'])) {
             $createDate = $this->dataProvider->data[$row]['created'];
             $createDate = substr($createDate, 0, 10);
             if ($createDate != $this->ancestorCreateDate) {

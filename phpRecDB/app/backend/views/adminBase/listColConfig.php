@@ -1,32 +1,33 @@
+<?php
+$jsConnectListsJs =
+        '$(function() {' .
+        '    $("#listLeft, #listRight").sortable({' .
+        '        connectWith: ".connectedSortable"' .
+        '    }).disableSelection();' .
+        '});';
+Yii::app()->getClientScript()->registerScript("listConnectorJs", $jsConnectListsJs);
+?>
 
+<?php
+//start build avoid moving not allowed cols js
+$jsCheckColMoveJs =
+        'function isMovingAllowed(event, ui) {';
+foreach ($notMoveableCols as $col) {
+    $jsCheckColMoveJs .= 'if (ui.item.context.id == "' . $col . '") return false; ';
+}
+$jsCheckColMoveJs.= ' return true; }';
+Yii::app()->getClientScript()->registerScript("jsCheckColMoveJs", $jsCheckColMoveJs);
+// end
+?>
 
+<?php
+Yii::app()->getClientScript()->registerCss('listCss',
+    '#listLeft, #listRight { border:solid 1px black; list-style-type: none; margin-left:  auto !important; margin-right: auto !important; padding: 0; background: #555555; padding: 10px; width: 150px;}'.
+    '#listLeft li, #listRight li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em;  background: #FFFFFF; border:0;}'.
+    '#evilLayoutTable {width:100%;} #evilLayoutTable td {text-align: center;}'
 
-
-<script>
-    $(function() {
-        $("#listLeft, #listRight").sortable({
-            connectWith: ".connectedSortable"
-        }).disableSelection();
-    });
-    $(function() {
-        //$("#listLeft").sortable({cancel: "li div"});
-
-    });
-
-</script>
-<style>
-    #listLeft, #listRight { border:solid 1px black; list-style-type: none; margin-left:  auto !important; margin-right: auto !important; padding: 0; background: #555555; padding: 10px; width: 150px;}
-    #listLeft li, #listRight li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em;  background: #FFFFFF; border:0;}
-    #evilLayoutTable {width:100%;} #evilLayoutTable td {text-align: center;}
-</style>
-
-
-
-
-
-
-
-
+);
+?>
 
 
 <?php
@@ -56,10 +57,8 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
                     ),
                     'options' => array(
                         'update' => "js:function(event,ui){
-                        if (ui.item.context.innerHTML=='Artist') {
-                            return false;
-                        }
-                }",
+                            return isMovingAllowed(event,ui);
+                         }",
                     ),
                 ));
                 ?>

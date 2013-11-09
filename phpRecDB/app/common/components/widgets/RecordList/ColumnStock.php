@@ -15,12 +15,11 @@ class ColArtist extends ConfigColumn {
         return array(array(
                 'name' => 'Artist',
                 'class' => 'CPrdDataColumn',
-                'htmlOptions' => array('class' => 'artist-col'),
         ));
     }
 
     public function getSqlBuildColNames() {
-        return array(ColumnStock::ARTIST);
+        return array(Cols::ARTIST);
     }
 
 }
@@ -31,12 +30,11 @@ class ColDate extends ConfigColumn {
         return array(array(
                 'name' => 'Date',
                 'class' => 'CPrdDataColumn',
-                'htmlOptions' => array('class' => 'date-col'),
         ));
     }
 
     public function getSqlBuildColNames() {
-        return array(ColumnStock::DATE);
+        return array(Cols::DATE);
     }
 
 }
@@ -47,12 +45,11 @@ class ColLength extends ConfigColumn {
         return array(array(
                 'name' => 'Length',
                 'value' => 'isset($data["Length"])?CHtml::encode($data["Length"]." min"):""',
-                'htmlOptions' => array('class' => 'length-col'),
         ));
     }
 
     public function getSqlBuildColNames() {
-        return array(ColumnStock::LENGTH);
+        return array(Cols::LENGTH);
     }
 
 }
@@ -67,7 +64,7 @@ class ColQuality extends ConfigColumn {
     }
 
     public function getSqlBuildColNames() {
-        return array(ColumnStock::QUALITY);
+        return array(Cols::QUALITY);
     }
 
 }
@@ -77,13 +74,12 @@ class ColTradeStatus extends ConfigColumn {
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
                 'header' => '',
-                'htmlOptions' => array('class' => 'trade-status'),
                 'value' => 'CHtml::encode($data["TradeStatus"])',
         ));
     }
 
     public function getSqlBuildColNames() {
-        return array(ColumnStock::TRADESTATUS);
+        return array(Cols::TRADESTATUS);
     }
 
 }
@@ -115,13 +111,13 @@ class ColVisible extends ConfigColumn {
     public function getColDefinitions($dataProvider, $isAdmin) {
 
         if ($isAdmin) {
-            return array(ColumnStock::VISIBLE);
+            return array(Cols::VISIBLE);
         }
         return array();
     }
 
     public function getSqlBuildColNames() {
-        return array(ColumnStock::VISIBLE);
+        return array(Cols::VISIBLE);
     }
 
 }
@@ -131,7 +127,6 @@ class ColButtons extends ConfigColumn {
     public function getColDefinitions($dataProvider, $isAdmin) {
         $colButtonOptions = array(
             'class' => 'CButtonColumn',
-            'htmlOptions' => array('class' => 'buttons'),
         );
         if ($isAdmin) {
             $colButtonOptions['template'] = '{update}{delete}';
@@ -166,10 +161,9 @@ class ColLocation extends ConfigColumn {
             $colsPlace = array(
                 array(
                     'class' => 'CPrdDataColumn',
-                    'name' => 'Location',
+                    'name' => 'Locationh',
                     'header' => $dataProvider->sort->link('Country', 'Location', array('class' => 'sort-link')),
                     'type' => 'raw',
-                    'htmlOptions' => array('class' => 'location-col'),
                     'value' => 'CHtml::encode(stripslashes((isset($data["Country"])?$data["Country"].(isset($data["City"])?", ":""):"") . (isset($data["City"])?$data["City"].(isset($data["Venue"])?" - ":""):"").$data["Venue"]." ".$data["Supplement"]))',
                 )
             );
@@ -178,28 +172,13 @@ class ColLocation extends ConfigColumn {
     }
 
     public function getSqlBuildColNames() {
-        return array(ColumnStock::COUNTRY, ColumnStock::CITY, ColumnStock::VENUE, ColumnStock::SUPPLEMENT);
+        return array(Cols::COUNTRY, Cols::CITY, Cols::VENUE, Cols::SUPPLEMENT);
     }
 
 }
 
-class ColumnStock {
+class Cols {
 
-    private $configCols = array();
-    private $colNames = array();
-    private $allSqlBuildCols = array();
-    private $selectedSqlBuildColNames = array();
-    //db fields for builind the sql query 
-    private $baseSqlBuildCols = array(
-        "" => array("id as RecordId"),
-        "concert" => array("id", "misc"),
-        "concert.artist" => array("id as ArtistId", "name as Artist"),
-        "video" => "recordings_id IS NOT NULL As VideoType",
-        "audio" => "recordings_id IS NOT NULL As AudioType",
-    );
-
-    const SETTINGS_DB_NAME = 'listOptions_selectedColumns';
-    const SETTINGS_DEFAULT = 'Artist,Date,Location,Length,Quality,Type,Medium,Source,Version';
     const ARTIST = 'Artist';
     const DATE = 'Date';
     const LENGTH = 'Length';
@@ -218,6 +197,32 @@ class ColumnStock {
     const CHECKBOX = 'CheckBox';
     const VISIBLE = 'Visible';
 
+    public static function getAllColNames() {
+        $oClass = new ReflectionClass('Cols'); //in php 5.3 i would use static keyword
+        return $oClass->getConstants();
+    }
+
+}
+
+class ColumnStock {
+
+    private $configCols = array();
+    private $colNames = array();
+    private $allSqlBuildCols = array();
+    //works as hashset, data is sotred in keys
+    private $selectedSqlBuildColNames = array();
+    //db fields for builind the sql query 
+    private $baseSqlBuildCols = array(
+        "" => array("id as RecordId"),
+        "concert" => array("id", "misc", "date as Date"),
+        "concert.artist" => array("id as ArtistId", "name as Artist"),
+        "video" => "recordings_id IS NOT NULL As VideoType",
+        "audio" => "recordings_id IS NOT NULL As AudioType",
+    );
+
+    const SETTINGS_DB_NAME = 'listOptions_selectedColumns';
+    const SETTINGS_DEFAULT = 'CheckBox,Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
+
     public function __construct() {
         $colsString = Yii::app()->settingsManager->getPropertyValue(ColumnStock::SETTINGS_DB_NAME);
         $this->colNames = explode(',', $colsString);
@@ -225,21 +230,24 @@ class ColumnStock {
         $this->initConfigCols();
         $this->initSqlBuildColStock();
     }
+    
+    public function getSelectedSqlBuildColNames() {
+        return array_keys( $this->selectedSqlBuildColNames); //needed becasue data is stored in keys
+    }
 
     private function initSqlBuildColStock() {
-        $this->allSqlBuildCols[self::COUNTRY] = array("concert.country" => "name");
-        $this->allSqlBuildCols[self::CITY] = array("concert.city" => "name");
-        $this->allSqlBuildCols[self::VENUE] = array("concert.venue" => "name");
-        $this->allSqlBuildCols[self::TYPE] = array("rectype" => "shortname");
-        $this->allSqlBuildCols[self::MEDIUM] = array("medium" => "shortname");
-        $this->allSqlBuildCols[self::SOURCE] = array("source" => "shortname");
-        $this->allSqlBuildCols[self::LENGTH] = array("" => "sumlength");
-        $this->allSqlBuildCols[self::QUALITY] = array("" => "quality");
-        $this->allSqlBuildCols[self::VERSION] = array("" => "sourceidentification");
-        $this->allSqlBuildCols[self::DATE] = array("concert" => "date");
-        $this->allSqlBuildCols[self::SUPPLEMENT] = array("concert" => "supplement");
-        $this->allSqlBuildCols[self::TRADESTATUS] = array("tradestatus" => "shortname");
-        $this->allSqlBuildCols[self::VISIBLE] = array("" => "visible"); //TODO test
+        $this->allSqlBuildCols[Cols::COUNTRY] = array("concert.country" => "name");
+        $this->allSqlBuildCols[Cols::CITY] = array("concert.city" => "name");
+        $this->allSqlBuildCols[Cols::VENUE] = array("concert.venue" => "name");
+        $this->allSqlBuildCols[Cols::TYPE] = array("rectype" => "shortname");
+        $this->allSqlBuildCols[Cols::MEDIUM] = array("medium" => "shortname");
+        $this->allSqlBuildCols[Cols::SOURCE] = array("source" => "shortname");
+        $this->allSqlBuildCols[Cols::LENGTH] = array("" => "sumlength");
+        $this->allSqlBuildCols[Cols::QUALITY] = array("" => "quality");
+        $this->allSqlBuildCols[Cols::VERSION] = array("" => "sourceidentification");
+        $this->allSqlBuildCols[Cols::SUPPLEMENT] = array("concert" => "supplement");
+        $this->allSqlBuildCols[Cols::TRADESTATUS] = array("tradestatus" => "shortname");
+        $this->allSqlBuildCols[Cols::VISIBLE] = array("" => "visible"); //TODO test
     }
 
     /**
@@ -262,17 +270,6 @@ class ColumnStock {
         }
     }
 
-    public static function getAllColNames() {
-        $oClass = new ReflectionClass('ColumnStock'); //in php 5.3 i would use static keyword
-        $constants = $oClass->getConstants();
-
-        //remove constants which aren't col names
-        unset($constants[array_search(self::SETTINGS_DB_NAME, $constants)]);
-        unset($constants[array_search(self::SETTINGS_DEFAULT, $constants)]);
-
-        return $constants;
-    }
-
     public function getColDefinitions($dataProvider, $isAdmin) {
         $colDefinitions = array();
 
@@ -281,6 +278,16 @@ class ColumnStock {
             if (key_exists($colName, $this->configCols)) { //predefines ConfigColumn exist
                 $configCol = $this->configCols[$colName];
                 foreach ($configCol->getColDefinitions($dataProvider, $isAdmin) as $colDefinition) {
+
+                    //add css class
+                    if (!is_array($colDefinition)) {
+                        $colDefinition = array(
+                            'name' => $colDefinition,
+                        );
+                    }
+                    $cssColName = isset($colDefinition['name']) ? $colDefinition['name'] : $colName;
+                    $colDefinition['htmlOptions'] = array('class' => 'col' . $cssColName);
+                    //
                     $colDefinitions[] = $colDefinition;
                 }
             } else { //add colname directly to array, no special col configuration needed
