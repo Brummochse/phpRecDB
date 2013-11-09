@@ -9,8 +9,8 @@ abstract class ListDataConfig {
     protected $isArtistMenuVisible = true;
     protected $additionalRecordListCols = array();
     protected $additionalArtistMenuCols = array();
-    protected $defaultOrder = '';
-    protected $sortAttributes = array();
+    protected $defaultOrder = array();
+    protected $limit = -1;
 
     public function __construct($isAdminCall = false) {
         $this->setAdminMode($isAdminCall);
@@ -72,12 +72,25 @@ abstract class ListDataConfig {
         return $this->isArtistMenuVisible;
     }
 
-    public function getDefaultOrder() {
-        return $this->defaultOrder;
-    }
+    public function getDefaultOrder($availableCols) {
+        $str = "";
+        foreach ($this->defaultOrder as $orderColName => $orderColExtra) {
 
-    public function getSortAttributes() {
-        return $this->sortAttributes;
+            if (!array_search($orderColName, $availableCols)) {
+                continue; //ignores all order which are not included in select
+            }
+
+            if (strlen($str) > 0) {
+                $str.=',';
+            }
+            $str.=$orderColName . ' ' . $orderColExtra;
+        }
+
+        if ($this->limit >= 0) {
+            $str.= ' LIMIT 0,' . $this->limit;
+        }
+
+        return $str;
     }
 
 }

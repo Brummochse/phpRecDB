@@ -15,21 +15,21 @@
 
 }
 
-.grid-view .length-col {
+.grid-view .colLength {
      white-space:nowrap;
 }
 
-.grid-view .date-col
+.grid-view .colDate
 {
 	font-weight: bold;
 }
 
-.grid-view .location-col
+.grid-view .colLocation
 {
 	
 }
 
-.grid-view .artist-col
+.grid-view .colArtist
 {
 	font-weight: bold;
 }
@@ -61,23 +61,16 @@ li.page, li.next, li.previous {margin:0}
     margin-right: 10px;
 }
 
-.grid-view tbody .buttons
-{
-    background:none !important;
-}
-
-.grid-view tbody .trade-status
+.grid-view tbody .colTradeStatus
 {
     background:none !important;
     color: #FF0000;
     font-weight:bold;
 }
 
-
-.grid-view tbody .link-column
+.grid-view tbody .colButtons
 {
-    background:none !important;
-
+    background: none !important ;
 }
 
 .grid-view table.items
@@ -155,24 +148,9 @@ li.page, li.next, li.previous {margin:0}
     color: black ;
 
 }
-.grid-view tbody .link-column:hover,
-.grid-view tbody .link-column:hover a
-{
-    background: none !important ;
-    text-decoration: underline !important;
-    color: white !important;
-}
 
-.grid-view .button-column
-{
-    text-align: center;
-    width: 60px;
-}
 
-.grid-view .checkbox-column
-{
-    width: 15px;
-}
+
 
 .grid-view .summary
 {

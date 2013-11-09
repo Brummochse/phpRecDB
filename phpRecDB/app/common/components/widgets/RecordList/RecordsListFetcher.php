@@ -60,8 +60,8 @@ class RecordsListFetcher {
 
         //
         $sort = new CSort;
-        $sort->attributes = $this->config->getSortAttributes();
-        $sort->defaultOrder = $this->config->getDefaultOrder();
+        $sort->attributes = $this->columnStock->getSelectedSqlBuildColNames();
+        $sort->defaultOrder = $this->config->getDefaultOrder($sort->attributes);
 
         $dataProvider = new CSqlDataProvider($query, array(
             'pagination' => false,

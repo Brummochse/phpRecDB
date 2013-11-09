@@ -77,17 +77,8 @@
 	background: #E5F1F4;
 }
 
-.grid-view table.items tr.selected
-{
-	background: #BCE774;
-}
-
-.grid-view table.items tr:hover
-{
-	background: #ECFBD4;
-}
-.grid-view tbody .buttons,
-.grid-view tbody .trade-status
+.grid-view tbody .colButtons,
+.grid-view tbody .colTradeStatus
 {
 	  background:none !important;
 
@@ -104,23 +95,21 @@
 	border: 0;
 }
 
-.grid-view .button-column
-{
-	text-align: center;
-	width: 60px;
+.grid-view .button-column {
+    width: auto !important;
 }
 
-.grid-view .date-col
+.grid-view .colDate
 {
 	font-weight: bold;
 }
 
-.grid-view .location-col
+.grid-view .colLocation
 {
 	font-weight: bold;
 }
 
-.grid-view .artist-col
+.grid-view .colArtist
 {
 	font-weight: bold;
 }

@@ -13,3 +13,5 @@
 => deshalb wure aus alter version jquery-ui.min.js kopiert, damit gehts wieder
 
 - settings cleaner (listoptions, signature)
+
+- help für listcolconfig

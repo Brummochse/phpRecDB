@@ -19,7 +19,7 @@ class AdminBaseController extends AdminController {
         );
     }
 
-      public function actionExistingConcertChoice() {
+    public function actionExistingConcertChoice() {
         if (isset($_POST['choice'])) {
             $addRecordFormModel = Yii::app()->session[self::ADD_RECORD_FORM_MODEL];
             unset(Yii::app()->session[self::ADD_RECORD_FORM_MODEL]);
@@ -42,7 +42,7 @@ class AdminBaseController extends AdminController {
         $this->render('home');
     }
 
-    private function renderList($listDataConfig,$title,$listOptionsModel) {
+    private function renderList($listDataConfig, $title, $listOptionsModel) {
         $dataFetcher = new RecordsListFetcher($listDataConfig);
 
         $this->render('listRecords', array(
@@ -50,9 +50,8 @@ class AdminBaseController extends AdminController {
             'data' => $dataFetcher->getData(),
             'listOptionsModel' => $listOptionsModel,
         ));
-        
     }
-    
+
     private function getListOptionModel($listId) {
         $listOptionsModel = ListOptionsForm::createFromSettingsDb($listId);
         if (isset($_POST['ListOptionsForm'])) {
@@ -64,13 +63,14 @@ class AdminBaseController extends AdminController {
         }
         return $listOptionsModel;
     }
+
     public function actionListRecords() {
-        $listId=''; //empty string means "global list"
+        $listId = ''; //empty string means "global list"
         $listOptionsModel = $this->getListOptionModel($listId);
         $isAdmin = true;
         $listDataConfig = new AllListDataConfig($listOptionsModel->collapsed, $isAdmin);
-        
-        $this->renderList($listDataConfig,'manage records',$listOptionsModel);
+
+        $this->renderList($listDataConfig, 'manage records', $listOptionsModel);
     }
 
     public function actionSublist() {
@@ -79,8 +79,8 @@ class AdminBaseController extends AdminController {
             $listOptionsModel = $this->getListOptionModel($sublistModel->id);
             $isAdmin = true;
             $listDataConfig = new SublistListDataConfig($sublistModel->id, $listOptionsModel->collapsed, $isAdmin);
-            
-            $this->renderList($listDataConfig,'manage sublist: ' . CHtml::encode($sublistModel->label),$listOptionsModel);
+
+            $this->renderList($listDataConfig, 'manage sublist: ' . CHtml::encode($sublistModel->label), $listOptionsModel);
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -210,17 +210,15 @@ class AdminBaseController extends AdminController {
     }
 
     public function actionScreenshotStatistics() {
-        
+
         $dirIter = new RecursiveDirectoryIterator(Yii::app()->params['screenshotsPath']);
-        $recursiveIterator = new RecursiveIteratorIterator($dirIter,
-                RecursiveIteratorIterator::SELF_FIRST,
-                RecursiveIteratorIterator::CATCH_GET_CHILD);
+        $recursiveIterator = new RecursiveIteratorIterator($dirIter, RecursiveIteratorIterator::SELF_FIRST, RecursiveIteratorIterator::CATCH_GET_CHILD);
 
-        $filesCount= 0;
-        $size= 0;
+        $filesCount = 0;
+        $size = 0;
 
-        foreach($recursiveIterator as $element) {
-            switch($element->getType()) {
+        foreach ($recursiveIterator as $element) {
+            switch ($element->getType()) {
                 case 'file':
                     $filesCount++;
                     $size += $element->getSize();
@@ -228,16 +226,16 @@ class AdminBaseController extends AdminController {
             }
         }
 
-        $sizeInMb=  sprintf("%.2f", $size/1024/1024);
-        
-        
+        $sizeInMb = sprintf("%.2f", $size / 1024 / 1024);
+
+
         $this->render('screenshotStatistics', array(
-            'filesCount' => $filesCount,'filesSize'=>$sizeInMb)
+            'filesCount' => $filesCount, 'filesSize' => $sizeInMb)
         );
     }
-    
+
     public function actionScreenshotCompression() {
-         $model = ScreenshotCompressionForm::createFromSettingsDb();
+        $model = ScreenshotCompressionForm::createFromSettingsDb();
 
         if (isset($_POST['ScreenshotCompressionForm'])) {
             $model->attributes = $_POST['ScreenshotCompressionForm'];
@@ -251,28 +249,41 @@ class AdminBaseController extends AdminController {
             'model' => $model)
         );
     }
-    
-     public function actionListColConfig() {
+
+    private function highlightColListEntry($listElements, $elementsToHighLight, $color) {
+        foreach ($elementsToHighLight as $elementToHighLight) {
+            if (key_exists($elementToHighLight, $listElements)) {
+                $listElements[$elementToHighLight] = "<div style='background:" . $color . ";'>" . $elementToHighLight . "</div>";
+            }
+        }
+        return $listElements;
+    }
+
+    public function actionListColConfig() {
         if (isset($_POST[ParamHelper::PARAM_SELECTED_COLS])) {
             Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME, $_POST[ParamHelper::PARAM_SELECTED_COLS]);
         }
 
+        //        
         $selectedColsStr = Yii::app()->settingsManager->getPropertyValue(ColumnStock::SETTINGS_DB_NAME);
         $selectedCols = explode(',', $selectedColsStr);
-
-        $allCols = ColumnStock::getAllColNames();
+        $allCols = Cols::getAllColNames();
+        $selectedCols = Helper::parallelArray(array_intersect($selectedCols, $allCols)); //ensure that all selected cols really exist (for the case that the string contains a wrong colname)
+        $availableCols = Helper::parallelArray(array_diff($allCols, $selectedCols)); //means id and content is the same in the html list
         
-        $selectedCols=array_intersect($selectedCols,$allCols);
-        $availableCols = array_diff($allCols, $selectedCols);
-
-        $availableCols = Helper::parallelArray($availableCols); //means id and content is the same in the list
-        $selectedCols = Helper::parallelArray($selectedCols);
-
-
+//
+        $notMoveableCols = array(Cols::ARTIST, Cols::DATE);
+        $selectedCols = $this->highlightColListEntry($selectedCols, $notMoveableCols, '#88FF88');
+        //
+        $backendOnlyCols = array(Cols::VISIBLE, Cols::CHECKBOX);
+        $selectedCols = $this->highlightColListEntry($selectedCols, $backendOnlyCols, '#FF8888');
+        $availableCols = $this->highlightColListEntry($availableCols, $backendOnlyCols, '#FF8888');
 
         $this->render('listColConfig', array(
             'colsSelected' => $selectedCols,
-            'colsAvailable' => $availableCols)
+            'colsAvailable' => $availableCols,
+            'notMoveableCols' => $notMoveableCols)
         );
     }
+
 }

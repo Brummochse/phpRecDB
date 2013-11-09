@@ -118,25 +118,25 @@ table.items {
 		background: #000;
 	}
 
-	table.items td.date-col,
-	table.items td.location-col {
+	table.items td.colDate,
+	table.items td.colLocation {
 		text-align: left;
 	}
 
 		/*** VIEW ICON ***/
 
-		table.items td.buttons {
+		table.items td.colButtons {
 			background: url(../images/view2.png) no-repeat;
 			background-position: center center;
 			display: block;
 			padding: 5px;
 		}
-			table.items td.buttons:hover {
+			table.items td.colButtons:hover {
 				background: url(../images/view2.png) #da2a2a center center no-repeat;
 				background-position: center center;
 			}
 			
-			table.items td.buttons a.view {
+			table.items td.colButtons a.view {
 				display: block;
 				width: 20px;
 				height: 20px;
@@ -144,11 +144,11 @@ table.items {
 				margin: -5px;
 			}
 
-				table.items td.buttons a.view img {
+				table.items td.colButtons a.view img {
 					display: none;
 				}
 
 
-		table.items td.trade-status {
+		table.items td.colTradeStatus {
 			color: #da2a2a;
 		}
