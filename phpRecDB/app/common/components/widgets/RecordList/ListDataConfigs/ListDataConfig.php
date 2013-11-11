@@ -74,22 +74,27 @@ abstract class ListDataConfig {
 
     public function getDefaultOrder($availableCols) {
         $str = "";
-        foreach ($this->defaultOrder as $orderColName => $orderColExtra) {
+        $allExistingCols=Cols::getAllColNames();
 
-            if (!array_search($orderColName, $availableCols)) {
-                continue; //ignores all order which are not included in select
-            }
+        foreach ($this->defaultOrder as $orderItem) {
+
+            //check if defaultorder contains cols which are not included in sql select
+            $colName=substr($orderItem, 0, strpos($orderItem, ' '));
+             if (is_int(array_search($colName,$allExistingCols))) {
+                 if (array_search($colName, $availableCols)===false) {
+                     continue;
+                 }
+             }
 
             if (strlen($str) > 0) {
                 $str.=',';
             }
-            $str.=$orderColName . ' ' . $orderColExtra;
+            $str.=$orderItem;
         }
 
         if ($this->limit >= 0) {
             $str.= ' LIMIT 0,' . $this->limit;
         }
-
         return $str;
     }
 

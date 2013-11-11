@@ -14,18 +14,17 @@ class LastDaysNewsListDataConfig extends ListDataConfig {
 
             $this->additionalRecordListCols[""] = "created";
             $this->recordListFilters[] = "created>='" . $oldestDate . "'";
-
-            $this->defaultOrder = array('Date' => '(created)',
-                'VideoType' => 'DESC',
-                'AudioType' => 'DESC',
-                'Artist' => 'ASC',
-                'Date' => 'ASC',
+  
+            $this->defaultOrder = array('Date (created) DESC',
+                'VideoType DESC',
+                'AudioType DESC',
+                'Artist ASC',
+                'Date ASC',
             );
         }
     }
 
     /**
-     * 
      * @param int $daysCount how many days are searched?
      * @return array with dates when shows were added
      */

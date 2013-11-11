@@ -53,8 +53,9 @@ class RecordsListFetcher {
         //
         $sourceModelName = "Record";
         $queryBuilder = new QueryBuilderAdapter();
+        xdebug_break();
         $query = $queryBuilder->buildQueryString($sourceModelName, $cols);
-
+echo "|".$query."|";
         //add where clause to query
         $query.=$this->createWhereClause($this->config->getRecordListFilters(), true);
 
