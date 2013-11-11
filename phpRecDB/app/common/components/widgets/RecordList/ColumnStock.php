@@ -197,6 +197,8 @@ class Cols {
     const CHECKBOX = 'CheckBox';
     const VISIBLE = 'Visible';
 
+//    const SCREENSHOT = 'Screenshot';
+    
     public static function getAllColNames() {
         $oClass = new ReflectionClass('Cols'); //in php 5.3 i would use static keyword
         return $oClass->getConstants();
@@ -214,8 +216,8 @@ class ColumnStock {
     //db fields for builind the sql query 
     private $baseSqlBuildCols = array(
         "" => array("id as RecordId"),
-        "concert" => array("id", "misc", "date as Date"),
-        "concert.artist" => array("id as ArtistId", "name as Artist"),
+        "concert" => array("id", "misc"),
+        "concert.artist" => array("id as ArtistId"),
         "video" => "recordings_id IS NOT NULL As VideoType",
         "audio" => "recordings_id IS NOT NULL As AudioType",
     );
@@ -236,6 +238,11 @@ class ColumnStock {
     }
 
     private function initSqlBuildColStock() {
+//        $this->allSqlBuildCols[Cols::SCREENSHOT] = array("screenshots" => "video_recordings_id");
+        
+        $this->allSqlBuildCols[Cols::DATE] = array("concert" => "date");
+        $this->allSqlBuildCols[Cols::ARTIST] = array("concert.artist" => "name");
+        
         $this->allSqlBuildCols[Cols::COUNTRY] = array("concert.country" => "name");
         $this->allSqlBuildCols[Cols::CITY] = array("concert.city" => "name");
         $this->allSqlBuildCols[Cols::VENUE] = array("concert.venue" => "name");

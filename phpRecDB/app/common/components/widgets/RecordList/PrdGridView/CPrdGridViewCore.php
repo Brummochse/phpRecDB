@@ -355,7 +355,6 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         }
         $orderByStr = trim($orderByStr);
 
-
         if (($pos = strpos(strtoupper($orderByStr), ' DESC')) > 0) {
             $orderByStr = substr($orderByStr, 0, $pos);
         }
