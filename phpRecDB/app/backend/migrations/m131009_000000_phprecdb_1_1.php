@@ -6,7 +6,7 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
 
     public function safeUp() {
 
-        //add database infrastructure to save fontsize fro signatures
+        //add database infrastructure to save fontsize for signatures
         $this->addColumn('signature', 'fontSize', 'integer');
         $signatures = Signature::model()->findAll();
         foreach ($signatures as $signature) {
@@ -17,6 +17,10 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
         // set default settings for configurable list cols
         Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME, ColumnStock::SETTINGS_DEFAULT);
 
+        // add a col for counting the site visits
+        $this->addColumn('recordings', 'visitcounter', 'int DEFAULT 0');
+        
+        
         Yii::app()->settingsManager->setPropertyValue(DbMigrator::DB_VERSION, self::DB_VERSION);
     }
 

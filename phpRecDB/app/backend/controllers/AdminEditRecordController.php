@@ -57,7 +57,7 @@ class AdminEditRecordController extends AdminController {
 
             //delete unused database db entrys
             Yii::app()->dbCleaner->deleteAllUnusedDbEntrys();
-             Yii::app()->signatureManager->updateSignatures();
+            Yii::app()->signatureManager->updateSignatures();
 
             if ($firstRecordId != -1) {
                 $this->redirect(array('AdminEditRecord/updateRecord', ParamHelper::PARAM_RECORD_ID => $firstRecordId));
@@ -71,7 +71,8 @@ class AdminEditRecordController extends AdminController {
         if (($screenshotModel = ParamHelper::decodeScreenshotModel()) != NULL) {
             Yii::app()->screenshotManager->deleteScreenshot($screenshotModel);
             $screenshotModel->delete();
-        } else
+        }
+        else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -141,7 +142,7 @@ class AdminEditRecordController extends AdminController {
             $vaRecordName = 'Audio';
             $vaId = VA::AUDIO;
         } else {
-            Yii::log('record entry is not connected to a video or audio entry!',  CLogger::LEVEL_ERROR);
+            Yii::log('record entry is not connected to a video or audio entry!', CLogger::LEVEL_ERROR);
             return '';  //throw new Exception("AdminEditRecordController | processTabInformation : record has no audio/video");
         }
 
@@ -168,14 +169,14 @@ class AdminEditRecordController extends AdminController {
         }
 
         $dataProvider = new CActiveDataProvider('Screenshot', array(
-                    'criteria' => array(
-                        'condition' => 'video_recordings_id=' . $recordId,
-                    ),
-                    'pagination' => false,
-                    'sort' => array(
-                        'defaultOrder' => 'order_id ASC'
-                    )
-                ));
+            'criteria' => array(
+                'condition' => 'video_recordings_id=' . $recordId,
+            ),
+            'pagination' => false,
+            'sort' => array(
+                'defaultOrder' => 'order_id ASC'
+            )
+        ));
 
         $screenshotsUrl = Yii::app()->params['screenshotsUrl'];
 
@@ -202,14 +203,14 @@ class AdminEditRecordController extends AdminController {
             }
         }
         $dataProvider = new CActiveDataProvider('Youtube', array(
-                    'criteria' => array(
-                        'condition' => 'recordings_id=' . $recordId,
-                    ),
-                    'pagination' => false,
-                    'sort' => array(
-                        'defaultOrder' => 'order_id ASC'
-                    )
-                ));
+            'criteria' => array(
+                'condition' => 'recordings_id=' . $recordId,
+            ),
+            'pagination' => false,
+            'sort' => array(
+                'defaultOrder' => 'order_id ASC'
+            )
+        ));
         return $this->renderPartial('_youtube', array('dataProvider' => $dataProvider, 'youtubeFormModel' => $createYoutubeFormModel), true, false);
     }
 
@@ -231,11 +232,11 @@ class AdminEditRecordController extends AdminController {
         }
 
         $dataProvider = new CActiveDataProvider('Sublistassignment', array(
-                    'criteria' => array(
-                        'condition' => 'recordings_id=' . $recordId,
-                    ),
-                    'pagination' => false,
-                ));
+            'criteria' => array(
+                'condition' => 'recordings_id=' . $recordId,
+            ),
+            'pagination' => false,
+        ));
 
         return $this->renderPartial('_sublists', array('dataProvider' => $dataProvider), true, false);
     }
@@ -273,6 +274,10 @@ class AdminEditRecordController extends AdminController {
         $this->actionUpdateRecord();
     }
 
+    public function actionShowRecordStatistics() {
+        $this->actionUpdateRecord(Terms::STATISTICS);
+    }
+
     public function actionUpdateYoutubes() {
         $this->actionUpdateRecord(Terms::YOUTUBE);
     }
@@ -285,6 +290,10 @@ class AdminEditRecordController extends AdminController {
         $this->actionUpdateRecord(Terms::SUBLISTS);
     }
 
+     private function processTabStatistics($recordModel) {
+        return $this->renderPartial('_statistics', array('visitCounter'=>$recordModel->visitcounter), true, false);
+    }
+    
     /**
      * show the edit record page
      * 
@@ -303,6 +312,7 @@ class AdminEditRecordController extends AdminController {
             $screenshotTabContent = ($section == Terms::SCREENSHOT) ? $this->processTabScreenshot($recordId) : '';
             $youtubeTabContent = ($section == Terms::YOUTUBE) ? $this->processTabYoutube($recordId) : '';
             $sublistsTabContent = ($section == Terms::SUBLISTS) ? $this->processTabSublists($recordModel) : '';
+            $statisticsTabContent = ($section == Terms::STATISTICS) ? $this->processTabStatistics($recordModel) : '';
 
             $tabs = array(
                 Terms::INFORMATION => array(
@@ -333,6 +343,13 @@ class AdminEditRecordController extends AdminController {
                     'active' => $section == Terms::YOUTUBE
                 );
             }
+
+            $tabs[Terms::STATISTICS] = array(
+                'label' => 'Statistics',
+                'url' => ParamHelper::createRecordStatisticsUrl($recordId),
+                'content' => $statisticsTabContent,
+                'active' => $section == Terms::STATISTICS
+            );
 
             ////////////////////////////////
             // concert info, audio&video record selection menu

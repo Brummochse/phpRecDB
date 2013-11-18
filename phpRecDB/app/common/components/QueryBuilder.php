@@ -8,9 +8,9 @@ class Joins {
     const INNER = 'INNER JOIN';
 }
 
-class QueryBuilderAdapter {
+class QueryBuilder {
 
-    const SELECT = 'select';
+    const SELECT = 'select distinct';
     const FROM_ = 'from';
     const JOIN = 'join';
 

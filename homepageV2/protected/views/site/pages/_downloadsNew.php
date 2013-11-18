@@ -12,7 +12,7 @@
             <td>1.0</td>
             <td><a href="download.php?action=download&file=phpRecDB_script_1.0.zip">phpRecDB_script_1.0.zip</a></td>
             <td><a href="download/phpRecDB_dbSchema_1.0.zip">phpRecDB_dbSchema_1.0.zip</a></td>
-            <td>-</td>
+            <td>2013-08-27</td>
         </tr>
     </table>
 

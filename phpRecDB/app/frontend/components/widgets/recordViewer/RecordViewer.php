@@ -60,12 +60,12 @@ class RecordViewer extends CWidget {
     public $recordId;
     
     private function fetchInfo($cols, $sourceModelName, $recordId, $joinSpecs = null) {
-        $queryBuilder = new QueryBuilderAdapter();
+        $queryBuilder = new QueryBuilder();
         $queryParts = $queryBuilder->buildQueryParts($sourceModelName, $cols, $joinSpecs);
 
-        $query = 'SELECT ' . $queryParts[QueryBuilderAdapter::SELECT] . ' ' .
-                'FROM ' . $queryParts[QueryBuilderAdapter::FROM_] . ' ' .
-                $queryParts[QueryBuilderAdapter::JOIN] . ' ' .
+        $query = 'SELECT ' . $queryParts[QueryBuilder::SELECT] . ' ' .
+                'FROM ' . $queryParts[QueryBuilder::FROM_] . ' ' .
+                $queryParts[QueryBuilder::JOIN] . ' ' .
                 'WHERE ' . 'recordings.id=' . $recordId;
 
         $dbC = Yii::app()->db->createCommand($query);
@@ -151,6 +151,10 @@ class RecordViewer extends CWidget {
                return;
             }
 
+            //increase visitcounter
+            $recordModel->visitcounter=$recordModel->visitcounter+1;
+            $recordModel->save();
+            //
             $recordInfo = $this->fetchRecordInfo($this->recordId);
 
             if ($recordInfo[RI::VIDEOORAUDIO] == RI::VIDEO) {

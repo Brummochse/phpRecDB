@@ -111,7 +111,12 @@ class ColVisible extends ConfigColumn {
     public function getColDefinitions($dataProvider, $isAdmin) {
 
         if ($isAdmin) {
-            return array(Cols::VISIBLE);
+            return array(array(
+                'name' => 'Visible',
+                'header'=>'Visible',
+                'type'=>'raw',
+                'value' => 'CHtml::image(Yii::app()->params["wwwUrl"]."/images/".(($data["Visible"])?"visible.png":"hidden.png") )',
+        ));
         }
         return array();
     }
@@ -120,6 +125,52 @@ class ColVisible extends ConfigColumn {
         return array(Cols::VISIBLE);
     }
 
+}
+
+class ColScreenshot extends ConfigColumn {
+
+    public function getColDefinitions($dataProvider, $isAdmin) {
+        return array(array(
+                'type'=>'raw',
+                'name'=>'Screenshot',
+                'header'=>'-',
+                'value' => 'isset($data["Screenshot"])?CHtml::image(Yii::app()->params["wwwUrl"]."/images/screenshot.png"):""',
+        ));
+    }
+
+    public function getSqlBuildColNames() {
+        return array(Cols::SCREENSHOT);
+    }
+}
+
+class ColYoutube extends ConfigColumn {
+
+    public function getColDefinitions($dataProvider, $isAdmin) {
+        return array(array(
+                'type'=>'raw',
+                'name'=>'Youtube',
+                'header'=>'-',
+                'value' => 'isset($data["Youtube"])?CHtml::image(Yii::app()->params["wwwUrl"]."/images/youtube.gif"):""',
+        ));
+    }
+
+    public function getSqlBuildColNames() {
+        return array(Cols::YOUTUBE);
+    }
+}
+
+class ColVisitCounter extends ConfigColumn {
+
+    public function getColDefinitions($dataProvider, $isAdmin) {
+        return array(array(
+                'name'=>'VisitCounter',
+                'header'=>'Visits',
+        ));
+    }
+
+    public function getSqlBuildColNames() {
+        return array(Cols::VISITCOUNTER);
+    }
 }
 
 class ColButtons extends ConfigColumn {
@@ -196,8 +247,9 @@ class Cols {
     const BUTTONS = 'Buttons';
     const CHECKBOX = 'CheckBox';
     const VISIBLE = 'Visible';
-
-//    const SCREENSHOT = 'Screenshot';
+    const SCREENSHOT = 'Screenshot';
+    const YOUTUBE = 'Youtube';
+    const VISITCOUNTER = 'VisitCounter';
     
     public static function getAllColNames() {
         $oClass = new ReflectionClass('Cols'); //in php 5.3 i would use static keyword
@@ -238,7 +290,9 @@ class ColumnStock {
     }
 
     private function initSqlBuildColStock() {
-//        $this->allSqlBuildCols[Cols::SCREENSHOT] = array("screenshots" => "video_recordings_id");
+        $this->allSqlBuildCols[Cols::SCREENSHOT] = array("screenshots" => "video_recordings_id");
+        $this->allSqlBuildCols[Cols::YOUTUBE] = array("youtubes" => "recordings_id");
+        $this->allSqlBuildCols[Cols::VISITCOUNTER] = array("" => "visitcounter");
         
         $this->allSqlBuildCols[Cols::DATE] = array("concert" => "date");
         $this->allSqlBuildCols[Cols::ARTIST] = array("concert.artist" => "name");

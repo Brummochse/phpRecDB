@@ -52,10 +52,8 @@ class RecordsListFetcher {
         $cols=$this->columnStock->getQueryBuilderSettings($additionalCols);
         //
         $sourceModelName = "Record";
-        $queryBuilder = new QueryBuilderAdapter();
-        xdebug_break();
+        $queryBuilder = new QueryBuilder();
         $query = $queryBuilder->buildQueryString($sourceModelName, $cols);
-echo "|".$query."|";
         //add where clause to query
         $query.=$this->createWhereClause($this->config->getRecordListFilters(), true);
 
@@ -86,7 +84,7 @@ echo "|".$query."|";
 
         //
         $sourceModelName = "Concert";
-        $queryBuilder = new QueryBuilderAdapter();
+        $queryBuilder = new QueryBuilder();
 
         $queryParts = $queryBuilder->buildQueryParts($sourceModelName, $cols);
 
@@ -94,8 +92,8 @@ echo "|".$query."|";
         $dbC = Yii::app()->db->createCommand();
         $dbC->distinct = true;
         $dbC->select('artists.name,artists.id');
-        $dbC->from($queryParts[QueryBuilderAdapter::FROM_]);
-        $dbC->join = $queryParts[QueryBuilderAdapter::JOIN];
+        $dbC->from($queryParts[QueryBuilder::FROM_]);
+        $dbC->join = $queryParts[QueryBuilder::JOIN];
         $dbC->where($this->createWhereClause($this->config->getArtistMenuFilters()));
         $dbC->order('artists.name');
 

@@ -35,10 +35,6 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/www/css/site.c
                                 array('label' => 'Home', 'url' => '?r=site/page&view=home'),
                                 array('label' => 'Demo', 'url' => '?r=site/page&view=demo'),
                                 array('label' => 'Download', 'url' => '?r=site/page&view=download'),
-                                array('label' => 'Info', 'items' => array(
-                                        array('label' => 'Requirements', 'url' => ''),
-                                        array('label' => 'Deatures', 'url' => ''),
-                                    )),
                                 array('label' => 'Guides', 'items' => array(
                                         array('label' => 'Install / Upgrade', 'items' => array(
                                                 array('label' => 'new Installation', 'url' => '?r=site/page&view=installNew'),
@@ -67,7 +63,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/www/css/site.c
 
                 <div style="margin-top: 20px;height: 15px;background: #222222;  "></div>
             </div>
-            <script>var d = 'phprecdb.de.vu';</script><script src="http://68698685.statistiq.com/68698685.js"></script>
+            <script>var d='phprecdb.de.vu';</script><script src="http://8685.statistiq.com/8685.js"></script>
         </div>
     </body>
 </html>
