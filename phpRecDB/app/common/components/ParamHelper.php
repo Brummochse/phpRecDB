@@ -61,11 +61,12 @@ class ParamHelper {
 
         $controller = Yii::app()->controller->getId() . '/' . Yii::app()->controller->getAction()->getId();
         return self::createParamUrl($controller, self::PARAM_RECORD_ID, $recordId);
-
-
-        //   return self::createParamUrl('recordDetail/index', self::PARAM_RECORD_ID, $recordId);
     }
 
+    public static function createRecordStatisticsUrl($recordId = null) {
+         return self::createParamUrl('adminEditRecord/showRecordStatistics', self::PARAM_RECORD_ID, $recordId);
+    }
+    
     public static function createRecordUpdateUrl($recordId = null) {
         return self::createParamUrl('adminEditRecord/updateRecord', self::PARAM_RECORD_ID, $recordId);
     }
