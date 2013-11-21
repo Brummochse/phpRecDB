@@ -15,7 +15,8 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
         }
 
         // set default settings for configurable list cols
-        Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME, ColumnStock::SETTINGS_DEFAULT);
+        Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME_FRONTEND, ColumnStock::SETTINGS_DEFAULT_FRONTEND);
+        Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME_BACKEND, ColumnStock::SETTINGS_DEFAULT_BACKEND);
 
         // add a col for counting the site visits
         $this->addColumn('recordings', 'visitcounter', 'int DEFAULT 0');

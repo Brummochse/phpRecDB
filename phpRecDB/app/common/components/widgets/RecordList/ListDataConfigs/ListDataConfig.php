@@ -74,17 +74,15 @@ abstract class ListDataConfig {
 
     public function getDefaultOrder($availableCols) {
         $str = "";
-        $allExistingCols=Cols::getAllColNames();
+        $allExistingCols = Cols::getAllColNames();
 
         foreach ($this->defaultOrder as $orderItem) {
 
             //check if defaultorder contains cols which are not included in sql select
-            $colName=substr($orderItem, 0, strpos($orderItem, ' '));
-             if (is_int(array_search($colName,$allExistingCols))) {
-                 if (array_search($colName, $availableCols)===false) {
-                     continue;
-                 }
-             }
+            $colName = substr($orderItem, 0, strpos($orderItem, ' '));
+            if (in_array($colName, $allExistingCols) && !in_array($colName, $availableCols)) {
+                continue;
+            }
 
             if (strlen($str) > 0) {
                 $str.=',';
