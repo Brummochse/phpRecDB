@@ -19,7 +19,7 @@ class RecordsListFetcher {
         $data[self::DATA_PROVIDER] = NULL;
         $data[self::COLUMNS] = NULL;
         if ($this->config->isRecordListVisible()) {
-            $this->columnStock = new ColumnStock();
+            $this->columnStock = new ColumnStock($this->config->isAdmin());
             $dataProvider = $this->getListDataProvider();
             $data[self::DATA_PROVIDER] = $dataProvider;
             $data[self::COLUMNS] = $this->columnStock->getColDefinitions($dataProvider, $this->config->isAdmin());

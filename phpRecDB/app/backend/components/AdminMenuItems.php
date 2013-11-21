@@ -68,7 +68,11 @@ class AdminMenuItems {
                             array('label' => 'My Profile', 'url' => array('user/profile')),
                         )
                     ),
-                    array('label' => 'List Columns', 'url' => array('adminBase/listColConfig')),
+                    array('label' => 'List Columns','items' => array(
+                            array('label' => 'Frontend', 'url' => array('adminBase/listColConfigFrontend')),
+                            array('label' => 'Admininistration Panel', 'url' => array('adminBase/listColConfigBackend')),
+                        )
+                   )
                 ),
             ),
             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('adminBase/logout')),

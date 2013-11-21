@@ -112,11 +112,11 @@ class ColVisible extends ConfigColumn {
 
         if ($isAdmin) {
             return array(array(
-                'name' => 'Visible',
-                'header'=>'Visible',
-                'type'=>'raw',
-                'value' => 'CHtml::image(Yii::app()->params["wwwUrl"]."/images/".(($data["Visible"])?"visible.png":"hidden.png") )',
-        ));
+                    'name' => 'Visible',
+                    'header' => 'Visible',
+                    'type' => 'raw',
+                    'value' => 'CHtml::image(Yii::app()->params["wwwUrl"]."/images/".(($data["Visible"])?"visible.png":"hidden.png") )',
+            ));
         }
         return array();
     }
@@ -131,9 +131,9 @@ class ColScreenshot extends ConfigColumn {
 
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
-                'type'=>'raw',
-                'name'=>'Screenshot',
-                'header'=>'-',
+                'type' => 'raw',
+                'name' => 'Screenshot',
+                'header' => '-',
                 'value' => 'isset($data["Screenshot"])?CHtml::image(Yii::app()->params["wwwUrl"]."/images/screenshot.png"):""',
         ));
     }
@@ -141,15 +141,16 @@ class ColScreenshot extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::SCREENSHOT);
     }
+
 }
 
 class ColYoutube extends ConfigColumn {
 
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
-                'type'=>'raw',
-                'name'=>'Youtube',
-                'header'=>'-',
+                'type' => 'raw',
+                'name' => 'Youtube',
+                'header' => '-',
                 'value' => 'isset($data["Youtube"])?CHtml::image(Yii::app()->params["wwwUrl"]."/images/youtube.gif"):""',
         ));
     }
@@ -157,20 +158,22 @@ class ColYoutube extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::YOUTUBE);
     }
+
 }
 
 class ColVisitCounter extends ConfigColumn {
 
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
-                'name'=>'VisitCounter',
-                'header'=>'Visits',
+                'name' => 'VisitCounter',
+                'header' => 'Visits',
         ));
     }
 
     public function getSqlBuildColNames() {
         return array(Cols::VISITCOUNTER);
     }
+
 }
 
 class ColButtons extends ConfigColumn {
@@ -212,7 +215,7 @@ class ColLocation extends ConfigColumn {
             $colsPlace = array(
                 array(
                     'class' => 'CPrdDataColumn',
-                    'name' => 'Locationh',
+                    'name' => 'Location',
                     'header' => $dataProvider->sort->link('Country', 'Location', array('class' => 'sort-link')),
                     'type' => 'raw',
                     'value' => 'CHtml::encode(stripslashes((isset($data["Country"])?$data["Country"].(isset($data["City"])?", ":""):"") . (isset($data["City"])?$data["City"].(isset($data["Venue"])?" - ":""):"").$data["Venue"]." ".$data["Supplement"]))',
@@ -250,12 +253,18 @@ class Cols {
     const SCREENSHOT = 'Screenshot';
     const YOUTUBE = 'Youtube';
     const VISITCOUNTER = 'VisitCounter';
-    
+    const VIDEOFORMAT = 'VideoFormat';
+    const ASPECTRATIO = 'AspectRatio';
+
     public static function getAllColNames() {
         $oClass = new ReflectionClass('Cols'); //in php 5.3 i would use static keyword
         return $oClass->getConstants();
     }
-
+    
+    //cols only available in admin panel
+    public static $BACKEND_ONLY_COLS = array(Cols::CHECKBOX, Cols::VISIBLE);
+    //cols must exist in query, not allowed to remove
+    public static $REQUIRED_COLS = array(Cols::ARTIST, Cols::DATE);
 }
 
 class ColumnStock {
@@ -274,29 +283,36 @@ class ColumnStock {
         "audio" => "recordings_id IS NOT NULL As AudioType",
     );
 
-    const SETTINGS_DB_NAME = 'listOptions_selectedColumns';
-    const SETTINGS_DEFAULT = 'CheckBox,Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
+    const SETTINGS_DB_NAME_FRONTEND = 'listOptions_selectedColumnsFrontend';
+    const SETTINGS_DB_NAME_BACKEND = 'listOptions_selectedColumnsBackend';
+    const SETTINGS_DEFAULT_FRONTEND = 'Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
+    const SETTINGS_DEFAULT_BACKEND = 'CheckBox,Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
 
-    public function __construct() {
-        $colsString = Yii::app()->settingsManager->getPropertyValue(ColumnStock::SETTINGS_DB_NAME);
+    public function __construct($isAdmin=false) {
+        
+        if ($isAdmin) { //means backend col settings get loaded
+            $dbColSettingsName=ColumnStock::SETTINGS_DB_NAME_BACKEND;
+        } else { //frontend cols
+            $dbColSettingsName=ColumnStock::SETTINGS_DB_NAME_FRONTEND;
+        }
+        
+        $colsString = Yii::app()->settingsManager->getPropertyValue($dbColSettingsName);
         $this->colNames = explode(',', $colsString);
 
         $this->initConfigCols();
         $this->initSqlBuildColStock();
     }
-    
+
     public function getSelectedSqlBuildColNames() {
-        return array_keys( $this->selectedSqlBuildColNames); //needed becasue data is stored in keys
+        return array_keys($this->selectedSqlBuildColNames); //needed becasue data is stored in keys
     }
 
     private function initSqlBuildColStock() {
         $this->allSqlBuildCols[Cols::SCREENSHOT] = array("screenshots" => "video_recordings_id");
         $this->allSqlBuildCols[Cols::YOUTUBE] = array("youtubes" => "recordings_id");
         $this->allSqlBuildCols[Cols::VISITCOUNTER] = array("" => "visitcounter");
-        
         $this->allSqlBuildCols[Cols::DATE] = array("concert" => "date");
         $this->allSqlBuildCols[Cols::ARTIST] = array("concert.artist" => "name");
-        
         $this->allSqlBuildCols[Cols::COUNTRY] = array("concert.country" => "name");
         $this->allSqlBuildCols[Cols::CITY] = array("concert.city" => "name");
         $this->allSqlBuildCols[Cols::VENUE] = array("concert.venue" => "name");
@@ -308,7 +324,10 @@ class ColumnStock {
         $this->allSqlBuildCols[Cols::VERSION] = array("" => "sourceidentification");
         $this->allSqlBuildCols[Cols::SUPPLEMENT] = array("concert" => "supplement");
         $this->allSqlBuildCols[Cols::TRADESTATUS] = array("tradestatus" => "shortname");
-        $this->allSqlBuildCols[Cols::VISIBLE] = array("" => "visible"); //TODO test
+        $this->allSqlBuildCols[Cols::VISIBLE] = array("" => "visible");
+        $this->allSqlBuildCols[Cols::VIDEOFORMAT] = array("video.videoformat" => "label");
+        $this->allSqlBuildCols[Cols::ASPECTRATIO] = array("video.aspectratio" => "label");
+        
     }
 
     /**

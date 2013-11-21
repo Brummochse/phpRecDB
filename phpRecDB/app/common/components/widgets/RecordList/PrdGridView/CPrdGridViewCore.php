@@ -98,15 +98,15 @@ abstract class CAbstractPrdGridView extends CGridView {
 
 class CPrdGridViewCore extends CAbstractPrdGridView {
 
-    private $mainColumn = 'Artist';
+    private $mainColumn = Cols::ARTIST;
     private $orderBy = "";
     private $ancestorEntry = '_NO_DATA_';
     private $ancestorVAType = -2; //-1 not posible becasue this is the value for UNDEFINED, -2 means = not set
     private $ancestorYear = -1;
     private $ancestorCreateDate = -1;
-    private $tableBreakCols = array('Artist');
+    private $tableBreakCols = array(Cols::ARTIST);
     private $colCount;
-    private $mergeRowCols = array('Date', 'Artist', 'Location');
+    private $mergeRowCols = array(Cols::DATE, Cols::ARTIST, Cols::LOCATION);
     private $artistId = -1;
 
     public function init() {
