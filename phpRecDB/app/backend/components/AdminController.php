@@ -10,17 +10,6 @@ class AdminController extends CController {
         CLogger::LEVEL_INFO => array('alert-success', 'SUCCESS')
     );
 
-    /**
-     * @var array the breadcrumbs of the current page. The value of this property will
-     * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
-     * for more details on how to specify this property.
-     */
-    // public $breadcrumbs = array();
-
-    public function init() {
-        parent::init();
-    }
-
     public function getMenuItems() {
         return AdminMenuItems::getInstance()->createAdminMenuItems();
     }
@@ -66,6 +55,22 @@ class AdminController extends CController {
         }
 
         return $menuItems;
+    }
+    
+    // access rules for all children classes
+    public function filters() {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules() {
+        return array(
+            array('allow', // allow authenticated users to access all actions
+                'users' => array('@'),
+            ),
+            array('deny'),
+        );
     }
 
 }

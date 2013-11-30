@@ -2,15 +2,6 @@
 
 class SuggestController extends CController {
 
-    public function accessRules() {
-        return array(
-            array('allow', // allow authenticated users to access all actions
-                'users' => array('@'),
-            ),
-            array('deny'),
-        );
-    }
-
     public function actionSuggestArtist() {
         if (isset($_GET['term'])) {
             $artist = trim($_GET['term']);

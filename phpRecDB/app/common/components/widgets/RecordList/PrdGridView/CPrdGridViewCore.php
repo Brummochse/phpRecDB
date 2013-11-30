@@ -144,7 +144,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
             if (isset($data[$row - 1]["id"]) && isset($data[$row - 1]["VideoType"])) {
                 return $data[$row]["id"] == $data[$row - 1]["id"]
                         && $data[$row]["VideoType"] == $data[$row - 1]["VideoType"]
-                        && ($this->orderBy != 'Date(created)' || substr($data[$row]["created"], 0, 10) == substr($data[$row - 1]["created"], 0, 10));
+                        && ($this->orderBy != 'Date (created)' || substr($data[$row]["created"], 0, 10) == substr($data[$row - 1]["created"], 0, 10));
             }
         }
         return false;
@@ -164,7 +164,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
             while (isset($data[$row + $successors + 1]["id"]) && isset($data[$row + $successors + 1]["VideoType"])
             && $data[$row + $successors + 1]["id"] == $data[$row]["id"]
             && $data[$row + $successors + 1]["VideoType"] == $data[$row]["VideoType"]
-            && ($this->orderBy != 'Date(created)' || substr($data[$row + $successors + 1]["created"], 0, 10) == substr($data[$row]["created"], 0, 10)))
+            && ($this->orderBy != 'Date (created)' || substr($data[$row + $successors + 1]["created"], 0, 10) == substr($data[$row]["created"], 0, 10)))
                 $successors++;
         }
         return $successors;

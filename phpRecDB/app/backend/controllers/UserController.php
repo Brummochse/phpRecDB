@@ -2,12 +2,7 @@
 
 class UserController extends AdminController {
 
-    public function filters() {
-        return array(
-            'accessControl',
-        );
-    }
-
+    //override the default accessrules from admincontroller
     public function accessRules() {
         return array(
             array('allow',
