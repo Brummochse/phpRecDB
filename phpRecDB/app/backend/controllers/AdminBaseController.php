@@ -4,21 +4,6 @@ class AdminBaseController extends AdminController {
 
     const ADD_RECORD_FORM_MODEL = "ADD_RECORD_MODEL";
 
-    public function filters() {
-        return array(
-            'accessControl',
-        );
-    }
-
-    public function accessRules() {
-        return array(
-            array('allow', // allow authenticated users to access all actions
-                'users' => array('@'),
-            ),
-            array('deny'),
-        );
-    }
-
     public function actionExistingConcertChoice() {
         if (isset($_POST['choice'])) {
             $addRecordFormModel = Yii::app()->session[self::ADD_RECORD_FORM_MODEL];

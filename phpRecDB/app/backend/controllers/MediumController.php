@@ -2,21 +2,6 @@
 
 class MediumController extends AdminController {
 
-    public function filters() {
-        return array(
-            'accessControl',
-        );
-    }
-
-    public function accessRules() {
-        return array(
-            array('allow', // allow authenticated users to access all actions
-                'roles' => array('admin'),
-            ),
-            array('deny'),
-        );
-    }
-
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.

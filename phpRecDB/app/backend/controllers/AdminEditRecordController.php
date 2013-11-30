@@ -2,21 +2,6 @@
 
 class AdminEditRecordController extends AdminController {
 
-    public function filters() {
-        return array(
-            'accessControl',
-        );
-    }
-
-    public function accessRules() {
-        return array(
-            array('allow', // allow authenticated users to access all actions
-                'users' => array('@'),
-            ),
-            array('deny'),
-        );
-    }
-
     protected function getScreenshotUploadDate($data, $row) {
         $screenshotFilePath = Yii::app()->params['screenshotsPath'] . DIRECTORY_SEPARATOR . $data->screenshot_filename;
 
@@ -419,7 +404,6 @@ class AdminEditRecordController extends AdminController {
         );
         return $result;
     }
-
 }
 
 ?>
