@@ -32,15 +32,6 @@ return array(
             'responsiveCss' => false,
         ),
     ),
-    'modules' => array(
-        'gii' => array(
-            'class' => 'system.gii.GiiModule',
-            'password' => 'pick',
-            'generatorPaths' => array(
-                'bootstrap.gii'
-            ),
-        ),
-    ),
     'import' => array(
         'application.components.*',
         'application.components.user.*',

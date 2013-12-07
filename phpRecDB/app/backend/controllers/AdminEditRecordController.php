@@ -347,7 +347,6 @@ class AdminEditRecordController extends AdminController {
 
             $concertForm = $concertModel->getConcertFormModel();
 
-
             $this->render('editRecord', array(
                 'concertId' => $concertModel->id,
                 'recordId' => $recordId,

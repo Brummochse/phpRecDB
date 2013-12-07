@@ -5,6 +5,7 @@ class AdminMenuItems {
     private static $instance = NULL;
 
     private function __construct() {
+        
     }
 
     public static function getInstance() {
@@ -49,7 +50,6 @@ class AdminMenuItems {
                         'items' => array(
                             array('label' => 'Watermark', 'url' => array('watermark/index')),
                             array('label' => 'Compression', 'url' => array('adminBase/screenshotCompression')),
-                            array('label' => 'Statistics', 'url' => array('adminBase/screenshotStatistics')),
                         )
                     ),
                     array('label' => 'List Presets',
@@ -62,17 +62,22 @@ class AdminMenuItems {
                             array('label' => 'Videoformat', 'url' => array('videoformat/admin')),
                         ),
                     ),
-                    array('label' => 'User Management','visible' => !Yii::app()->user->isDemo(),
+                    array('label' => 'User Management', 'visible' => !Yii::app()->user->isDemo(),
                         'items' => array(
                             array('label' => 'Users', 'url' => array('user/admin'), 'visible' => Yii::app()->user->isAdmin()),
                             array('label' => 'My Profile', 'url' => array('user/profile')),
                         )
                     ),
-                    array('label' => 'List Columns','items' => array(
+                    array('label' => 'List Columns', 'items' => array(
                             array('label' => 'Frontend', 'url' => array('adminBase/listColConfigFrontend')),
                             array('label' => 'Admininistration Panel', 'url' => array('adminBase/listColConfigBackend')),
                         )
-                   )
+                    ),
+                    array('label' => 'Statistics', 'items' => array(
+                            array('label' => 'Screenshots', 'url' => array('adminBase/screenshotStatistics')),
+                            array('label' => 'Record Visits', 'url' => array('adminBase/recordVisitStatistics')),
+                        )
+                    )
                 ),
             ),
             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('adminBase/logout')),

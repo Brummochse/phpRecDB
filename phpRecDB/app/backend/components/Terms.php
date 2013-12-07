@@ -11,9 +11,14 @@ class Terms {
     const BEFORE = 1;
     const BEHIND = 2;
     
-    const CHECKBOX_ID = "checkbox_id";
+    const CHECKBOX_ID = 'checkbox_id';
     
-    const SUBLIST_ID = "sublist_id";
+    const SUBLIST_ID = 'sublist_id';
+    
+    const IP = 'IP';
+    const COUNT = 'Count';
+    const LAST_VISITED='Last_Visited';
+    
 
 }
 

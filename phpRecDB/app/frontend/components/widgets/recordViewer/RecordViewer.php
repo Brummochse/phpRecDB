@@ -154,6 +154,13 @@ class RecordViewer extends CWidget {
             //increase visitcounter
             $recordModel->visitcounter=$recordModel->visitcounter+1;
             $recordModel->save();
+            //save ip adress for record detail visit
+            $recordVisit=new Recordvisit();
+            $recordVisit->ip=Yii::app()->request->getUserHostAddress();
+            $recordVisit->date=date('Y-m-d H:i:s');
+            $recordVisit->record_id = $this->recordId;
+            $recordVisit->save();
+            
             //
             $recordInfo = $this->fetchRecordInfo($this->recordId);
 

@@ -12,7 +12,7 @@ class ParamHelper {
 
     public static $PARAM_SUGGEST_MODE = array("mode" => "suggest");
 
-    public static function createParamUrl($controller, $paramKey, $paramValue = null, $removeGetKey=null) {
+    public static function createParamUrl($controller, $paramKey, $paramValue = null, $removeGetKey = null) {
         $params = $_GET;
 
         if (isset($params[$removeGetKey])) {
@@ -44,6 +44,13 @@ class ParamHelper {
         return NULL;
     }
 
+    public static function decodeStringGetParam($paramKey) {
+        if (isset($_GET[$paramKey])) {
+            return $_GET[$paramKey];
+        }
+        return NULL;
+    }
+
     public static function decodeIntGetParam($paramKey) {
         return self::decodeIntParam($paramKey, $_GET);
     }
@@ -64,9 +71,9 @@ class ParamHelper {
     }
 
     public static function createRecordStatisticsUrl($recordId = null) {
-         return self::createParamUrl('adminEditRecord/showRecordStatistics', self::PARAM_RECORD_ID, $recordId);
+        return self::createParamUrl('adminEditRecord/showRecordStatistics', self::PARAM_RECORD_ID, $recordId);
     }
-    
+
     public static function createRecordUpdateUrl($recordId = null) {
         return self::createParamUrl('adminEditRecord/updateRecord', self::PARAM_RECORD_ID, $recordId);
     }
