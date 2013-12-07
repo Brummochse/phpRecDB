@@ -18,9 +18,16 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
         Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME_FRONTEND, ColumnStock::SETTINGS_DEFAULT_FRONTEND);
         Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME_BACKEND, ColumnStock::SETTINGS_DEFAULT_BACKEND);
 
-        // add a col for counting the site visits
+        // add a col for counting the record detail visits
         $this->addColumn('recordings', 'visitcounter', 'int DEFAULT 0');
         
+        //create new table for saving ip adresses for record detail visits
+        $this->createTable('recordvisit', array(
+            "id" => "pk",
+            "record_id" => "int NOT NULL",
+            "ip" => "string NOT NULL",
+            "date" => "datetime NOT NULL",
+        ),'ENGINE=InnoDB CHARSET=utf8');        
         
         Yii::app()->settingsManager->setPropertyValue(DbMigrator::DB_VERSION, self::DB_VERSION);
     }

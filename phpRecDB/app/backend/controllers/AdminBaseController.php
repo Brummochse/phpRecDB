@@ -235,6 +235,25 @@ class AdminBaseController extends AdminController {
         );
     }
 
+     public function actionStatisticForVisitor() {
+        if  (($visitorIp = ParamHelper::decodeStringGetParam(Terms::IP)) != NULL) {
+            echo "<br><br>".$visitorIp;
+        }
+     }
+     
+    public function actionRecordVisitStatistics() {
+
+        $dbC = Yii::app()->db->createCommand();
+        $dbC->distinct = true;
+        $dbC->select('id, ip as '.Terms::IP.',count(ip) as '.Terms::COUNT.',Max(date) '.Terms::LAST_VISITED);
+        $dbC->from('recordvisit');
+        $dbC->order('MAX( date ) DESC');
+        $dbC->group('ip');
+        $results = $dbC->queryAll();
+
+         $this->render('recordVisitStatistics', array('data'=>new CArrayDataProvider($results)));
+    }
+    
     private function highlightColListEntry($listElements, $elementsToHighLight, $color) {
         foreach ($elementsToHighLight as $elementToHighLight) {
             if (key_exists($elementToHighLight, $listElements)) {
