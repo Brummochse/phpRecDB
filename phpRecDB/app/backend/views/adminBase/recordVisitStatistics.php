@@ -17,16 +17,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array('class' => 'CButtonColumn',
            'viewButtonUrl' => 'Yii::app()->createUrl("adminBase/statisticForVisitor", array(Terms::IP=>$data[Terms::IP]))',
             'template'=>'{view}',
-            
-            
             )
     )
 ));
 ?>
 
 <?php $this->endWidget(); ?>
-
-
 
 
 

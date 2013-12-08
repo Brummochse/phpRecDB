@@ -1,4 +1,5 @@
 1.1
+- added: visitor record statistics
 - added: visit counter for detail pages of records
 - added: column management for lists
 - changed: naming conventions for list cell classes, example: "location-col" -> "colLocation"
