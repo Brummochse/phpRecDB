@@ -14,4 +14,7 @@ return array(
     'miscUrl' => $phpRecDbUrl .(empty($phpRecDbUrl)?'':'/'). 'misc',
    
     'emptyScreenshot' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'emptyScreenshot.png',
+    
+    'ipPlaceHolder' => '[::IP_PLACEHOLDER::]',
+    'ipLookupUrl' => 'http://whatismyipaddress.com/ip/[::IP_PLACEHOLDER::]#Geolocation-Information',
 );

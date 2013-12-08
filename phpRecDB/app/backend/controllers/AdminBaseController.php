@@ -237,7 +237,23 @@ class AdminBaseController extends AdminController {
 
      public function actionStatisticForVisitor() {
         if  (($visitorIp = ParamHelper::decodeStringGetParam(Terms::IP)) != NULL) {
-            echo "<br><br>".$visitorIp;
+            $recordVisits=Recordvisit::model()->findAllByAttributes(array('ip'=>$visitorIp),array('order'=>'date DESC'));
+            
+            //
+            $visitedRecords=array();
+            $id=0;
+            foreach ($recordVisits as $recordVisit) {
+                $record= Record::model()->findByPk($recordVisit->record_id);
+                $recordLabel='<b>'.$record->concert->artist->name.'</b> <i>'.$record->concert.'</i> '.$record;
+                $visitedRecords[]=array('id'=>$id,'recordLabel'=>$recordLabel,'date'=>$recordVisit->date,'recordId'=>$record->id);
+                $id++;
+            }
+            //
+            $ipLookUpUrlRaw=  Yii::app()->params['ipLookupUrl'];
+            $ipPlaceholder=  Yii::app()->params['ipPlaceHolder'];
+            $ipLookUpUrl = str_replace($ipPlaceholder, $visitorIp, $ipLookUpUrlRaw);
+            
+             $this->render('statisticsForVisitor', array('ipLookUpUrl'=>$ipLookUpUrl,'ip'=>$visitorIp,'visitedRecords'=>new CArrayDataProvider($visitedRecords)));
         }
      }
      

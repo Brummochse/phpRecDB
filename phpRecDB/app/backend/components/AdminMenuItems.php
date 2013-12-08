@@ -75,7 +75,7 @@ class AdminMenuItems {
                     ),
                     array('label' => 'Statistics', 'items' => array(
                             array('label' => 'Screenshots', 'url' => array('adminBase/screenshotStatistics')),
-                            array('label' => 'Record Visits', 'url' => array('adminBase/recordVisitStatistics')),
+                            array('label' => 'Last Record Visitors', 'url' => array('adminBase/recordVisitStatistics')),
                         )
                     )
                 ),
