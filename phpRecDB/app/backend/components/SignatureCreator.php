@@ -104,7 +104,6 @@ class SignatureCreator {
             }
 
             $placeInfo = $country . " " . $city . " " . $venue . " " . $supplement;
-
             $this->addARecord($created, $videoOrAudio, $artist, $date, $placeInfo, $sourceidentification);
         }
     }
@@ -121,7 +120,32 @@ class SignatureCreator {
         $this->curX = 0;
     }
 
+    /**
+     * for a mystery reason on servers the utf8 imagettftext does not work.
+     * this encodes th string to some scary stuff which is printabel as utf8
+     * 
+     * stolen form here:
+     * http://stackoverflow.com/questions/198007/php-function-imagettftext-and-unicode
+     * 
+     * @param type $text
+     * @return type
+     */
+    private function ensureUtf8Text($text) {
+        # detect if the string was passed in as unicode
+        $text_encoding = mb_detect_encoding($text, 'UTF-8, ISO-8859-1');
+        # make sure it's in unicode
+        if ($text_encoding != 'UTF-8') {
+            $text = mb_convert_encoding($text, 'UTF-8', $text_encoding);
+        }
+
+        # html numerically-escape everything (&#[dec];)
+        $text = mb_encode_numericentity($text, array(0x0, 0xffff, 0, 0xffff), 'UTF-8');
+        return $text;
+    }
+    
     private function printText($text, $fontType, $color, $space = 0) {
+        $text=$this->ensureUtf8Text($text);
+
         $this->curX +=$space;
 
         $textAngle = 0;
