@@ -1,7 +1,7 @@
 <?php
 
 $this->beginWidget('bootstrap.widgets.TbBox', array(
-    'title' => 'Last visited records by Visitor with ip: [' . $ip . ']',
+    'title' => 'Last visited phpRecDB-pages by Visitor with ip: [' . $ip . ']',
     'htmlOptions' => array('class' => 'bootstrap-box-big'),
 ));
 
@@ -23,21 +23,17 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
 <?php
 
 $this->widget('zii.widgets.grid.CGridView', array(
-    'dataProvider' => $visitedRecords,
+    'dataProvider' => $visitedPages,
     'columns' => array(
         array(
             'name' => 'date',
             'header' => 'visit time'
         ),
         array(
-            'name' => 'recordLabel',
+            'name' => 'pageLabel',
             'type' => 'raw',
-            'header' => 'visited record'
+            'header' => 'visited page'
         ),
-        array('class' => 'CButtonColumn',
-            'viewButtonUrl' => 'Yii::app()->createUrl("adminEditRecord/updateRecord", array(ParamHelper::PARAM_RECORD_ID=>$data["recordId"]))',
-            'template' => '{view}',
-        )
     ),
 ));
 ?>

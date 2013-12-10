@@ -58,7 +58,7 @@ class RI {
 class RecordViewer extends CWidget {
 
     public $recordId;
-    
+
     private function fetchInfo($cols, $sourceModelName, $recordId, $joinSpecs = null) {
         $queryBuilder = new QueryBuilder();
         $queryParts = $queryBuilder->buildQueryParts($sourceModelName, $cols, $joinSpecs);
@@ -143,24 +143,29 @@ class RecordViewer extends CWidget {
     private function fetchYoutubeInfo($recordId) {
         return Youtube::model()->findAllByAttributes(array('recordings_id' => $recordId), array('order' => 'order_id ASC'));
     }
-    
-   public function run() {
-        if ($this->recordId != NULL) {
-            $recordModel = Record::model()->findByPk($this->recordId);
-            if ($recordModel==null || $recordModel->visible == false) {
-               return;
-            }
 
-            //increase visitcounter
-            $recordModel->visitcounter=$recordModel->visitcounter+1;
+     private function countVisitor($recordModel) {
+           //increase visitcounter
+            $recordModel->visitcounter = $recordModel->visitcounter + 1;
             $recordModel->save();
             //save ip adress for record detail visit
-            $recordVisit=new Recordvisit();
-            $recordVisit->ip=Yii::app()->request->getUserHostAddress();
-            $recordVisit->date=date('Y-m-d H:i:s');
-            $recordVisit->record_id = $this->recordId;
-            $recordVisit->save();
-            
+            $userVisit = Uservisit::model()->create();
+               $userVisit->record_id = $this->recordId;
+            $userVisit->save();
+    }
+
+    
+    public function run() {
+        if ($this->recordId != NULL) {
+            $recordModel = Record::model()->findByPk($this->recordId);
+            if ($recordModel == null || $recordModel->visible == false) {
+                return;
+            }
+
+            //
+            if (!Uservisit::model()->isBotVisitor()) {
+                $this->countVisitor($recordModel);
+            } 
             //
             $recordInfo = $this->fetchRecordInfo($this->recordId);
 
@@ -192,6 +197,6 @@ class RecordViewer extends CWidget {
         }
     }
 
+   
 }
-
 ?>

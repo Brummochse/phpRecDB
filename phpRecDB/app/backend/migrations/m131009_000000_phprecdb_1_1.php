@@ -22,18 +22,20 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
         $this->addColumn('recordings', 'visitcounter', 'int DEFAULT 0');
         
         //create new table for saving ip adresses for record detail visits
-        $this->createTable('recordvisit', array(
-            "id" => "pk",
-            "record_id" => "int NOT NULL",
-            "ip" => "string NOT NULL",
-            "date" => "datetime NOT NULL",
+        $this->createTable('uservisit', array(
+            'id' => 'pk',
+            'record_id' => 'int',
+            'page' => 'string',
+            'ip' => 'string NOT NULL',
+            'useragent' => 'string',
+            'date' => 'datetime NOT NULL',
         ),'ENGINE=InnoDB CHARSET=utf8');        
         
         Yii::app()->settingsManager->setPropertyValue(DbMigrator::DB_VERSION, self::DB_VERSION);
     }
 
     public function safeDown() {
-        echo "m131009_000000_phprecdb_1_1 does not support down migration.\n";
+        echo 'm131009_000000_phprecdb_1_1 does not support down migration.\n';
         return false;
     }
 
