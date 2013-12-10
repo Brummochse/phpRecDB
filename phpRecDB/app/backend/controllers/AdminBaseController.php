@@ -235,39 +235,49 @@ class AdminBaseController extends AdminController {
         );
     }
 
-     public function actionStatisticForVisitor() {
+    
+    public function actionClearUserStatistics() {
+        Uservisit::model()->deleteAll();
+        $this->redirect(array('visitorStatistics'));
+    }
+    
+     public function actionVisitorStatisticsDetail() {
         if  (($visitorIp = ParamHelper::decodeStringGetParam(Terms::IP)) != NULL) {
-            $recordVisits=Recordvisit::model()->findAllByAttributes(array('ip'=>$visitorIp),array('order'=>'date DESC'));
+            $userVisits=Uservisit::model()->findAllByAttributes(array('ip'=>$visitorIp),array('order'=>'date DESC'));
             
             //
-            $visitedRecords=array();
+            $visitedPages=array();
             $id=0;
-            foreach ($recordVisits as $recordVisit) {
-                $record= Record::model()->findByPk($recordVisit->record_id);
-                $recordLabel='<b>'.$record->concert->artist->name.'</b> <i>'.$record->concert.'</i> '.$record;
-                $visitedRecords[]=array('id'=>$id,'recordLabel'=>$recordLabel,'date'=>$recordVisit->date,'recordId'=>$record->id);
+            foreach ($userVisits as $userVisit) {
                 $id++;
+                if ($userVisit->record_id != NULL) { //record visit
+                    $record= Record::model()->findByPk($userVisit->record_id);
+                    $visitedPageLabel='<b>'.$record->concert->artist->name.'</b> <i>'.$record->concert.'</i> '.$record;
+                } else { // page visit
+                    $visitedPageLabel='<span style="color:blue;">page: '.$userVisit->page.'</span>';
+                }
+                $visitedPages[]=array('id'=>$id,'pageLabel'=>$visitedPageLabel,'date'=>$userVisit->date);
             }
             //
             $ipLookUpUrlRaw=  Yii::app()->params['ipLookupUrl'];
             $ipPlaceholder=  Yii::app()->params['ipPlaceHolder'];
             $ipLookUpUrl = str_replace($ipPlaceholder, $visitorIp, $ipLookUpUrlRaw);
             
-             $this->render('statisticsForVisitor', array('ipLookUpUrl'=>$ipLookUpUrl,'ip'=>$visitorIp,'visitedRecords'=>new CArrayDataProvider($visitedRecords)));
+             $this->render('visitorStatisticsDetail', array('ipLookUpUrl'=>$ipLookUpUrl,'ip'=>$visitorIp,'visitedPages'=>new CArrayDataProvider($visitedPages)));
         }
      }
      
-    public function actionRecordVisitStatistics() {
+    public function actionVisitorStatistics() {
 
         $dbC = Yii::app()->db->createCommand();
         $dbC->distinct = true;
         $dbC->select('id, ip as '.Terms::IP.',count(ip) as '.Terms::COUNT.',Max(date) '.Terms::LAST_VISITED);
-        $dbC->from('recordvisit');
+        $dbC->from('uservisit');
         $dbC->order('MAX( date ) DESC');
         $dbC->group('ip');
         $results = $dbC->queryAll();
-
-         $this->render('recordVisitStatistics', array('data'=>new CArrayDataProvider($results)));
+        
+         $this->render('visitorStatistics', array('data'=>new CArrayDataProvider($results)));
     }
     
     private function highlightColListEntry($listElements, $elementsToHighLight, $color) {

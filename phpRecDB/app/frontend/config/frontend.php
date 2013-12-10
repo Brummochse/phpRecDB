@@ -18,5 +18,5 @@ return array(
         'application.components.widgets.collectionSupplier.CollectionSupplier',
         'application.components.widgets.recordViewer.RecordViewer',
     ),
-    //'params' => require(dirname(__FILE__) . '/params.php'),
+    'params' => require(dirname(__FILE__) . '/params.php'),
 );

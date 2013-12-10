@@ -1,22 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "recordvisit".
+ * This is the model class for table "uservisit".
  *
  * The followings are the available columns in table 'recordvisit':
  * @property integer $id
  * @property integer $record_id
- * @property string $ip
+ * @property string $page
+ * @property string $ip 
+ * @property string $useragent
  * @property string $date
  */
-class Recordvisit extends CActiveRecord
+class Uservisit extends CActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'recordvisit';
+        return 'uservisit';
     }
 
     /**
@@ -27,7 +29,7 @@ class Recordvisit extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('record_id, ip, date', 'required'),
+            array('ip, date', 'required'),
             array('record_id', 'numerical', 'integerOnly'=>true),
             array('ip', 'length', 'max'=>255),
             // The following rule is used by search().
@@ -55,37 +57,19 @@ class Recordvisit extends CActiveRecord
         return array(
             'id' => 'ID',
             'record_id' => 'Record',
+            'page' => 'Page',
             'ip' => 'Ip',
+            'useragent' => 'Useragent',
             'date' => 'Date',
         );
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
-     * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
-     */
-    public function search()
-    {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
-        $criteria=new CDbCriteria;
-
-        $criteria->compare('id',$this->id);
-        $criteria->compare('record_id',$this->record_id);
-        $criteria->compare('ip',$this->ip,true);
-        $criteria->compare('date',$this->date,true);
-
-        return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
-        ));
+     public function create() {
+        $userVisit = new Uservisit();
+        $userVisit->ip = Yii::app()->request->getUserHostAddress();
+        $userVisit->date = date('Y-m-d H:i:s');
+        $userVisit->useragent = $_SERVER['HTTP_USER_AGENT'];
+        return $userVisit;
     }
 
     /**
@@ -97,5 +81,23 @@ class Recordvisit extends CActiveRecord
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
+    }
+    
+     public function isBotVisitor() {
+        $botIdBlackList = Yii::app()->params['botIdentBlackList'];
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        foreach ($botIdBlackList as $botIdentifier) {
+            if (stristr($userAgent, $botIdentifier) != False) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+     public function logPageVisit($pageVisit) {
+         $userVisit=$this->create();
+         $userVisit->page=$pageVisit;
+        $userVisit->save();
+       
     }
 }

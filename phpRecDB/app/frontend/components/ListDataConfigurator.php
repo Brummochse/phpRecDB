@@ -2,10 +2,6 @@
 
 class ListDataConfigurator extends CApplicationComponent {
 
-    public function init() {
-        parent::init();
-    }
-
     public function isDefaultActionDefined() {
         return isset(Yii::app()->params['defaultAction']);
     }

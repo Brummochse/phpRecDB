@@ -10,7 +10,11 @@ abstract class Renderer {
 
     public function renderList(ListDataConfig $listDataConfig) {
         $dataFetcher = new RecordsListFetcher($listDataConfig);
-        $this->renderView("list", array('data' => $dataFetcher->getData()));
+        $this->renderView('list', array('data' => $dataFetcher->getData()));
+        //
+        if (ParamHelper::decodeRecordIdParam()==NULL) { //no record detail page, log a "list" as page userVisit
+            Uservisit::model()->logPageVisit(get_class($listDataConfig));
+        }
     }
 
     public abstract function renderView($viewName, $options = array());
@@ -25,7 +29,7 @@ class YiiExternalRenderer extends Renderer {
     }
 
     public function getLayout() {
-        return "content";
+        return 'content';
     }
 
 }
@@ -37,7 +41,7 @@ class YiiInternalRenderer extends Renderer {
     }
 
     public function getLayout() {
-        return "internal";
+        return 'internal';
     }
 
 }
@@ -77,12 +81,12 @@ class SiteController extends CController implements PrdServiceProvider {
             $themes = Yii::app()->themeManager->themeNames;
             if (count($themes) > 0) {
                 if (in_array('default', $themes)) {
-                    Yii::app()->theme="default";
+                    Yii::app()->theme='default';
                 } else {
                     Yii::app()->theme=$themes[0];
                 }
             } else {
-               throw new Exception("theme is not available.");
+               throw new Exception('theme is not available.');
             }
         }
 
@@ -103,11 +107,11 @@ class SiteController extends CController implements PrdServiceProvider {
                 if ($listDataConfig != NULL) {
                     $this->renderer->renderList($listDataConfig);
                 } else {
-                    echo " ERROR: no valid list data config! ";
+                    echo ' ERROR: no valid list data config! ';
                 }
             }
         } else {
-            $this->render("pages/index");
+            $this->render('pages/index');
         }
     }
 
@@ -116,7 +120,7 @@ class SiteController extends CController implements PrdServiceProvider {
     public function printArtistList($artistName) {
         $artistModel = Artist::model()->findByAttributes(array('name' => $artistName));
         if ($artistModel == NULL) {
-            echo "ERROR: artist " . $artistName . " not found";
+            echo 'ERROR: artist ' . $artistName . ' not found';
         } else {
             $this->renderer->renderList(new RecordsForArtistDataConfig($artistModel->id));
         }
@@ -131,13 +135,15 @@ class SiteController extends CController implements PrdServiceProvider {
     }
 
     public function printStatistics() {
-        $this->renderer->renderView("statistics");
+        $this->renderer->renderView('statistics');
+        //
+        Uservisit::model()->logPageVisit('statistics');
     }
 
     public function printSubList($sublistName, $collapsed = true) {
         $sublistModel = Sublist::model()->findByAttributes(array('label' => $sublistName));
         if ($sublistModel == NULL) {
-            echo "ERROR: sublist " . $sublistName . " not found";
+            echo 'ERROR: sublist ' . $sublistName . ' not found';
         } else {
             $this->renderer->renderList(new SublistListDataConfig($sublistModel->id, $collapsed));
         }
