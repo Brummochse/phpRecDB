@@ -13,7 +13,9 @@ abstract class Renderer {
         $this->renderView('list', array('data' => $dataFetcher->getData()));
         //
         if (ParamHelper::decodeRecordIdParam()==NULL) { //no record detail page, log a "list" as page userVisit
-            Uservisit::model()->logPageVisit(get_class($listDataConfig));
+            if (!Uservisit::model()->isBotVisitor()) {
+                Uservisit::model()->logPageVisit(get_class($listDataConfig));
+            }
         }
     }
 
@@ -137,7 +139,9 @@ class SiteController extends CController implements PrdServiceProvider {
     public function printStatistics() {
         $this->renderer->renderView('statistics');
         //
-        Uservisit::model()->logPageVisit('statistics');
+        if (!Uservisit::model()->isBotVisitor()) {
+            Uservisit::model()->logPageVisit('statistics');
+        }
     }
 
     public function printSubList($sublistName, $collapsed = true) {
