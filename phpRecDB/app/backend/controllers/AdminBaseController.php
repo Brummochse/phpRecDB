@@ -235,51 +235,50 @@ class AdminBaseController extends AdminController {
         );
     }
 
-    
     public function actionClearUserStatistics() {
         Uservisit::model()->deleteAll();
         $this->redirect(array('visitorStatistics'));
     }
-    
-     public function actionVisitorStatisticsDetail() {
-        if  (($visitorIp = ParamHelper::decodeStringGetParam(Terms::IP)) != NULL) {
-            $userVisits=Uservisit::model()->findAllByAttributes(array('ip'=>$visitorIp),array('order'=>'date DESC'));
-            
+
+    public function actionVisitorStatisticsDetail() {
+        if (($visitorIp = ParamHelper::decodeStringGetParam(Terms::IP)) != NULL) {
+            $userVisits = Uservisit::model()->findAllByAttributes(array('ip' => $visitorIp), array('order' => 'date DESC'));
+
             //
-            $visitedPages=array();
-            $id=0;
+            $visitedPages = array();
+            $id = 0;
             foreach ($userVisits as $userVisit) {
                 $id++;
                 if ($userVisit->record_id != NULL) { //record visit
-                    $record= Record::model()->findByPk($userVisit->record_id);
-                    $visitedPageLabel='<b>'.$record->concert->artist->name.'</b> <i>'.$record->concert.'</i> '.$record;
+                    $record = Record::model()->findByPk($userVisit->record_id);
+                    $visitedPageLabel = '<b>' . $record->concert->artist->name . '</b> <i>' . $record->concert . '</i> ' . $record;
                 } else { // page visit
-                    $visitedPageLabel='<span style="color:blue;">page: '.$userVisit->page.'</span>';
+                    $visitedPageLabel = '<span style="color:blue;">page: ' . $userVisit->page . '</span>';
                 }
-                $visitedPages[]=array('id'=>$id,'pageLabel'=>$visitedPageLabel,'date'=>$userVisit->date);
+                $visitedPages[] = array('id' => $id, 'pageLabel' => $visitedPageLabel, 'date' => $userVisit->date);
             }
             //
-            $ipLookUpUrlRaw=  Yii::app()->params['ipLookupUrl'];
-            $ipPlaceholder=  Yii::app()->params['ipPlaceHolder'];
+            $ipLookUpUrlRaw = Yii::app()->params['ipLookupUrl'];
+            $ipPlaceholder = Yii::app()->params['ipPlaceHolder'];
             $ipLookUpUrl = str_replace($ipPlaceholder, $visitorIp, $ipLookUpUrlRaw);
-            
-             $this->render('visitorStatisticsDetail', array('ipLookUpUrl'=>$ipLookUpUrl,'ip'=>$visitorIp,'visitedPages'=>new CArrayDataProvider($visitedPages)));
+
+            $this->render('visitorStatisticsDetail', array('ipLookUpUrl' => $ipLookUpUrl, 'ip' => $visitorIp, 'visitedPages' => new CArrayDataProvider($visitedPages)));
         }
-     }
-     
+    }
+
     public function actionVisitorStatistics() {
 
         $dbC = Yii::app()->db->createCommand();
         $dbC->distinct = true;
-        $dbC->select('id, ip as '.Terms::IP.',count(ip) as '.Terms::COUNT.',Max(date) '.Terms::LAST_VISITED);
+        $dbC->select('id, ip as ' . Terms::IP . ',count(ip) as ' . Terms::COUNT . ',Max(date) ' . Terms::LAST_VISITED);
         $dbC->from('uservisit');
         $dbC->order('MAX( date ) DESC');
         $dbC->group('ip');
         $results = $dbC->queryAll();
-        
-         $this->render('visitorStatistics', array('data'=>new CArrayDataProvider($results)));
+
+        $this->render('visitorStatistics', array('data' => new CArrayDataProvider($results)));
     }
-    
+
     private function highlightColListEntry($listElements, $elementsToHighLight, $color) {
         foreach ($elementsToHighLight as $elementToHighLight) {
             if (key_exists($elementToHighLight, $listElements)) {
@@ -325,7 +324,7 @@ class AdminBaseController extends AdminController {
         $allCols = Cols::getAllColNames();
 
         if ($isFrontendConfig) {
-            $allCols = array_diff($allCols,Cols::$BACKEND_ONLY_COLS);
+            $allCols = array_diff($allCols, Cols::$BACKEND_ONLY_COLS);
         }
 
         $selectedCols = Helper::parallelArray(array_intersect($selectedCols, $allCols)); //ensure that all selected cols really exist (for the case that the string contains a wrong colname)
@@ -342,8 +341,34 @@ class AdminBaseController extends AdminController {
             'colsAvailable' => $availableCols,
             'notMoveableCols' => Cols::$REQUIRED_COLS,
             'defaults' => $defaults,
-            'title'=>$title)
+            'title' => $title)
         );
+    }
+
+    public function actionExport() {
+       
+//        $dbSchema = Yii::app()->db->schema;
+//        $dbSchema->refresh();
+//        $tableNames = $dbSchema->getTableNames();
+//        foreach ($tableNames as $tableName) {
+//            $table = $dbSchema->getTable($tableName);
+//            echo "[[[[[[[[[" . $table->name . "]]]]]]]]]]]]]<br>";
+//            foreach ($table->columns as $column) {
+//                if (Helper::startsWith($column->dbType, 'varchar', false)) {
+//                    echo $column->name . " : " . $column->dbType;
+//                       $tableName=$table->name;
+//                       $colName=$column->name;
+//          
+//                        $command2 = Yii::app()->db->createCommand("UPDATE $tableName SET $colName = REPLACE($colName,'\\\\', '') WHERE $colName LIKE '%\\\\\\\\%'");
+//                        $sql2 = $command2->execute();
+//
+//                        echo "($sql2)";
+//                  
+//                    echo "<br>";
+//                }
+//            }
+//            echo "<br><br><br><br><br><br><br><br>";
+//        }
     }
 
 }
