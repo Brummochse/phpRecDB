@@ -28,10 +28,25 @@ class Helper {
         rmdir($dir);
     }
 
-    public static function endsWith($haystack, $needle) {
-        $length = strlen($needle);
-        $start = $length * -1; //negative
-        return (substr($haystack, $start) === $needle);
+//    public static function startsWith($string, $needle) {
+//        return substr($str, 0, strlen($needle)) === $needle;
+//    }
+//
+//    public static function endsWith($string, $needle) {
+//        $length = strlen($needle);
+//        $start = $length * -1; //negative
+//        return (substr($string, $start) === $needle);
+//    }
+
+    public static function startsWith($haystack, $needle, $case = true) {
+        if ($case)
+            return strncmp($haystack, $needle, strlen($needle)) == 0;
+        else
+            return strncasecmp($haystack, $needle, strlen($needle)) == 0;
+    }
+
+    public static function endsWith($haystack, $needle, $case = true) {
+        return startsWith(strrev($haystack), strrev($needle), $case);
     }
 
     public static $dropBoxDefaultNullStr = array('empty' => array("" => "-"));
