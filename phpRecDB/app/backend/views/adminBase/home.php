@@ -16,10 +16,3 @@ echo " ".$dbVersion;
 for updates check <?= CHtml::link("www.phpRecDB.de.vu","http://www.phpRecDB.de.vu"); ?>
 
 <?php $this->endWidget();?>
-
-
-<?php
-echo CHtml::link('export',array('export'));
-
-
-?>

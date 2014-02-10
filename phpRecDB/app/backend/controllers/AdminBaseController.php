@@ -345,8 +345,9 @@ class AdminBaseController extends AdminController {
         );
     }
 
-    public function actionExport() {
-       
+    //TODO: delete
+//    public function actionExport() {
+//       
 //        $dbSchema = Yii::app()->db->schema;
 //        $dbSchema->refresh();
 //        $tableNames = $dbSchema->getTableNames();
@@ -369,6 +370,6 @@ class AdminBaseController extends AdminController {
 //            }
 //            echo "<br><br><br><br><br><br><br><br>";
 //        }
-    }
+//    }
 
 }
