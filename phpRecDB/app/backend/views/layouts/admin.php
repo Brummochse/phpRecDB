@@ -5,7 +5,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->params['wwwUrl'] . '/css/f
 Yii::app()->clientScript->registerCssFile(Yii::app()->params['wwwUrl'] . '/css/admin.css');
 
 $this->widget('bootstrap.widgets.TbNavbar', array(
-    'brandUrl' => array('adminBase/Index'),
+    'brandUrl' => Yii::app()->HomeUrl,
     'type' => 'inverse',
     'items' => array(
         array(

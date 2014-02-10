@@ -1,8 +1,3 @@
-<?php
-$this->breadcrumbs=array(
-	'backup'=>array('backup'),
-	'Upload',
-);?>
 <h1><?php echo $this->action->id; ?></h1>
 
 <div class="form">

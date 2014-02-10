@@ -40,7 +40,7 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
             'buttons' => array(
                 array('label' => 'Help', 'htmlOptions' => array(
                         'data-toggle' => 'modal',
-                        'data-target' => '#sigExplain',
+                        'data-target' => '#listColConfigHelp',
                     ))
             ),
         ),

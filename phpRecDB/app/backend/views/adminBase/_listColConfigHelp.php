@@ -2,7 +2,7 @@
 <?php
 //signature explanation///////////////////begin
 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'sigExplain'));
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'listColConfigHelp'));
 ?>
 
 <div class="modal-header">

@@ -1,0 +1,36 @@
+
+<?php
+//backup explanation///////////////////begin
+
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'backupHelp'));
+?>
+
+<div class="modal-header">
+    <h1>Database Backups</h1>
+</div>
+<div class="modal-body">
+    <h2>Attention!</h2>
+    <p>
+        This <span style="color:red;font-weight: bold;">only</span> backups the MySQL database which includes:
+    </p>
+    <ul>
+        <li>all record information</li>
+        <li>all settings (including username/password)</li>
+    </ul>
+    <p>
+    It does <span style="color:red;font-weight: bold;">not</span> contain the screenshots!
+    Backup all screenshots manually from your webspace with a FTP client from folder phpRecDB/screenshots.
+    </p>
+    <p>
+    Do <span style="color:red;font-weight: bold;">not</span> try to restore database backups to different phpRecDB versions.
+    </p>
+<h2>Upload</h2>
+<p>
+    Upload only database backups, which were created with the same phpRecDB version.
+</p>
+</div>
+
+<?php
+$this->endWidget();
+//backup explanation///////////////////end
+?>

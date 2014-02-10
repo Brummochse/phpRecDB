@@ -39,7 +39,7 @@ return array(
         'application.models.orm.*',
     ),
     'modules' => array(
-       'backup'=> array('path' =>$phpRecDbPath . DIRECTORY_SEPARATOR . 'misc'. DIRECTORY_SEPARATOR ),
+       'backup'=> array('path' =>$phpRecDbPath . DIRECTORY_SEPARATOR . 'backup'. DIRECTORY_SEPARATOR ),
     ),
     'params' => require(dirname(__FILE__) . '/params.php'),
 );
