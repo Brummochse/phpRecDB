@@ -18,8 +18,14 @@ $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'backupHelp'));
         <li>all settings (including username/password)</li>
     </ul>
     <p>
-    It does <span style="color:red;font-weight: bold;">not</span> contain the screenshots!
-    Backup all screenshots manually from your webspace with a FTP client from folder phpRecDB/screenshots.
+    It does <span style="color:red;font-weight: bold;">not</span> contain:
+    </p>
+        <ul>
+        <li>screenshots</li>
+        <li>themes</li>
+    </ul>
+    <p>
+    Backup this files manually from your webspace with a FTP client from the folders phpRecDB/screenshots and phpRecDB/themes.
     </p>
     <p>
     Do <span style="color:red;font-weight: bold;">not</span> try to restore database backups to different phpRecDB versions.
