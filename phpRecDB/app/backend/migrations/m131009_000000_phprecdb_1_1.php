@@ -18,19 +18,25 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
         Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME_FRONTEND, ColumnStock::SETTINGS_DEFAULT_FRONTEND);
         Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME_BACKEND, ColumnStock::SETTINGS_DEFAULT_BACKEND);
 
-        // add a col for counting the record detail visits
-        $this->addColumn('recordings', 'visitcounter', 'int DEFAULT 0');
-        
         //create new table for saving ip adresses for record detail visits
         $this->createTable('uservisit', array(
             'id' => 'pk',
-            'record_id' => 'int',
+            'record_id' => 'int', //has no foreign key, becasue it is null when page is set
             'page' => 'string',
             'ip' => 'string NOT NULL',
             'useragent' => 'string',
             'date' => 'datetime NOT NULL',
-        ),'ENGINE=InnoDB CHARSET=utf8');        
-        
+                ), 'ENGINE=InnoDB CHARSET=utf8');
+
+        // create new table for saving record visits
+        $this->createTable('recordvisit', array(
+            "id" => "pk",
+            "record_id" => "INTEGER NOT NULL",
+            "visitors" => "INTEGER DEFAULT 0",
+                ), 'ENGINE=InnoDB CHARSET=utf8');
+        $this->addForeignKey('fk_recordvisit_recordings_id', 'recordvisit', 'record_id', 'recordings', 'id', 'CASCADE', NULL);
+
+
         Yii::app()->settingsManager->setPropertyValue(DbMigrator::DB_VERSION, self::DB_VERSION);
     }
 

@@ -167,6 +167,7 @@ class ColVisitCounter extends ConfigColumn {
         return array(array(
                 'name' => 'VisitCounter',
                 'header' => 'Visits',
+                'value' => 'isset($data["VisitCounter"])?$data["VisitCounter"]:0',
         ));
     }
 
@@ -260,11 +261,12 @@ class Cols {
         $oClass = new ReflectionClass('Cols'); //in php 5.3 i would use static keyword
         return $oClass->getConstants();
     }
-    
+
     //cols only available in admin panel
     public static $BACKEND_ONLY_COLS = array(Cols::CHECKBOX, Cols::VISIBLE);
     //cols must exist in query, not allowed to remove
     public static $REQUIRED_COLS = array(Cols::ARTIST, Cols::DATE);
+
 }
 
 class ColumnStock {
@@ -288,14 +290,14 @@ class ColumnStock {
     const SETTINGS_DEFAULT_FRONTEND = 'Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
     const SETTINGS_DEFAULT_BACKEND = 'CheckBox,Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
 
-    public function __construct($isAdmin=false) {
-        
+    public function __construct($isAdmin = false) {
+
         if ($isAdmin) { //means backend col settings get loaded
-            $dbColSettingsName=ColumnStock::SETTINGS_DB_NAME_BACKEND;
+            $dbColSettingsName = ColumnStock::SETTINGS_DB_NAME_BACKEND;
         } else { //frontend cols
-            $dbColSettingsName=ColumnStock::SETTINGS_DB_NAME_FRONTEND;
+            $dbColSettingsName = ColumnStock::SETTINGS_DB_NAME_FRONTEND;
         }
-        
+
         $colsString = Yii::app()->settingsManager->getPropertyValue($dbColSettingsName);
         $this->colNames = explode(',', $colsString);
 
@@ -310,7 +312,7 @@ class ColumnStock {
     private function initSqlBuildColStock() {
         $this->allSqlBuildCols[Cols::SCREENSHOT] = array("screenshots" => "video_recordings_id");
         $this->allSqlBuildCols[Cols::YOUTUBE] = array("youtubes" => "recordings_id");
-        $this->allSqlBuildCols[Cols::VISITCOUNTER] = array("" => "visitcounter");
+        $this->allSqlBuildCols[Cols::VISITCOUNTER] = array("recordvisit" => "visitors");
         $this->allSqlBuildCols[Cols::DATE] = array("concert" => "date");
         $this->allSqlBuildCols[Cols::ARTIST] = array("concert.artist" => "name");
         $this->allSqlBuildCols[Cols::COUNTRY] = array("concert.country" => "name");
@@ -327,7 +329,6 @@ class ColumnStock {
         $this->allSqlBuildCols[Cols::VISIBLE] = array("" => "visible");
         $this->allSqlBuildCols[Cols::VIDEOFORMAT] = array("video.videoformat" => "label");
         $this->allSqlBuildCols[Cols::ASPECTRATIO] = array("video.aspectratio" => "label");
-        
     }
 
     /**

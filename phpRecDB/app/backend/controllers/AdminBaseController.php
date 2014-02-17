@@ -38,7 +38,7 @@ class AdminBaseController extends AdminController {
     }
 
     private function getListOptionModel($listId) {
-        $listOptionsModel = ListOptionsForm::createFromSettingsDb($listId);
+        $listOptionsModel = new ListOptionsForm($listId);
         if (isset($_POST['ListOptionsForm'])) {
             $listOptionsModel->attributes = $_POST['ListOptionsForm'];
 
@@ -167,7 +167,7 @@ class AdminBaseController extends AdminController {
     }
 
     public function actionTheme() {
-        $model = ThemeForm::createFromSettingsDb();
+        $model = new ThemeForm();
 
         if (isset($_POST['ThemeForm'])) {
             $model->attributes = $_POST['ThemeForm'];
@@ -220,7 +220,7 @@ class AdminBaseController extends AdminController {
     }
 
     public function actionScreenshotCompression() {
-        $model = ScreenshotCompressionForm::createFromSettingsDb();
+        $model = new ScreenshotCompressionForm();
 
         if (isset($_POST['ScreenshotCompressionForm'])) {
             $model->attributes = $_POST['ScreenshotCompressionForm'];
@@ -251,7 +251,11 @@ class AdminBaseController extends AdminController {
                 $id++;
                 if ($userVisit->record_id != NULL) { //record visit
                     $record = Record::model()->findByPk($userVisit->record_id);
-                    $visitedPageLabel = '<b>' . $record->concert->artist->name . '</b> <i>' . $record->concert . '</i> ' . $record;
+                    if ($record!=NULL) {
+                        $visitedPageLabel = '<b>' . $record->concert->artist->name . '</b> <i>' . $record->concert . '</i> ' . $record;
+                    } else {
+                        $visitedPageLabel = 'deleted record';
+                    }
                 } else { // page visit
                     $visitedPageLabel = '<span style="color:blue;">page: ' . $userVisit->page . '</span>';
                 }
@@ -345,31 +349,44 @@ class AdminBaseController extends AdminController {
         );
     }
 
-    //TODO: delete
-//    public function actionExport() {
-//       
-//        $dbSchema = Yii::app()->db->schema;
-//        $dbSchema->refresh();
-//        $tableNames = $dbSchema->getTableNames();
-//        foreach ($tableNames as $tableName) {
-//            $table = $dbSchema->getTable($tableName);
-//            echo "[[[[[[[[[" . $table->name . "]]]]]]]]]]]]]<br>";
-//            foreach ($table->columns as $column) {
-//                if (Helper::startsWith($column->dbType, 'varchar', false)) {
-//                    echo $column->name . " : " . $column->dbType;
-//                       $tableName=$table->name;
-//                       $colName=$column->name;
-//          
-//                        $command2 = Yii::app()->db->createCommand("UPDATE $tableName SET $colName = REPLACE($colName,'\\\\', '') WHERE $colName LIKE '%\\\\\\\\%'");
-//                        $sql2 = $command2->execute();
-//
-//                        echo "($sql2)";
-//                  
-//                    echo "<br>";
-//                }
-//            }
-//            echo "<br><br><br><br><br><br><br><br>";
-//        }
-//    }
+     public function actionWatermark() {
+        $model = new WatermarkForm();
+
+        if (isset($_POST['WatermarkForm'])) {
+            $model->attributes = $_POST['WatermarkForm'];
+        }
+
+        $watermarkScreenshotUrl = '';
+        $watermarkthumbnailUrl = '';
+
+        if ($model->validate()) {
+
+            if ($model->enable) {
+
+                $destFileInfo = new FileInfo();
+                $destFileInfo->dir = Yii::app()->params['miscPath'] . DIRECTORY_SEPARATOR;
+
+                $path_parts = pathinfo(Yii::app()->params['watermarkTestScreenshot']);
+                $destFileInfo->fileNameBase = $path_parts['basename'];
+                $destFileInfo->fileExtension = $path_parts['extension'];
+                $destFileName = Yii::app()->screenshotManager->watermarkScreenshot($model, Yii::app()->params['emptyScreenshot'], $destFileInfo);
+                $watermarkScreenshotUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . $destFileName);
+
+                if ($model->watermarkThumbnail) {
+
+                    $path_parts = pathinfo(Yii::app()->params['watermarkTestThumbnail']);
+                    $destFileInfo->fileNameBase = $path_parts['basename'];
+                    $destFileInfo->fileExtension = $path_parts['extension'];
+                    $destFileName = Yii::app()->screenshotManager->watermarkThumbnail($model, Yii::app()->params['emptyScreenshot'], $destFileInfo);
+                    $watermarkthumbnailUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . $destFileName);
+                }
+            }
+            $model->saveToSettingsDb();
+        }
+
+        $this->render('watermark', array(
+            'model' => $model, 'watermarkScreenshotUrl' => $watermarkScreenshotUrl, 'watermarkthumbnailUrl' => $watermarkthumbnailUrl
+        ));
+    }
 
 }

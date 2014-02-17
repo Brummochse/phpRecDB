@@ -1,10 +1,3 @@
-
-<?php
-//signature explanation///////////////////begin
-
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'listColConfigHelp'));
-?>
-
 <div class="modal-header">
     <h1>List Columns Configuration</h1>
 </div>
@@ -32,8 +25,3 @@ $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'listColConfigHelp
         </dd>
     </dl>
 </div>
-
-<?php
-$this->endWidget();
-//signature explanation///////////////////end
-?>

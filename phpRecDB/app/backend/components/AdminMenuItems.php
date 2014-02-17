@@ -48,7 +48,7 @@ class AdminMenuItems {
                     array('label' => 'Signature Management', 'url' => array('/signature/admin')),
                     array('label' => 'Screenshots',
                         'items' => array(
-                            array('label' => 'Watermark', 'url' => array('/watermark/index')),
+                            array('label' => 'Watermark', 'url' => array('/adminBase/watermark')),
                             array('label' => 'Compression', 'url' => array('/adminBase/screenshotCompression')),
                         )
                     ),

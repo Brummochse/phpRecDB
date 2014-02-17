@@ -144,17 +144,16 @@ class RecordViewer extends CWidget {
         return Youtube::model()->findAllByAttributes(array('recordings_id' => $recordId), array('order' => 'order_id ASC'));
     }
 
-     private function countVisitor($recordModel) {
-           //increase visitcounter
-            $recordModel->visitcounter = $recordModel->visitcounter + 1;
-            $recordModel->save();
-            //save ip adress for record detail visit
-            $userVisit = Uservisit::model()->create();
-               $userVisit->record_id = $this->recordId;
-            $userVisit->save();
+    private function countVisitor($recordModel) {
+        if (Uservisit::model()->isBotVisitor()) {
+            return;
+        }
+
+        $visit = Recordvisit::model()->getVisitorsForRecord($recordModel);
+        $visit->visitors++;
+        $visit->save();
     }
 
-    
     public function run() {
         if ($this->recordId != NULL) {
             $recordModel = Record::model()->findByPk($this->recordId);
@@ -163,9 +162,8 @@ class RecordViewer extends CWidget {
             }
 
             //
-            if (!Uservisit::model()->isBotVisitor()) {
-                $this->countVisitor($recordModel);
-            } 
+            $this->countVisitor($recordModel);
+
             //
             $recordInfo = $this->fetchRecordInfo($this->recordId);
 
@@ -197,6 +195,6 @@ class RecordViewer extends CWidget {
         }
     }
 
-   
 }
+
 ?>

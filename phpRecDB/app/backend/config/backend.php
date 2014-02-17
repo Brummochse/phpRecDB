@@ -27,6 +27,7 @@ return array(
         'screenshotManager' => array('class' => 'ScreenshotManager'),
         'dbCleaner' => array('class' => 'DbCleaner'),
         'dbMigrator' => array('class' => 'DbMigrator'),
+        'helpCreator' => array('class' => 'HelpCreator', 'helpFilesPath'=>'application.views.help'),
         'bootstrap' => array(
             'class' => 'ext.bootstrap.components.Bootstrap',
             'responsiveCss' => false,
@@ -40,6 +41,6 @@ return array(
     ),
     'modules' => array(
         'backup' => array('path' => $phpRecDbPath . DIRECTORY_SEPARATOR . 'misc' . DIRECTORY_SEPARATOR . 'backup' . DIRECTORY_SEPARATOR),
-    ),
+        ),
     'params' => require(dirname(__FILE__) . '/params.php'),
 );
