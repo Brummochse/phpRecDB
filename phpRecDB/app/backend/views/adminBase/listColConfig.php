@@ -29,21 +29,11 @@ Yii::app()->getClientScript()->registerCss('listCss', '#listLeft, #listRight { b
 
 
 <?php
-$this->renderPartial('_listColConfigHelp');
 $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Configure List Columns for ' . $title,
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
     'headerButtons' => array(
-        array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
-            'buttons' => array(
-                array('label' => 'Help', 'htmlOptions' => array(
-                        'data-toggle' => 'modal',
-                        'data-target' => '#listColConfigHelp',
-                    ))
-            ),
-        ),
+         Yii::app()->helpCreator->renderModalAndGetHelpBtn($this,'listColConfig')
     )
 ));
 

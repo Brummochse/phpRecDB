@@ -275,10 +275,11 @@ class AdminEditRecordController extends AdminController {
         $this->actionUpdateRecord(Terms::SUBLISTS);
     }
 
-     private function processTabStatistics($recordModel) {
-        return $this->renderPartial('_statistics', array('visitCounter'=>$recordModel->visitcounter), true, false);
+    private function processTabStatistics($recordModel) {
+        $recordVisit = Recordvisit::model()->getVisitorsForRecord($recordModel);
+        return $this->renderPartial('_statistics', array('visitCounter' => $recordVisit->visitors), true, false);
     }
-    
+
     /**
      * show the edit record page
      * 
@@ -403,6 +404,7 @@ class AdminEditRecordController extends AdminController {
         );
         return $result;
     }
+
 }
 
 ?>

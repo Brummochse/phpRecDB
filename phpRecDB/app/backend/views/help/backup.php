@@ -1,10 +1,3 @@
-
-<?php
-//backup explanation///////////////////begin
-
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'backupHelp'));
-?>
-
 <div class="modal-header">
     <h1>Database Backups</h1>
 </div>
@@ -16,6 +9,7 @@ $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'backupHelp'));
     <ul>
         <li>all record information</li>
         <li>all settings (including username/password)</li>
+        <li>visitor statistics</li>
     </ul>
     <p>
     It does <span style="color:red;font-weight: bold;">not</span> contain:
@@ -36,7 +30,3 @@ $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'backupHelp'));
 </p>
 </div>
 
-<?php
-$this->endWidget();
-//backup explanation///////////////////end
-?>

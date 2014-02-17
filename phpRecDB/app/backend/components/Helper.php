@@ -28,16 +28,6 @@ class Helper {
         rmdir($dir);
     }
 
-//    public static function startsWith($string, $needle) {
-//        return substr($str, 0, strlen($needle)) === $needle;
-//    }
-//
-//    public static function endsWith($string, $needle) {
-//        $length = strlen($needle);
-//        $start = $length * -1; //negative
-//        return (substr($string, $start) === $needle);
-//    }
-
     public static function startsWith($haystack, $needle, $case = true) {
         if ($case)
             return strncmp($haystack, $needle, strlen($needle)) == 0;

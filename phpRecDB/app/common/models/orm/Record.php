@@ -63,7 +63,7 @@ class Record extends CActiveRecord {
         return array(
             array('concerts_id', 'required'),
             array('visible, rectypes_id,  summedia, quality', 'numerical', 'integerOnly' => true),
-            array('sumlength', 'numerical','integerOnly' => false),
+            array('sumlength', 'numerical', 'integerOnly' => false),
             array('concerts_id, sources_id, media_id, tradestatus_id', 'length', 'max' => 10),
             array('sourceidentification, taper, transferer', 'length', 'max' => 255),
             array('setlist, notes, lastmodified, created, sourcenotes', 'safe'),
@@ -93,7 +93,8 @@ class Record extends CActiveRecord {
             'sublistassignment' => array(self::HAS_MANY, 'Sublistassignment', 'recordings_id'),
             'screenshots' => array(self::HAS_MANY, 'Screenshot', 'video_recordings_id'),
             'youtubes' => array(self::HAS_MANY, 'Youtube', 'recordings_id'),
-        );
+            'recordvisit' => array(self::HAS_ONE,'Recordvisit','record_id')
+         );
     }
 
     /**
@@ -152,8 +153,8 @@ class Record extends CActiveRecord {
         $criteria->compare('tradestatus_id', $this->tradestatus_id, true);
 
         return new CActiveDataProvider(get_class($this), array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     public function __toString() {
@@ -168,7 +169,7 @@ class Record extends CActiveRecord {
 
         $sublists = array();
         foreach ($this->sublists as $sublist) {
-           $sublists[] = $sublist->label;
+            $sublists[] = $sublist->label;
         }
 
         return Record::generateString($length, $quality, $rectype, $media, $summedia, $source, $sourceIdentification, $visible, $sublists);
@@ -202,42 +203,37 @@ class Record extends CActiveRecord {
         return $outStr;
     }
 
-    protected function beforeSave() {
-        if (parent::beforeSave()) {
-            $phpdate = date('Y-m-d H:i:s');
-
-            if ($this->isNewRecord) {
-                $this->created = $this->lastmodified = $phpdate;
-            }
-            else
-                $this->lastmodified = $phpdate;
-            return true;
-        }
-        else
-            return false;
+    public function behaviors() {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'lastmodified',
+            )
+        );
     }
 
     /**
      * deletes a record and cascades the deletion
      */
     public function delete() {
-        
+
         foreach ($this->screenshots as $screenshot) {
             $screenshot->delete();
         }
         foreach ($this->youtubes as $youtube) {
             $youtube->delete();
         }
-        
-        if ($this->video !=NULL) {
+
+        if ($this->video != NULL) {
             $this->video->delete();
-        } else if ($this->audio !=NULL)  {
+        } else if ($this->audio != NULL) {
             $this->audio->delete();
         } else {
             //should never happen
-            //throw new Exception("Record | delete : record has no video and no audio");
+            throw new Exception("Record | delete : record has no video and no audio");
         }
-            
+
         parent::delete();
     }
 
@@ -252,14 +248,5 @@ class Record extends CActiveRecord {
         }
         return false;
     }
-
-//    public function behaviors() {
-//        return array(
-//            'CascadeDeleteBehavior' => array(
-//                'class' => 'common.components.behaviors.CascadeDeleteBehavior',
-//                'relations' => array('audio', 'video'),
-//            )
-//        );
-//    }
 
 }

@@ -13,19 +13,7 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
                     )),
             )
         ),
-        array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
-            'buttons' => array(
-                array(
-                    'label' => 'Help',
-                    'type' => 'inverse',
-                    'htmlOptions' => array(
-                        'data-toggle' => 'modal',
-                        'data-target' => '#editConcert',
-                    )),
-            ),
-        ),
+        Yii::app()->helpCreator->renderModalAndGetHelpBtn($this,'visitorStatistics')
     )
 ));
 ?>

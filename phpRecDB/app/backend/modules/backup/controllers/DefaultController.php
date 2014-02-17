@@ -10,10 +10,10 @@
 class DefaultController extends AdminController {
 
     public $layoutPath;
-    public $layout = 'backup';
+    public $layout = '//adminBase/backupModuleLayout';
 
     public function init() {
-        $this->layoutPath = Yii::getPathOfAlias('backup.views.layouts');
+        $this->layoutPath = Yii::getPathOfAlias('application.views.adminBase');
 
         parent::init();
     }

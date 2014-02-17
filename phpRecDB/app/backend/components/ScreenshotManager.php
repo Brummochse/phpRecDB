@@ -48,7 +48,7 @@ class ScreenshotManager extends CApplicationComponent {
      * returns the filename of the saved image or NULL when some error occured
      */
     public function doSaveImage(ImgSource $source, FileInfo $destFileInfo) {
-        $screenComprModel = ScreenshotCompressionForm::createFromSettingsDb();
+        $screenComprModel = new ScreenshotCompressionForm();
         $newFileName = "";
         $result = NULL;
 
@@ -151,7 +151,7 @@ class ScreenshotManager extends CApplicationComponent {
 
         if (isset($screenshotFiles) && count($screenshotFiles) > 0) {
 
-            $watermarkModel = WatermarkForm::createFromSettingsDb();
+            $watermarkModel = new WatermarkForm();
             $screenshotCounter = 0;
             foreach ($screenshotFiles as $key => $screenshotFile) {
 

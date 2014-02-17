@@ -171,7 +171,7 @@ class TbModal extends CWidget
      */
     public function run()
     {
-        $this->renderModal();
+        $this->renderModalAndGetHelpBtn();
         $this->renderButton();
         $this->registerClientScript();
     }
@@ -199,7 +199,7 @@ class TbModal extends CWidget
     /**
      * Renders the modal markup
      */
-    public function renderModal()
+    public function renderModalAndGetHelpBtn()
     {
         echo TbHtml::openTag('div', $this->htmlOptions) . PHP_EOL;
 
