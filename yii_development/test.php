@@ -1,15 +1,11 @@
 <?php
 
-function test($arr) {
-    $arr[]=4;
-}
+    $create = 'phpRecDB_[%s]_%s.sql';
+    $test = '/^(phpRecDB_\[).+(\]_).+(\.sql)$/';
+    
 
-$a=array(1,2,3);
-echo "a:<br><br>";
-print_r($a);
 
-test($a);
+$antwort = validateEMAIL($create);
 
-echo "<br><br>a:<br><br>";
-print_r($a);
-?>zz
+echo $antwort;
+?>
