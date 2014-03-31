@@ -22,13 +22,15 @@ class DefaultController extends AdminController {
     public $fp;
     public $file_name;
     public $_path = null;
-    public $back_temp_file = 'db_backup_';
-
+    
+    //sprintf-string, argument1: version, argument2: date
+    private $backupFilename = 'phpRecDB_[%s]_%s.sql';
+    //test regex if backupfile name is valid for upload
+    private $backupFilenameRegex = '/^(phpRecDB_\[).+(\]_).+(\.sql)$/';
+    
     protected function getPath() {
         if (isset($this->module->path))
             $this->_path = $this->module->path;
-        else
-            $this->_path = Yii::app()->basePath . '/../_backup/';
 
         if (!file_exists($this->_path)) {
             mkdir($this->_path);
@@ -113,8 +115,19 @@ class DefaultController extends AdminController {
         return $tables;
     }
 
+    private function versionString()
+    {
+        return str_replace(' ', '', Yii::app()->params['version']);
+    }
+    
+    private function createBackupName() {
+        $version = $this->versionString();
+        $date = date('Y.m.d_H.i.s');
+        return sprintf($this->backupFilename,$version,$date);
+    }
+    
     public function StartBackup($addcheck = true) {
-        $this->file_name = $this->path . $this->back_temp_file . date('Y.m.d_H.i.s') . '.sql';
+        $this->file_name = $this->path . $this->createBackupName() . '.sql';
 
         $this->fp = fopen($this->file_name, 'w+');
 
@@ -205,7 +218,6 @@ class DefaultController extends AdminController {
             $list = array_map('basename', $list_files);
             sort($list);
 
-
             foreach ($list as $id => $filename) {
                 $columns = array();
                 $columns['id'] = $id;
@@ -219,25 +231,6 @@ class DefaultController extends AdminController {
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
-    }
-
-    public function actionSyncdown() {
-        $tables = $this->getTables();
-
-        if (!$this->StartBackup()) {
-            //render error
-            $this->render('create');
-            return;
-        }
-
-        foreach ($tables as $tableName) {
-            $this->getColumns($tableName);
-        }
-        foreach ($tables as $tableName) {
-            $this->getData($tableName);
-        }
-        $this->EndBackup();
-        $this->actionDownload(basename($this->file_name));
     }
 
     public function actionRestore($file = null) {
@@ -256,14 +249,32 @@ class DefaultController extends AdminController {
         if (isset($_POST['UploadForm'])) {
             $model->attributes = $_POST['UploadForm'];
             $model->upload_file = CUploadedFile::getInstance($model, 'upload_file');
-            if ($model->upload_file->saveAs($this->path . $model->upload_file)) {
-                // redirect to success page
-                $this->redirect(array('index'));
-            }
+            $fileName=$model->upload_file->name;
+            
+            if ((bool) preg_match($this->backupFilenameRegex, $fileName) === true) {
+                if ($model->upload_file->saveAs($this->path . $model->upload_file)) {
+                    $this->redirect(array('index'));
+                }
+            } 
+            
+            //TODO ERROR
+                    Yii::log("not a phpRecDB backup file.", CLogger::LEVEL_ERROR); 
+          
+            
+           
         }
-
         $this->render('upload', array('model' => $model));
     }
 
-    
+    //override the default accessrules from admincontroller
+    public function accessRules() {
+        return array(
+            array('allow',
+                'actions' => array('upload', 'restore', 'index', 'download', 'delete', 'create'),
+                'roles' => array('admin'),
+            ),
+            array('deny'),
+        );
+    }
+
 }
