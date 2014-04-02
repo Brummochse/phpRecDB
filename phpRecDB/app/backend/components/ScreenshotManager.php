@@ -86,7 +86,7 @@ class ScreenshotManager extends CApplicationComponent {
         try {
             return $this->doSaveImage(ImgSource::createFromSimpleImage($thumbnailImage), $destThumbnailFileInfo);
         } catch (Exception $e) {
-            Yii::log("error saving watermarked thumbnail:" . $e->getMessage(), CLogger::LEVEL_ERROR);
+            Yii::app()->user->addMsg(WebUser::ERROR, "error saving watermarked thumbnail:" . $e->getMessage());
             return NULL;
         }
     }
@@ -100,7 +100,7 @@ class ScreenshotManager extends CApplicationComponent {
         try {
             return $this->doSaveImage(ImgSource::createFromSimpleImage($image), $destScreenshotFileInfo);
         } catch (Exception $e) {
-            Yii::log("error saving watermarked screenshot:" . $e->getMessage(), CLogger::LEVEL_ERROR);
+            Yii::app()->user->addMsg(WebUser::ERROR, "error saving watermarked screenshot:" . $e->getMessage());
             return NULL;
         }
     }
@@ -136,7 +136,7 @@ class ScreenshotManager extends CApplicationComponent {
             try {
                 return $this->doSaveImage(ImgSource::createFromSimpleImage($thumbnailImage), $destFileInfo);
             } catch (Exception $e) {
-                Yii::log("error saving thumbnail:" . $e->getMessage(), CLogger::LEVEL_ERROR);
+                Yii::app()->user->addMsg(WebUser::ERROR, "error saving thumbnail:" . $e->getMessage());
                 return NULL;
             }
         }
@@ -160,7 +160,7 @@ class ScreenshotManager extends CApplicationComponent {
                 //check if uplaod was seuccessfull, erros can happen when fielsize is bigger than max uplaod size
                 $screenshotTempname = $screenshotFile->getTempName();
                 if (empty($screenshotTempname) || $screenshotFile->getSize() == 0) {
-                    Yii::log('file upload failed: ' . $screenshotFile->getName(), CLogger::LEVEL_ERROR);
+                    Yii::app()->user->addMsg(WebUser::ERROR, 'file upload failed: ' . $screenshotFile->getName());
                     continue;
                 }
 
@@ -177,11 +177,10 @@ class ScreenshotManager extends CApplicationComponent {
 
                         $newScreenshot->save();
                     } else {
-                        Yii::log("error writing screenshot", CLogger::LEVEL_ERROR);
+                        Yii::app()->user->addMsg(WebUser::ERROR, "error writing screenshot");
                     }
                 } else {
-
-                    Yii::log("error writing thumbnail", CLogger::LEVEL_ERROR);
+                    Yii::app()->user->addMsg(WebUser::ERROR, "error writing thumbnail");
                 }
             }
         }
@@ -197,10 +196,10 @@ class ScreenshotManager extends CApplicationComponent {
 
         if (file_exists($filePath)) {
             if (!unlink($filePath)) {
-                Yii::log("error deleting image file (deletion failed): " . $filePath, CLogger::LEVEL_ERROR);
+                Yii::app()->user->addMsg(WebUser::ERROR, 'error deleting image file (deletion failed): ' . $filePath);
             }
         } else {
-            Yii::log("error deleting image file (does not exist): " . $filePath, CLogger::LEVEL_ERROR);
+            Yii::app()->user->addMsg(WebUser::ERROR, 'error deleting image file (does not exist): ' . $filePath);
         }
     }
 

@@ -255,12 +255,12 @@ class DefaultController extends AdminController {
                 if ($model->upload_file->saveAs($this->path . $model->upload_file)) {
                     $this->redirect(array('index'));
                 }
-            } 
-            
-            //TODO ERROR
-                    Yii::log("not a phpRecDB backup file.", CLogger::LEVEL_ERROR); 
-          
-            
+            } else {
+                Yii::app()->user->addMsg(WebUser::ERROR, "The Uploaded file is not a compatible phpRecDB backup file.");
+            }
+            Yii::app()->user->addMsg(WebUser::ERROR, "Could not upload file.");
+
+            $this->redirect(array('index'));
            
         }
         $this->render('upload', array('model' => $model));

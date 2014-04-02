@@ -3,55 +3,67 @@
 class AdminController extends CController {
 
     public $layout = 'admin';
+    private $flashMsgs = null; 
     
-    private $notificationLevelCss = array(
-        CLogger::LEVEL_ERROR => array('alert-error', 'ERROR'),
-        CLogger::LEVEL_WARNING => array('alert-warning', 'WARNING'),
-        CLogger::LEVEL_INFO => array('alert-success', 'SUCCESS')
-    );
-
     public function getMenuItems() {
         return AdminMenuItems::getInstance()->createAdminMenuItems();
     }
     
-    private function generateNotificationBlock($log) {
-        $logMsg = $log[0];
-        $logLevel = $log[1];
+    public function getFlashesArray($msgType) {
+        if ($this->flashMsgs==null) {
+            $this->flashMsgs = Yii::app()->user->getFlashes();
+        }
+        
+        $results=array();
+        
+        foreach($this->flashMsgs as $key => $message) {
+            if (Helper::startsWith($key, $msgType)) {
+                $results[]=$message;
+            }
+        }
+        return $results;        
+    }
+  
+    private function generateNotificationBlock($msgs,$label,$cssClass) {
 
         $notBlockHtml = '';
 
-        if (isset($this->notificationLevelCss[$logLevel])) {
-            $cssClass = $this->notificationLevelCss[$logLevel][0];
-            $label = $this->notificationLevelCss[$logLevel][1];
-
-            $notBlockHtml = '<div class="alert in alert-block fade '.$cssClass.'"><strong>'.$label.'</strong><br />' .  $logMsg . '</div>';
+        foreach ($msgs as $key => $msg) {
+            $notBlockHtml .= '<div class="alert in alert-block fade '.$cssClass.'"><strong>'.$label.'</strong><br />' .  $msg . '</div>';
         }
         return $notBlockHtml;
     }
 
     public function getNotificationsHtml() {
         $logsHtml = '';
-        foreach (Yii::getLogger()->getLogs() as $log) {
-            $logsHtml.=$this->generateNotificationBlock($log);
-        }
+        
+        $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::ERROR),WebUser::ERROR,'alert-error');
+        $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::SUCCESS),WebUser::SUCCESS,'alert-success');
+        $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::INFO),WebUser::INFO,'alert-warning');
+        
         echo $logsHtml;
+    }
+    
+    public function hasErrorFlashs()
+    {
+        return count($this->getFlashesArray(WebUser::ERROR))>0;
     }
 
     public function getNotificationMenuItems() {
         $menuItems = array();
 
-        $logsInfo = Yii::getLogger()->getLogs('info');
-        $logsWarning = Yii::getLogger()->getLogs('warning');
-        $logsError = Yii::getLogger()->getLogs('error');
+        $flashMsgsSuccess =$this->getFlashesArray(WebUser::SUCCESS);
+        $flashMsgsInfo = $this->getFlashesArray(WebUser::INFO);
+        $flashMsgsError = $this->getFlashesArray(WebUser::ERROR);
 
-        if (count($logsError) > 0) {
-            $menuItems[] = array('icon' => 'fire white', 'label' => count($logsError), 'url' => '#');
+        if (count($flashMsgsError) > 0) {
+            $menuItems[] = array('icon' => 'fire white', 'label' => count($flashMsgsError), 'url' => '#');
         }
-        if (count($logsWarning) > 0) {
-            $menuItems[] = array('icon' => 'warning-sign white', 'label' => count($logsWarning), 'url' => '#');
+        if (count($flashMsgsSuccess) > 0) {
+            $menuItems[] = array('icon' => 'ok  white', 'label' => count($flashMsgsSuccess), 'url' => '#');
         }
-        if (count($logsInfo) > 0) {
-            $menuItems[] = array('icon' => 'envelope white', 'label' => count($logsInfo), 'url' => '#');
+        if (count($flashMsgsInfo) > 0) {
+            $menuItems[] = array('icon' => 'envelope white', 'label' => count($flashMsgsInfo), 'url' => '#');
         }
 
         return $menuItems;

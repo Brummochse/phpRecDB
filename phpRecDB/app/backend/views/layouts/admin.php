@@ -1,3 +1,5 @@
+
+    
 <?php $this->beginContent('/layouts/main'); ?>
 
 <?php
@@ -14,7 +16,10 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
         ),
         array(
             'class' => 'bootstrap.widgets.TbMenu',
-            'htmlOptions' => array('class' => 'pull-right','onclick' => '$("#notificationsmodal").dialog("open"); return false;'),
+            'htmlOptions' => array('class' => 'pull-right',
+                'data-toggle' => 'modal',
+                'data-target' => '#notificationsmodal',
+            ),
             'items' => $this->getNotificationMenuItems()
         ),
     )
@@ -25,22 +30,27 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
     <?= $content ?>
 </div>
 
-<?php //dialog for notification messages 
-$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-    'id' => 'notificationsmodal',
-    'options' => array(
-        'title' => 'Notifications',
-        'width' => 600,
-        'autoOpen' => false,
-        'resizable' => false,
-        'modal' => true,
-    ),
-)); 
-?>
-    <?= $this->getNotificationsHtml();   ?>
-<?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>
+
 
 <?php $this->endContent(); ?>
 
 
-
+<?php
+//notifications modal///////////////////begin
+$this->beginWidget('bootstrap.widgets.TbModal', array(
+    'id' => 'notificationsmodal',
+    'autoOpen' => $this->hasErrorFlashs()
+));
+?>
+<div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h4>Notifications</h4>
+</div>
+<div class="modal-body" style="max-height:600px !important;">
+ <?= $this->getNotificationsHtml();   ?>   
+</div>
+</div>
+<?php 
+$this->endWidget(); 
+//notifications modal///////////////////begin
+?>
