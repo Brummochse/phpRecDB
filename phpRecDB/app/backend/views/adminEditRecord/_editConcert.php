@@ -1,5 +1,4 @@
 <?php
-//signature explanation///////////////////begin
 $this->beginWidget('bootstrap.widgets.TbModal', 
         array('id' => 'editConcert'));
 ?>
@@ -33,8 +32,6 @@ $this->beginWidget('bootstrap.widgets.TbModal',
 
 <?php 
 $this->endWidget(); 
-//signature explanation///////////////////end
-
 
 ?>
 

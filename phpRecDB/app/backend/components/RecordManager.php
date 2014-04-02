@@ -7,10 +7,10 @@ class RecordManager extends CApplicationComponent {
         $concert->fillDataFromConcertFormModel($addRecordFormModel);
 
         if ($concert->save()) {
-            Yii::log("concert added successfully", CLogger::LEVEL_INFO);
+             Yii::app()->user->addMsg(WebUser::SUCCESS, "concert added successfully");
             return $concert;
         } else {
-            Yii::log("concert adding error", CLogger::LEVEL_ERROR);
+            Yii::app()->user->addMsg(WebUser::ERROR, "concert adding error");
             return NULL;
         }
     }
@@ -39,10 +39,10 @@ class RecordManager extends CApplicationComponent {
             $saveResult = $saveResult && $newVaModel->save();
         }
         if ($saveResult) {
-            Yii::log("record added successfully", CLogger::LEVEL_INFO);
+            Yii::app()->user->addMsg(WebUser::SUCCESS, "record added successfully");
             return $recordModel->id;
         } else {
-            Yii::log("record adding failed", CLogger::LEVEL_ERROR);
+            Yii::app()->user->addMsg(WebUser::ERROR, "record adding faile");
             return NULL;
         }
     }

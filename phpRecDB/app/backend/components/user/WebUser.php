@@ -66,6 +66,23 @@ class WebUser extends CWebUser {
         return $isGuest;
     }
 
+    const ERROR = "ERROR";
+    const SUCCESS = "SUCCESS";
+    const INFO = "INFO";
+    
+    private $flashMsgCounters=array();
+    
+    public function addMsg($msgType,$msg)
+    {
+        if (!array_key_exists($msgType, $this->flashMsgCounters)) {
+            $this->flashMsgCounters[$msgType]=0;
+        }
+        $this->flashMsgCounters[$msgType] ++;
+        
+        $this->setFlash($msgType.$this->flashMsgCounters[$msgType],$msg);
+    }
+
+
 }
 
 ?>

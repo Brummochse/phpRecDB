@@ -127,7 +127,7 @@ class AdminEditRecordController extends AdminController {
             $vaRecordName = 'Audio';
             $vaId = VA::AUDIO;
         } else {
-            Yii::log('record entry is not connected to a video or audio entry!', CLogger::LEVEL_ERROR);
+            Yii::app()->user->addMsg(WebUser::ERROR, 'record entry is not connected to a video or audio entry!');
             return '';  //throw new Exception("AdminEditRecordController | processTabInformation : record has no audio/video");
         }
 
@@ -138,8 +138,7 @@ class AdminEditRecordController extends AdminController {
             if ($recordModel->validate() && $vaModel->validate()) {
                 if ($vaModel->save() && $recordModel->save()) {
                     Yii::app()->signatureManager->updateSignaturesIfRequired($recordModel->id);
-
-                    Yii::log("record saved successfully!", CLogger::LEVEL_INFO);
+                    Yii::app()->user->addMsg(WebUser::SUCCESS, 'record saved successfully!');
                 }
             }
         }
@@ -183,7 +182,7 @@ class AdminEditRecordController extends AdminController {
 
                 if ($youtubeModel->save()) {
                     $createYoutubeFormModel = new CreateYoutubeForm();
-                    Yii::log("youtube sample saved successfully!", CLogger::LEVEL_INFO);
+                    Yii::app()->user->addMsg(WebUser::SUCCESS, 'youtube sample saved successfully!');
                 }
             }
         }
@@ -240,10 +239,9 @@ class AdminEditRecordController extends AdminController {
 
                     //updateSignaturesIfRequired is not possible, because we would have to check ALL records of this belonging concert and not only this one
                     Yii::app()->signatureManager->updateSignatures();
-
-                    Yii::log("concert edit successfully", CLogger::LEVEL_INFO);
+                    Yii::app()->user->addMsg(WebUser::SUCCESS, 'concert edit successfully');
                 } else {
-                    Yii::log("concert edit error", CLogger::LEVEL_ERROR);
+                    Yii::app()->user->addMsg(WebUser::ERROR, 'concert edit error');
                 }
 
                 //delete unused database db entrys
@@ -253,7 +251,7 @@ class AdminEditRecordController extends AdminController {
                 foreach ($concertFormModel->errors as $error) {
                     $errorMsg.='<br />' . (implode(', ', $error));
                 }
-                Yii::log($errorMsg, CLogger::LEVEL_WARNING);
+                Yii::app()->user->addMsg(WebUser::ERROR, $errorMsg);
             }
         }
         $this->actionUpdateRecord();
