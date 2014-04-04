@@ -25,7 +25,6 @@ class AdminController extends CController {
     }
   
     private function generateNotificationBlock($msgs,$label,$cssClass) {
-
         $notBlockHtml = '';
 
         foreach ($msgs as $key => $msg) {

@@ -29,8 +29,7 @@ class DefaultController extends AdminController {
     private $backupFilenameRegex = '/^(phpRecDB_\[).+(\]_).+(\.sql)$/';
     
     protected function getPath() {
-        if (isset($this->module->path))
-            $this->_path = $this->module->path;
+        $this->_path = $this->module->path;
 
         if (!file_exists($this->_path)) {
             mkdir($this->_path);
@@ -115,13 +114,8 @@ class DefaultController extends AdminController {
         return $tables;
     }
 
-    private function versionString()
-    {
-        return str_replace(' ', '', Yii::app()->params['version']);
-    }
-    
     private function createBackupName() {
-        $version = $this->versionString();
+        $version = str_replace(' ', '', Yii::app()->params['version']);
         $date = date('Y.m.d_H.i.s');
         return sprintf($this->backupFilename,$version,$date);
     }
