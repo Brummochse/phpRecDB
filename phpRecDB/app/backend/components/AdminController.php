@@ -13,7 +13,6 @@ class AdminController extends CController {
         if ($this->flashMsgs==null) {
             $this->flashMsgs = Yii::app()->user->getFlashes();
         }
-        
         $results=array();
         
         foreach($this->flashMsgs as $key => $message) {

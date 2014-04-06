@@ -73,7 +73,7 @@ class AdminMenuItems {
                             array('label' => 'Admininistration Panel', 'url' => array('/adminBase/listColConfigBackend')),
                         )
                     ),
-                    array('label' => 'Backup', 'url' => array('/backup'), 'visible' => Yii::app()->user->isAdmin()),                    
+                    array('label' => 'Backup', 'url' => array('/backup/index'), 'visible' => Yii::app()->user->isAdmin()),                    
                     array('label' => 'Statistics', 'items' => array(
                             array('label' => 'Screenshots', 'url' => array('/adminBase/screenshotStatistics')),
                             array('label' => 'Visitors', 'url' => array('/adminBase/visitorStatistics')),
