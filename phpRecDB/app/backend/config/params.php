@@ -17,4 +17,6 @@ return array(
     
     'ipPlaceHolder' => '[::IP_PLACEHOLDER::]',
     'ipLookupUrl' => 'http://whatismyipaddress.com/ip/[::IP_PLACEHOLDER::]#Geolocation-Information',
+    
+    'backupPath' => $phpRecDbPath . DIRECTORY_SEPARATOR . 'misc' . DIRECTORY_SEPARATOR . 'backup' . DIRECTORY_SEPARATOR
 );

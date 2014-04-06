@@ -14,13 +14,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 (
                 'download' => array
                     (
-                    'url' => 'Yii::app()->createUrl("backup/default/download", array("file"=>$data["name"]))',
+                    'url' => 'Yii::app()->createUrl("backup/download", array("file"=>$data["name"]))',
                     'label' => 'Download',
                     'imageUrl' => Yii::app()->params['wwwUrl'] . '/images/download.png',
                 ),
                 'restore' => array
                     (
-                    'url' => 'Yii::app()->createUrl("backup/default/restore", array("file"=>$data["name"]))',
+                    'url' => 'Yii::app()->createUrl("backup/restore", array("file"=>$data["name"]))',
                     'label' => 'Restore',
                     'imageUrl' => Yii::app()->params['wwwUrl'] . '/images/restore.png',
                     'options' => array(
@@ -29,7 +29,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 ),
                 'delete' => array
                     (
-                    'url' => 'Yii::app()->createUrl("backup/default/delete", array("file"=>$data["name"]))',
+                    'url' => 'Yii::app()->createUrl("backup/delete", array("file"=>$data["name"]))',
                 ),
             ),
         ),

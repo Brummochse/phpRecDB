@@ -1,4 +1,6 @@
 1.1
+- changed: notification handler in backend is now based on flash messages
+- added: backup/restore database
 - added: visitor record statistics
 - added: visit counter for detail pages of records
 - added: column management for lists

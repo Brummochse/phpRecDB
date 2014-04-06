@@ -14,4 +14,4 @@
 
 - settings cleaner (listoptions, signature)
 
-- help für listcolconfig
+- delete backups when version/db update
