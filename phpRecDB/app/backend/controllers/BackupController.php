@@ -20,20 +20,26 @@
 class BackupController extends AdminController {
 
     public $layout = '//backup/backupModuleLayout';
-     
     private $backupsPath;
     
-    //sprintf-string, argument1: version, argument2: date
-    private $backupFilename = 'phpRecDB_[%s]_%s.sql';
-    //test regex if backupfile name is valid for upload
-    private $backupFilenameRegex = '/^(phpRecDB_\[).+(\]_).+(\.sql)$/';
-
+    private $backupFilename;
+    private $backupFilenameRegex;
+    private $bfRegexVersionPart;
+    
     public function init() {
         parent::init();
-        $this->backupsPath=$this->getPath();
+        $this->backupsPath = $this->getPath();
+
+        //sprintf-string, argument1: version, argument2: date
+        //arguments_pregmatch:--(_____1____)---(2_)---(3_)---(4_)---(__5_)                          
+        $this->backupFilename = "phpRecDB_[" . "%s" . "]_" . "%s" . ".sql";
+        //this menas version is saved after preg match in part 2
+        $this->bfRegexVersionPart=2;
+        
+        //test regex if backupfile name is valid for upload
+        $this->backupFilenameRegex = '/^(phpRecDB_\[)(.+)(\]_)([0-9\-\._]+)(\.sql)$/';
     }
 
-    
     private function getPath() {
         $backupsPath = Yii::app()->params['backupPath'];
 
@@ -44,21 +50,23 @@ class BackupController extends AdminController {
         return $backupsPath;
     }
 
-
+    private function getVersionStr() {
+        return  str_replace(' ', '', Yii::app()->params['version']);
+    }
+    
     private function createBackupName() {
-        $version = str_replace(' ', '', Yii::app()->params['version']);
+        $version = $this->getVersionStr();
         $date = date('Y-m-d_H.i.s');
-        return sprintf($this->backupFilename,$version,$date);
+        return sprintf($this->backupFilename, $version, $date);
     }
 
     public function actionCreate() {
-        
-        $dbBackup=new DbBackup();
-        $backupSqlFilePath=$this->backupsPath . $this->createBackupName();
-        
-        if (!$dbBackup->createBackup($backupSqlFilePath)) 
-        {
-            Yii::app()->user->addMsg(WebUser::ERROR, "couldn't create backup: <br>".$backupSqlFilePath);
+
+        $dbBackup = new DbBackup();
+        $backupSqlFilePath = $this->backupsPath . $this->createBackupName();
+
+        if (!$dbBackup->createBackup($backupSqlFilePath)) {
+            Yii::app()->user->addMsg(WebUser::ERROR, "couldn't create backup: <br>" . $backupSqlFilePath);
         }
 
         $this->redirect(array('index'));
@@ -111,9 +119,9 @@ class BackupController extends AdminController {
 
     public function actionRestore($file = null) {
         $sqlFile = $this->backupsPath . basename($file);
-        $dbBackup=new DbBackup();
-        $result=$dbBackup->execSqlFile($sqlFile);
-        if ($result===true) {
+        $dbBackup = new DbBackup();
+        $result = $dbBackup->execSqlFile($sqlFile);
+        if ($result === true) {
             $message = 'OK. Done';
         } else {
             $message = $result;
@@ -126,19 +134,33 @@ class BackupController extends AdminController {
         if (isset($_POST['UploadForm'])) {
             $model->attributes = $_POST['UploadForm'];
             $model->upload_file = CUploadedFile::getInstance($model, 'upload_file');
-            $fileName=$model->upload_file->name;
-            
-            if ((bool) preg_match($this->backupFilenameRegex, $fileName) === true) {
-                if ($model->upload_file->saveAs($this->backupsPath . $model->upload_file)) {
-                    $this->redirect(array('index'));
-                }
-            } else {
-                Yii::app()->user->addMsg(WebUser::ERROR, "The Uploaded file is not a compatible phpRecDB backup file.");
-            }
-            Yii::app()->user->addMsg(WebUser::ERROR, "Could not upload file.");
 
-            $this->redirect(array('index'));
-           
+            //check if file exist
+            if ($model->upload_file == null) { 
+                Yii::app()->user->addMsg(WebUser::ERROR, "no upload file selected");
+            } else {
+                $fileName = $model->upload_file->name;
+                
+                //check if filename is correct
+                if ((bool) preg_match($this->backupFilenameRegex, $fileName, $matches) === false) {
+                    Yii::app()->user->addMsg(WebUser::ERROR, "The Uploaded file is not a compatible phpRecDB backup file.");
+                } else {
+                    $fileNameVersion = $matches[$this->bfRegexVersionPart];
+                    
+                    //check if version filename is correct
+                    if ($fileNameVersion != $this->getVersionStr()) {
+                        Yii::app()->user->addMsg(WebUser::ERROR, "The Uploaded file is not compatible with the current running version.");
+                    } else {
+                        
+                        //save file
+                        if ($model->upload_file->saveAs($this->backupsPath . $model->upload_file)) {
+                            $this->redirect(array('index'));
+                        }
+                    }
+                } Yii::app()->user->addMsg(WebUser::ERROR, "Could not upload file.");
+
+                $this->redirect(array('index'));
+            }
         }
         $this->render('upload', array('model' => $model));
     }

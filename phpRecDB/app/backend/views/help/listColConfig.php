@@ -2,6 +2,10 @@
     <h1>List Columns Configuration</h1>
 </div>
 <div class="modal-body">
+    <h2>columns</h2>
+    <p>
+        This page configures the record information columns, which are visible in the record list.
+    </p>
     <h2>colors</h2>
     <dl>
         <dt>green

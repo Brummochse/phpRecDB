@@ -6,5 +6,5 @@
 <?php if ($r[RI::RECTYPE] != '') { ?><br><label>Filming Type:</label> <?=$r[RI::RECTYPE]; } ?>
 
 <?php if ($v[RI::ASPECTRATIO] != '') { ?><br><label>Aspect Ratio:</label> <?=$v[RI::ASPECTRATIO]; } ?>
-<?php if ($v[RI::VIDEOFORMAT] != '') { ?><br><label>Videoformat:</label> <?=$v[RI::VIDEOFORMAT]; } ?>
+<?php if ($v[RI::VIDEOFORMAT] != '') { ?><br><label>Video Format:</label> <?=$v[RI::VIDEOFORMAT]; } ?>
 <?php if ($v[RI::BITRATE] != '') { ?><br><label>Bitrate:</label> <?=$v[RI::BITRATE]; } ?>
