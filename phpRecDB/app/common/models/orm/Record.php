@@ -105,12 +105,12 @@ class Record extends CActiveRecord {
             'id' => 'ID',
             'concerts_id' => 'Concerts',
             'visible' => 'Visible',
-            'sourceidentification' => 'Sourceidentification',
-            'rectypes_id' => 'Rectypes',
-            'sources_id' => 'Sources',
+            'sourceidentification' => 'Source Identification',
+            'rectypes_id' => 'Record Type',
+            'sources_id' => 'Source',
             'media_id' => 'Media',
-            'sumlength' => 'Sumlength',
-            'summedia' => 'Summedia',
+            'sumlength' => 'overall Length',
+            'summedia' => 'count of Media',
             'quality' => 'Quality',
             'setlist' => 'Setlist',
             'notes' => 'Notes',
@@ -119,7 +119,7 @@ class Record extends CActiveRecord {
             'sourcenotes' => 'Sourcenotes',
             'taper' => 'Taper',
             'transferer' => 'Transferer',
-            'tradestatus_id' => 'Tradestatus',
+            'tradestatus_id' => 'Trade Status',
         );
     }
 

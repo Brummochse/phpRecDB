@@ -70,8 +70,8 @@ class Video extends CActiveRecord {
         return array(
             'id' => 'ID',
             'recordings_id' => 'Recordings',
-            'aspectratio_id' => 'Aspectratio',
-            'videoformat_id' => 'Videoformat',
+            'aspectratio_id' => 'Aspect Ratio',
+            'videoformat_id' => 'Video Format',
             'bitrate' => 'Bitrate',
             'authorer' => 'Authorer',
         );
