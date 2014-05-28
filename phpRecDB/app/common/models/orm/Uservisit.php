@@ -94,5 +94,11 @@ class Uservisit extends CActiveRecord {
         $userVisit->page = $pageVisit;
         $userVisit->save();
     }
+    
+    public function logRecordVisit($recordId) {
+        $userVisit = $this->create();
+        $userVisit->record_id = $recordId;
+        $userVisit->save();
+    }
 
 }

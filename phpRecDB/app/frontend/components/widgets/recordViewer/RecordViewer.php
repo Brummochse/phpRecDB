@@ -145,10 +145,6 @@ class RecordViewer extends CWidget {
     }
 
     private function countVisitor($recordModel) {
-        if (Uservisit::model()->isBotVisitor()) {
-            return;
-        }
-
         $visit = Recordvisit::model()->getVisitorsForRecord($recordModel);
         $visit->visitors++;
         $visit->save();
@@ -162,8 +158,11 @@ class RecordViewer extends CWidget {
             }
 
             //
-            $this->countVisitor($recordModel);
-
+            if (!Uservisit::model()->isBotVisitor()) {
+                $this->countVisitor($recordModel);
+                Uservisit::model()->logRecordVisit($this->recordId);
+            }
+            
             //
             $recordInfo = $this->fetchRecordInfo($this->recordId);
 
