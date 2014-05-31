@@ -4,6 +4,8 @@
 <?php if ($r[RI::SOURCE] != '') { ?><br><label>Source:</label> <?=$r[RI::SOURCE]; } ?>
 <?php if ($r[RI::SOURCENOTES] != '') { ?><br><label>Sourcenotes:</label> <?=nl2br($r[RI::SOURCENOTES]); } ?>
 <?php if ($r[RI::RECTYPE] != '') { ?><br><label>Filming Type:</label> <?=$r[RI::RECTYPE]; } ?>
+<?php if ($r[RI::USERDEFINED1] != '') { ?><br><label><?= $r[RI::USERDEFINED1LABEL] ?>:</label> <?=$r[RI::USERDEFINED1]; } ?>
+<?php if ($r[RI::USERDEFINED2] != '') { ?><br><label><?= $r[RI::USERDEFINED2LABEL] ?>:</label> <?=$r[RI::USERDEFINED2]; } ?>
 
 <?php if ($v[RI::ASPECTRATIO] != '') { ?><br><label>Aspect Ratio:</label> <?=$v[RI::ASPECTRATIO]; } ?>
 <?php if ($v[RI::VIDEOFORMAT] != '') { ?><br><label>Videoformat:</label> <?=$v[RI::VIDEOFORMAT]; } ?>

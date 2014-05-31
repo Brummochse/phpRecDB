@@ -76,6 +76,8 @@ if ($r[RI::SETLIST] != '') {
 			<?php if ($v[RI::ASPECTRATIO] != '') { ?><br /><label>Aspect Ratio:</label> <?=$v[RI::ASPECTRATIO]; } ?>
 			<?php if ($v[RI::VIDEOFORMAT] != '') { ?><br /><label>Videoformat:</label> <?=$v[RI::VIDEOFORMAT]; } ?>
 			<?php if ($v[RI::BITRATE] != '') { ?><br /><label>Bitrate:</label> <?=$v[RI::BITRATE]; } ?>
+                        <?php if ($r[RI::USERDEFINED1] != '') { ?><br><label><?= $r[RI::USERDEFINED1LABEL] ?>:</label> <?=$r[RI::USERDEFINED1]; } ?>
+                        <?php if ($r[RI::USERDEFINED2] != '') { ?><br><label><?= $r[RI::USERDEFINED2LABEL] ?>:</label> <?=$r[RI::USERDEFINED2]; } ?>
 			<?php
 				}
 				if ($r[RI::VIDEOORAUDIO] == RI::AUDIO) {
@@ -88,6 +90,8 @@ if ($r[RI::SETLIST] != '') {
 			<?php if ($r[RI::RECTYPE] != '') { ?><br><label>Recording Type:</label> <?=$r[RI::RECTYPE]; } ?>
 			<?php if ($a[RI::BITRATE] != '') { ?><br><label>Bitrate:</label> <?=$a[RI::BITRATE]; } ?>
 			<?php if ($a[RI::FREQUENCY] != '') { ?><br><label>Frequency:</label> <?=$a[RI::FREQUENCY]; } ?>
+                        <?php if ($r[RI::USERDEFINED1] != '') { ?><br><label><?= $r[RI::USERDEFINED1LABEL] ?>:</label> <?=$r[RI::USERDEFINED1]; } ?>
+                        <?php if ($r[RI::USERDEFINED2] != '') { ?><br><label><?= $r[RI::USERDEFINED2LABEL] ?>:</label> <?=$r[RI::USERDEFINED2]; } ?>
 			<?php
 				}
 			?>

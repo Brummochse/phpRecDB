@@ -31,7 +31,7 @@
 </div>
 
 <div >
-<?php if (isset($watermarkScreenshotUrl) && strlen($watermarkScreenshotUrl) > 0) echo CHtml::image($watermarkScreenshotUrl) ?>
+    <?php if (isset($watermarkScreenshotUrl) && strlen($watermarkScreenshotUrl) > 0) echo CHtml::image($watermarkScreenshotUrl) ?>
     <br>
     <?php if (isset($watermarkthumbnailUrl) && strlen($watermarkthumbnailUrl) > 0) echo CHtml::image($watermarkthumbnailUrl) ?>
 </div>

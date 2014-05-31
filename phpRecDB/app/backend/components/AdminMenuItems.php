@@ -60,6 +60,7 @@ class AdminMenuItems {
                             array('label' => 'Source', 'url' => array('/source/admin')),
                             array('label' => 'Tradestatus', 'url' => array('/tradestatus/admin')),
                             array('label' => 'Videoformat', 'url' => array('/videoformat/admin')),
+                            array('label' => 'User Defined Record Fields', 'url' => array('/adminBase/userdefined')),
                         ),
                     ),
                     array('label' => 'User Management', 'visible' => !Yii::app()->user->isDemo(),

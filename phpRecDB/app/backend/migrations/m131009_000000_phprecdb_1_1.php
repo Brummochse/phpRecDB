@@ -6,6 +6,16 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
 
     public function safeUp() {
 
+        //new fields for record
+        $this->addColumn('recordings', 'hiddennotes', 'text');
+        $this->addColumn('recordings', 'userdefined1', 'string');
+        $this->addColumn('recordings', 'userdefined2', 'string');
+
+        // set default settings for user defined cols
+        Yii::app()->settingsManager->setPropertyValue(Record::SETTINGS_USER_DEFINED1_LABEL, "User Defined 1");
+        Yii::app()->settingsManager->setPropertyValue(Record::SETTINGS_USER_DEFINED2_LABEL, "User Defined 2");
+
+        
         //add database infrastructure to save fontsize for signatures
         $this->addColumn('signature', 'fontSize', 'integer');
         $signatures = Signature::model()->findAll();

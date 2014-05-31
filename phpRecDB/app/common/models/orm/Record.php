@@ -22,6 +22,9 @@
  * @property string $taper
  * @property string $transferer
  * @property string $tradestatus_id
+ * @property string $hiddennotes
+ * @property string $userdefined1
+ * @property string $userdefined2
  *
  * The followings are the available model relations:
  * @property Screenshot[] $screenshots
@@ -39,6 +42,9 @@
  */
 class Record extends CActiveRecord {
 
+    const SETTINGS_USER_DEFINED1_LABEL = 'record_userDefined1Label';
+    const SETTINGS_USER_DEFINED2_LABEL = 'record_userDefined2Label';
+    
     /**
      * Returns the static model of the specified AR class.
      * @return Record the static model class
@@ -65,11 +71,11 @@ class Record extends CActiveRecord {
             array('visible, rectypes_id,  summedia, quality', 'numerical', 'integerOnly' => true),
             array('sumlength', 'numerical', 'integerOnly' => false),
             array('concerts_id, sources_id, media_id, tradestatus_id', 'length', 'max' => 10),
-            array('sourceidentification, taper, transferer', 'length', 'max' => 255),
-            array('setlist, notes, lastmodified, created, sourcenotes', 'safe'),
+            array('sourceidentification, taper, transferer, userdefined1, userdefined2', 'length', 'max' => 255),
+            array('setlist, notes, lastmodified, created, sourcenotes, hiddennotes', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, concerts_id, visible, sourceidentification, rectypes_id, sources_id, media_id, sumlength, summedia, quality, setlist, notes, lastmodified, created, sourcenotes, taper, transferer, tradestatus_id', 'safe', 'on' => 'search'),
+            array('id, concerts_id, visible, sourceidentification, rectypes_id, sources_id, media_id, sumlength, summedia, quality, setlist, notes, lastmodified, created, sourcenotes, taper, transferer, tradestatus_id, hiddennotes, userdefined1, userdefined2', 'safe', 'on' => 'search'),
         );
     }
 
@@ -102,6 +108,9 @@ class Record extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
+            'hiddennotes'=>'Hidden Notes',
+            'userdefined1'=>Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED1_LABEL),
+            'userdefined2'=>Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED2_LABEL),
             'id' => 'ID',
             'concerts_id' => 'Concerts',
             'visible' => 'Visible',
@@ -123,7 +132,7 @@ class Record extends CActiveRecord {
         );
     }
 
-    /**
+     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
@@ -156,7 +165,7 @@ class Record extends CActiveRecord {
             'criteria' => $criteria,
         ));
     }
-
+    
     public function __toString() {
         $visible = $this->visible;
         $quality = $this->quality;

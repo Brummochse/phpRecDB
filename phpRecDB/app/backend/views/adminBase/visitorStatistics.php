@@ -10,6 +10,7 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
             'buttons' => array(
                 array('items' => array(
                         array('label' => 'clear visitor statistics', 'url' => Yii::app()->createUrl('adminBase/clearUserStatistics')),
+                        array('label' => 'clear record visit counters', 'url' => Yii::app()->createUrl('adminBase/clearRecordVisitStatistics')),
                     )),
             )
         ),
