@@ -2,7 +2,7 @@
 
 class ThemeForm extends SettingsDbModel {
 
-    public $theme = ' default';
+    public $theme = 'default';
 
     protected function givePropertiesDbMap() {
         return array(

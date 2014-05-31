@@ -182,6 +182,22 @@ class AdminBaseController extends AdminController {
         );
     }
 
+    public function actionUserdefined() {
+        $model = new UserdefinedForm();
+
+        if (isset($_POST['UserdefinedForm'])) {
+            $model->attributes = $_POST['UserdefinedForm'];
+
+            if ($model->validate()) {
+                $model->saveToSettingsDb();
+            }
+        }
+
+        $this->render('userdefined', array(
+            'model' => $model)
+        );
+    }
+    
     public function actionIndex() {
         $dbSchemaVersion = Yii::app()->dbMigrator->evalCurrentDbVersion();
         $scriptVersion = Yii::app()->params['version'];
@@ -213,7 +229,6 @@ class AdminBaseController extends AdminController {
 
         $sizeInMb = sprintf("%.2f", $size / 1024 / 1024);
 
-
         $this->render('screenshotStatistics', array(
             'filesCount' => $filesCount, 'filesSize' => $sizeInMb)
         );
@@ -240,6 +255,11 @@ class AdminBaseController extends AdminController {
         $this->redirect(array('visitorStatistics'));
     }
 
+    public function actionClearRecordVisitStatistics() {
+        Recordvisit::model()->deleteAll();
+        $this->redirect(array('visitorStatistics'));
+    }
+    
     public function actionVisitorStatisticsDetail() {
         if (($visitorIp = ParamHelper::decodeStringGetParam(Terms::IP)) != NULL) {
             $userVisits = Uservisit::model()->findAllByAttributes(array('ip' => $visitorIp), array('order' => 'date DESC'));
@@ -271,7 +291,6 @@ class AdminBaseController extends AdminController {
     }
 
     public function actionVisitorStatistics() {
-
         $dbC = Yii::app()->db->createCommand();
         $dbC->distinct = true;
         $dbC->select('id, ip as ' . Terms::IP . ',count(ip) as ' . Terms::COUNT . ',Max(date) ' . Terms::LAST_VISITED);

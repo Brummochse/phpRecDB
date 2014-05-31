@@ -1,4 +1,5 @@
 1.1
+- added: handling for user defined record information fields
 - changed: fixed some english translations
 - changed: notification handler in backend is now based on flash messages
 - added: backup/restore database
@@ -7,7 +8,7 @@
 - added: column management for lists
 - changed: naming conventions for list cell classes, example: "location-col" -> "colLocation"
 - bugfixing: length limitation in backend views for list preset forms
-- bugfixing: newslist/signature shows form smae artists are no sorted chronologic (and not longer for daytime when they werde added)
+- bugfixing: newslist/signature shows form same artists are no sorted chronologic (and not longer for daytime when they werde added)
 - bugfixing: signature list supports now full utf8 charset
 - added: signature text size is now changeable
 - added: backend lists collapseable option

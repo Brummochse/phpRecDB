@@ -15,7 +15,7 @@
         <div id="left" class="column">
             <div class="row">
                 <?php echo $form->labelEx($model, 'sourceidentification'); ?>
-                <?php echo $form->textField($model, 'sourceidentification', array('size' => 50, 'maxlength' => 50)); ?>
+                <?php echo $form->textField($model, 'sourceidentification', array('size' => 50, 'maxlength' => 255)); ?>
                 <?php echo $form->error($model, 'sourceidentification'); ?>
             </div>
 
@@ -64,13 +64,13 @@
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'taper'); ?>
-                <?php echo $form->textField($model, 'taper', array('size' => 50, 'maxlength' => 50)); ?>
+                <?php echo $form->textField($model, 'taper', array('size' => 50, 'maxlength' => 255)); ?>
                 <?php echo $form->error($model, 'taper'); ?>
             </div>
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'transferer'); ?>
-                <?php echo $form->textField($model, 'transferer', array('size' => 50, 'maxlength' => 50)); ?>
+                <?php echo $form->textField($model, 'transferer', array('size' => 50, 'maxlength' => 255)); ?>
                 <?php echo $form->error($model, 'transferer'); ?>
             </div>
 
@@ -78,6 +78,18 @@
                 <?php echo $form->labelEx($model, 'visible'); ?>
                 <?php echo $form->checkBox($model, 'visible'); ?>
                 <?php echo $form->error($model, 'visible'); ?>
+            </div>
+            
+            <div class="row">
+                <?php echo $form->labelEx($model, 'userdefined1'); ?>
+                <?php echo $form->textField($model, 'userdefined1', array('size' => 50, 'maxlength' => 255)); ?>
+                <?php echo $form->error($model, 'userdefined1'); ?>
+            </div>
+            
+            <div class="row">
+                <?php echo $form->labelEx($model, 'userdefined2'); ?>
+                <?php echo $form->textField($model, 'userdefined2', array('size' => 50, 'maxlength' => 255)); ?>
+                <?php echo $form->error($model, 'userdefined2'); ?>
             </div>
 
         </div>
@@ -90,22 +102,28 @@
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'setlist'); ?>
-                <?php echo $form->textArea($model, 'setlist', array('rows' => 6, 'cols' => 50)); ?>
+                <?php echo $form->textArea($model, 'setlist', array('rows' => 5, 'cols' => 50)); ?>
                 <?php echo $form->error($model, 'setlist'); ?>
             </div>
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'notes'); ?>
-                <?php echo $form->textArea($model, 'notes', array('rows' => 6, 'cols' => 50)); ?>
+                <?php echo $form->textArea($model, 'notes', array('rows' => 5, 'cols' => 50)); ?>
                 <?php echo $form->error($model, 'notes'); ?>
             </div>
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'sourcenotes'); ?>
-                <?php echo $form->textArea($model, 'sourcenotes', array('rows' => 6, 'cols' => 50)); ?>
+                <?php echo $form->textArea($model, 'sourcenotes', array('rows' => 5, 'cols' => 50)); ?>
                 <?php echo $form->error($model, 'sourcenotes'); ?>
             </div>
 
+            <div class="row">
+                <?php echo $form->labelEx($model, 'hiddennotes'); ?>
+                <?php echo $form->textArea($model, 'hiddennotes', array('rows' => 3, 'cols' => 50)); ?>
+                <?php echo $form->error($model, 'hiddennotes'); ?>
+            </div>
+            
         </div>
     </div>
 

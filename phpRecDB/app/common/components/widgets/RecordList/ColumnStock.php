@@ -21,7 +21,6 @@ class ColArtist extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::ARTIST);
     }
-
 }
 
 class ColDate extends ConfigColumn {
@@ -36,7 +35,6 @@ class ColDate extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::DATE);
     }
-
 }
 
 class ColLength extends ConfigColumn {
@@ -51,7 +49,6 @@ class ColLength extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::LENGTH);
     }
-
 }
 
 class ColQuality extends ConfigColumn {
@@ -66,7 +63,6 @@ class ColQuality extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::QUALITY);
     }
-
 }
 
 class ColTradeStatus extends ConfigColumn {
@@ -81,7 +77,6 @@ class ColTradeStatus extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::TRADESTATUS);
     }
-
 }
 
 class ColCheckBox extends ConfigColumn {
@@ -103,7 +98,6 @@ class ColCheckBox extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array();
     }
-
 }
 
 class ColVisible extends ConfigColumn {
@@ -124,7 +118,6 @@ class ColVisible extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::VISIBLE);
     }
-
 }
 
 class ColScreenshot extends ConfigColumn {
@@ -141,7 +134,6 @@ class ColScreenshot extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::SCREENSHOT);
     }
-
 }
 
 class ColYoutube extends ConfigColumn {
@@ -158,7 +150,6 @@ class ColYoutube extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::YOUTUBE);
     }
-
 }
 
 class ColVisitCounter extends ConfigColumn {
@@ -174,7 +165,6 @@ class ColVisitCounter extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::VISITCOUNTER);
     }
-
 }
 
 class ColButtons extends ConfigColumn {
@@ -198,7 +188,6 @@ class ColButtons extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array();
     }
-
 }
 
 class ColLocation extends ConfigColumn {
@@ -229,7 +218,34 @@ class ColLocation extends ConfigColumn {
     public function getSqlBuildColNames() {
         return array(Cols::COUNTRY, Cols::CITY, Cols::VENUE, Cols::SUPPLEMENT);
     }
+}
 
+class ColUserDefined1 extends ConfigColumn {
+
+    public function getColDefinitions($dataProvider, $isAdmin) {
+        return array(array(
+                'header' => Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED1_LABEL),
+                'name'=>Cols::USERDEFINED1
+        ));
+    }
+
+    public function getSqlBuildColNames() {
+        return array(Cols::USERDEFINED1);
+    }
+}
+
+class ColUserDefined2 extends ConfigColumn {
+
+    public function getColDefinitions($dataProvider, $isAdmin) {
+        return array(array(
+                'header' => Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED2_LABEL),
+                'name'=>Cols::USERDEFINED2
+        ));
+    }
+
+    public function getSqlBuildColNames() {
+        return array(Cols::USERDEFINED2);
+    }
 }
 
 class Cols {
@@ -256,6 +272,8 @@ class Cols {
     const VISITCOUNTER = 'VisitCounter';
     const VIDEOFORMAT = 'VideoFormat';
     const ASPECTRATIO = 'AspectRatio';
+    const USERDEFINED1 = 'UserDefined1';
+    const USERDEFINED2 = 'UserDefined2';
 
     public static function getAllColNames() {
         $oClass = new ReflectionClass('Cols'); //in php 5.3 i would use static keyword
@@ -323,6 +341,8 @@ class ColumnStock {
         $this->allSqlBuildCols[Cols::SOURCE] = array("source" => "shortname");
         $this->allSqlBuildCols[Cols::LENGTH] = array("" => "sumlength");
         $this->allSqlBuildCols[Cols::QUALITY] = array("" => "quality");
+        $this->allSqlBuildCols[Cols::USERDEFINED1] = array("" => "userdefined1");
+        $this->allSqlBuildCols[Cols::USERDEFINED2] = array("" => "userdefined2");
         $this->allSqlBuildCols[Cols::VERSION] = array("" => "sourceidentification");
         $this->allSqlBuildCols[Cols::SUPPLEMENT] = array("concert" => "supplement");
         $this->allSqlBuildCols[Cols::TRADESTATUS] = array("tradestatus" => "shortname");

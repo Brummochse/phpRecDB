@@ -87,7 +87,7 @@ class User extends CActiveRecord {
         );
     }
 
-    /**
+     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
@@ -107,8 +107,8 @@ class User extends CActiveRecord {
                     'criteria' => $criteria,
                 ));
     }
-
-    /**
+    
+     /**
      * Checks if the given password is correct.
      * @param string the password to be validated
      * @return boolean whether the password is valid

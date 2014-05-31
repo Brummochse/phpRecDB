@@ -25,6 +25,11 @@ class RI {
     const SOURCEIDENTIFICATION = "SOURCEIDENTIFICATION";
     const VIDEOORAUDIO = "VIDEOORAUDIO";
     const BITRATE = "BITRATE";
+    
+    const USERDEFINED1 = "USERDEFINED1";
+    const USERDEFINED2 = "USERDEFINED2";
+    const USERDEFINED1LABEL = "USERDEFINED1LABEL";
+    const USERDEFINED2LABEL = "USERDEFINED2LABEL";
 
     //concert
     const ARTIST = "ARTIST";
@@ -53,8 +58,9 @@ class RI {
     const YOUTUBEID = 'YOUTUBEID';
     const YOUTUBETITLE = 'YOUTUBETITLE';
 
-}
-
+ 
+ }
+ 
 class RecordViewer extends CWidget {
 
     public $recordId;
@@ -87,6 +93,8 @@ class RecordViewer extends CWidget {
                 'setlist AS ' . RI::SETLIST,
                 'notes AS ' . RI::NOTES,
                 'sourceidentification AS ' . RI::SOURCEIDENTIFICATION,
+                'userdefined1 AS ' . RI::USERDEFINED1,
+                'userdefined2 AS ' . RI::USERDEFINED2,
             ),
             'medium' => 'label AS ' . RI::MEDIUM,
             'rectype' => 'label AS ' . RI::RECTYPE,
@@ -185,6 +193,11 @@ class RecordViewer extends CWidget {
                 $videoInfo = array();
             }
 
+            //
+            $recordInfo[RI::USERDEFINED1LABEL] = Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED1_LABEL);
+            $recordInfo[RI::USERDEFINED2LABEL] = Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED2_LABEL);
+            
+            //
             $this->render('record', array(
                 'r' => $recordInfo,
                 'v' => $videoInfo,
