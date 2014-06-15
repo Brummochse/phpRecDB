@@ -22,8 +22,8 @@
 
 header('Content-Type:text/html; charset=UTF-8');
 
-defined('YII_DEBUG') or define('YII_DEBUG', true);
-//only for depracted message
+//defined('YII_DEBUG') or define('YII_DEBUG', true);
+//only for deprecated message
 define("LAST_RECORDS_PER_DAY", 3);
 
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'PrdServiceProvider.php');
