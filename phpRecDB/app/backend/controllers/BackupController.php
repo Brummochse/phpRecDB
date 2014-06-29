@@ -115,19 +115,44 @@ class BackupController extends AdminController {
         ));
     }
 
+    private function getMysqlMaxAllowedPacket() {
+        $mySqlMaxSizeQuery = "SHOW VARIABLES LIKE 'max_allowed_packet'";
+        $mySqlMaxSizeResult = Yii::app()->db->createCommand($mySqlMaxSizeQuery)->queryRow();
+        //returns this: array("Variable_name" => "max_allowed_packet", "Value"=> <MySQL max_allowed_packet>)
+        return $mySqlMaxSizeResult["Value"];
+    }
+
     public function actionRestore($file = null) {
         if ($this->checkFileName(basename($file))) {
             $sqlFile = $this->backupsPath . basename($file);
-            $dbBackup = new DbBackup();
-            $result = $dbBackup->execSqlFile($sqlFile);
-            if ($result === true) {
-                $message = 'OK. Done';
+
+            $backupSize = filesize($sqlFile);
+            $mySqlMaxSize = $this->getMysqlMaxAllowedPacket();
+
+            if ($backupSize > $mySqlMaxSize) {
+                Yii::app()->user->addMsg(WebUser::ERROR, 'the selected backup file (' . $backupSize . ' Bytes) is bigger than the maximum allowed query size (' . $mySqlMaxSize . ' Bytes). Change your MxSQL max_allowed_packet settings to restore this backup: <a href="http://dev.mysql.com/doc/refman/5.1/en/packet-too-large.html">link</a>');
             } else {
-                $message = $result;
+
+
+                //delete all tables
+                Yii::app()->db->createCommand('set foreign_key_checks=0')->execute();
+                $tables = Yii::app()->db->schema->getTableNames();
+                foreach ($tables as $table) {
+                    Yii::app()->db->createCommand()->dropTable($table);
+                }
+                Yii::app()->db->createCommand('set foreign_key_checks=1')->execute();
+
+                //import sql file
+                $dbBackup = new DbBackup();
+                $result = $dbBackup->execSqlFile($sqlFile);
+                if ($result === true) {
+                    Yii::app()->user->addMsg(WebUser::SUCCESS, 'Database Backup restored.');
+                } else {
+                    Yii::app()->user->addMsg(WebUser::ERROR, 'Database Restore Error: ' . $result);
+                }
             }
-            $this->render('restore', array('error' => $message));
         }
-         $this->redirect(array('index'));
+        $this->redirect(array('index'));
     }
 
     private function checkFileName($fileName) {

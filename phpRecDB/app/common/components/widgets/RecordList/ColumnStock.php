@@ -42,7 +42,7 @@ class ColLength extends ConfigColumn {
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
                 'name' => 'Length',
-                'value' => 'isset($data["Length"])?CHtml::encode($data["Length"]." min"):""',
+                'value' => 'isset($data["Length"])?($data["Length"]." min"):""',
         ));
     }
 
@@ -56,7 +56,7 @@ class ColQuality extends ConfigColumn {
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
                 'name' => 'Quality',
-                'value' => 'isset($data["Quality"])?CHtml::encode($data["Quality"]."/10"):""',
+                'value' => 'isset($data["Quality"])?($data["Quality"]."/10"):""',
         ));
     }
 
@@ -70,7 +70,7 @@ class ColTradeStatus extends ConfigColumn {
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
                 'header' => '',
-                'value' => 'CHtml::encode($data["TradeStatus"])',
+                'value' => '$data["TradeStatus"]',
         ));
     }
 
@@ -208,7 +208,7 @@ class ColLocation extends ConfigColumn {
                     'name' => 'Location',
                     'header' => $dataProvider->sort->link('Country', 'Location', array('class' => 'sort-link')),
                     'type' => 'raw',
-                    'value' => 'CHtml::encode(stripslashes((isset($data["Country"])?$data["Country"].(isset($data["City"])?", ":""):"") . (isset($data["City"])?$data["City"].(isset($data["Venue"])?" - ":""):"").$data["Venue"]." ".$data["Supplement"]))',
+                    'value' => 'CHtml::encode(stripslashes((isset($data["Country"])?$data["Country"].(isset($data["City"])?", ":""):"") . (isset($data["City"])?$data["City"].(isset($data["Venue"])?" - ":""):"").$data["Venue"]." ".$data["Supplement"]))'
                 )
             );
         };
@@ -387,7 +387,7 @@ class ColumnStock {
                         );
                     }
                     $cssColName = isset($colDefinition['name']) ? $colDefinition['name'] : $colName;
-                    $colDefinition['htmlOptions'] = array('class' => 'col' . $cssColName);
+                    $colDefinition['htmlOptions'] = array('class' => 'c' . $cssColName);
                     //
                     $colDefinitions[] = $colDefinition;
                 }

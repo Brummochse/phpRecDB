@@ -77,8 +77,8 @@
 	background: #E5F1F4;
 }
 
-.grid-view tbody .colButtons,
-.grid-view tbody .colTradeStatus
+.grid-view tbody .cButtons,
+.grid-view tbody .cTradeStatus
 {
 	  background:none !important;
 
@@ -99,17 +99,17 @@
     width: auto !important;
 }
 
-.grid-view .colDate
+.grid-view .cDate
 {
 	font-weight: bold;
 }
 
-.grid-view .colLocation
+.grid-view .cLocation
 {
 	font-weight: bold;
 }
 
-.grid-view .colArtist
+.grid-view .cArtist
 {
 	font-weight: bold;
 }

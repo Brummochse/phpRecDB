@@ -12,8 +12,8 @@ return array(
     ),
     'language'=>'en_us',
     'sourceLanguage'=>'en_us',
-
     'charset'=>'utf-8',
+        'runtimePath'=>$phpRecDbPath . '/misc/runtime/',
     'components' => array(
         'settingsManager' => array('class' => 'SettingsManager'),
         'assetManager' => array(
@@ -23,6 +23,9 @@ return array(
         'themeManager' => array(
             'basePath' => $phpRecDbPath . '/themes',
             'baseUrl' =>  $phpRecDbUrl .(empty($phpRecDbUrl)?'':'/') . 'themes',
+        ),
+        'cache' => array(
+            'class' => 'CFileCache'
         ),
 //        'request' => array(
 //            'baseUrl' =>  $phpRecDbUrl,

@@ -20,6 +20,7 @@ class CollapsableListDataConfig extends ListDataConfig {
             'AudioType DESC',
             'Date ASC',
             'Version ASC',
+            'Length DESC'
         );
     }
 

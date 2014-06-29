@@ -36,15 +36,15 @@ class AdminController extends CController {
         $logsHtml = '';
         
         $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::ERROR),WebUser::ERROR,'alert-error');
-        $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::SUCCESS),WebUser::SUCCESS,'alert-success');
         $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::INFO),WebUser::INFO,'alert-warning');
+        $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::SUCCESS),WebUser::SUCCESS,'alert-success');
         
         echo $logsHtml;
     }
     
-    public function hasErrorFlashs()
+    public function hasAutoOpenMessages()
     {
-        return count($this->getFlashesArray(WebUser::ERROR))>0;
+        return count($this->getFlashesArray(WebUser::ERROR))>0 || count($this->getFlashesArray(WebUser::SUCCESS))>0;
     }
 
     public function getNotificationMenuItems() {
