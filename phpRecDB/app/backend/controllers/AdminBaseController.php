@@ -340,6 +340,9 @@ class AdminBaseController extends AdminController {
 
         if (isset($_POST[ParamHelper::PARAM_SELECTED_COLS])) {
             Yii::app()->settingsManager->setPropertyValue($dbSettingsName, $_POST[ParamHelper::PARAM_SELECTED_COLS]);
+            
+            //empty cache, because some changes of the cols are not recognized by the list-content hash algorithm
+            Yii::app()->cache->flush();
         }
 
         $selectedColsStr = Yii::app()->settingsManager->getPropertyValue($dbSettingsName);

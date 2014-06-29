@@ -67,8 +67,8 @@ class WebUser extends CWebUser {
     }
 
     const ERROR = "ERROR";
-    const SUCCESS = "SUCCESS";
     const INFO = "INFO";
+    const SUCCESS = "SUCCESS";
     
     private $flashMsgCounters=array();
     

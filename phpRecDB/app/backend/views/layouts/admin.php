@@ -39,7 +39,7 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
 //notifications modal///////////////////begin
 $this->beginWidget('bootstrap.widgets.TbModal', array(
     'id' => 'notificationsmodal',
-    'autoOpen' => $this->hasErrorFlashs()
+    'autoOpen' => $this->hasAutoOpenMessages()
 ));
 ?>
 <div class="modal-header">

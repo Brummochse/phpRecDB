@@ -6,7 +6,7 @@
 - added: visitor record statistics
 - added: visit counter for detail pages of records
 - added: column management for lists
-- changed: naming conventions for list cell classes, example: "location-col" -> "colLocation"
+- changed: naming conventions for list cell classes, example: "location-col" -> "cLocation"
 - bugfixing: length limitation in backend views for list preset forms
 - bugfixing: newslist/signature shows form same artists are no sorted chronologic (and not longer for daytime when they werde added)
 - bugfixing: signature list supports now full utf8 charset

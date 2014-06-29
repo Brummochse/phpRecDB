@@ -138,7 +138,7 @@ class AdminEditRecordController extends AdminController {
             if ($recordModel->validate() && $vaModel->validate()) {
                 if ($vaModel->save() && $recordModel->save()) {
                     Yii::app()->signatureManager->updateSignaturesIfRequired($recordModel->id);
-                    Yii::app()->user->addMsg(WebUser::SUCCESS, 'record saved successfully!');
+                    Yii::app()->user->addMsg(WebUser::INFO, 'record saved successfully!');
                 }
             }
         }
@@ -182,7 +182,7 @@ class AdminEditRecordController extends AdminController {
 
                 if ($youtubeModel->save()) {
                     $createYoutubeFormModel = new CreateYoutubeForm();
-                    Yii::app()->user->addMsg(WebUser::SUCCESS, 'youtube sample saved successfully!');
+                    Yii::app()->user->addMsg(WebUser::INFO, 'youtube sample saved successfully!');
                 }
             }
         }
@@ -239,7 +239,7 @@ class AdminEditRecordController extends AdminController {
 
                     //updateSignaturesIfRequired is not possible, because we would have to check ALL records of this belonging concert and not only this one
                     Yii::app()->signatureManager->updateSignatures();
-                    Yii::app()->user->addMsg(WebUser::SUCCESS, 'concert edit successfully');
+                    Yii::app()->user->addMsg(WebUser::INFO, 'concert edit successfully');
                 } else {
                     Yii::app()->user->addMsg(WebUser::ERROR, 'concert edit error');
                 }

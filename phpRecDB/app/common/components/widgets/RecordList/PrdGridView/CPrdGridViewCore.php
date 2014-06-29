@@ -12,6 +12,7 @@ class CPrdSort extends CSort {
         }
         return $orderBy;
     }
+
 }
 
 abstract class CAbstractPrdGridView extends CGridView {
@@ -132,6 +133,21 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         parent::init();
     }
 
+    public function run() {
+        $contentStr = $this->dataProvider->getSort()->getOrderBy();
+        foreach ($this->dataProvider->data as $row) {
+            foreach ($row as $col) {
+                $contentStr.=$col;
+            }
+        }
+        $contentHash = hash("md5", $contentStr);
+
+        if ($this->beginCache($contentHash)) {
+            parent::run();
+            $this->endCache();
+        }
+    }
+
     /**
      * checks if the record in the row before belongs to the same concert
      * 
@@ -142,9 +158,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         $data = $this->dataProvider->data;
         if (isset($data[$row]["id"]) && isset($data[$row]['VideoType'])) {
             if (isset($data[$row - 1]["id"]) && isset($data[$row - 1]["VideoType"])) {
-                return $data[$row]["id"] == $data[$row - 1]["id"]
-                        && $data[$row]["VideoType"] == $data[$row - 1]["VideoType"]
-                        && ($this->orderBy != 'Date (created)' || substr($data[$row]["created"], 0, 10) == substr($data[$row - 1]["created"], 0, 10));
+                return $data[$row]["id"] == $data[$row - 1]["id"] && $data[$row]["VideoType"] == $data[$row - 1]["VideoType"] && ($this->orderBy != 'Date (created)' || substr($data[$row]["created"], 0, 10) == substr($data[$row - 1]["created"], 0, 10));
             }
         }
         return false;
@@ -161,10 +175,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         $data = $this->dataProvider->data;
         if (isset($data[$row]["id"]) && isset($data[$row]['VideoType'])) {
 
-            while (isset($data[$row + $successors + 1]["id"]) && isset($data[$row + $successors + 1]["VideoType"])
-            && $data[$row + $successors + 1]["id"] == $data[$row]["id"]
-            && $data[$row + $successors + 1]["VideoType"] == $data[$row]["VideoType"]
-            && ($this->orderBy != 'Date (created)' || substr($data[$row + $successors + 1]["created"], 0, 10) == substr($data[$row]["created"], 0, 10)))
+            while (isset($data[$row + $successors + 1]["id"]) && isset($data[$row + $successors + 1]["VideoType"]) && $data[$row + $successors + 1]["id"] == $data[$row]["id"] && $data[$row + $successors + 1]["VideoType"] == $data[$row]["VideoType"] && ($this->orderBy != 'Date (created)' || substr($data[$row + $successors + 1]["created"], 0, 10) == substr($data[$row]["created"], 0, 10)))
                 $successors++;
         }
         return $successors;
@@ -211,7 +222,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
             foreach ($this->columns as $column) {
                 if ($this->isOrderedColumn($column)) {
                     echo "<tr>";
-                    $colSpan = $this->colCount - 1 /*- 2*/; //- 2 = info link col and tradestatus col
+                    $colSpan = $this->colCount - 1 /* - 2 */; //- 2 = info link col and tradestatus col
                     echo '<th colspan="' . $colSpan . '" >';
                     echo $column->renderHeaderCellContent();
                     echo "</th>";
@@ -223,7 +234,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
 
 
         echo "<tr>\n";
-        for ($i = 0; $i < $this->colCount /*- 2*/; $i++) { //- 2 = info link col and tradestatus col
+        for ($i = 0; $i < $this->colCount /* - 2 */; $i++) { //- 2 = info link col and tradestatus col
             if (!($this->orderBy == $this->mainColumn && $this->isOrderedColumn($this->columns[$i]))) {
                 $this->columns[$i]->renderHeaderCell();
             }
@@ -319,7 +330,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
             echo '<td colspan="' . ($this->colCount - 1) . '" ><div class="videoaudio">' . VA::vaIdToStr($curVaType) . '</div></td>';
             echo "</tr>";
 
-            $this->ancestorVAType= $curVaType;
+            $this->ancestorVAType = $curVaType;
 
             $this->ancestorYear = -1;
         }

@@ -7,7 +7,7 @@ class RecordManager extends CApplicationComponent {
         $concert->fillDataFromConcertFormModel($addRecordFormModel);
 
         if ($concert->save()) {
-             Yii::app()->user->addMsg(WebUser::SUCCESS, "concert added successfully");
+             Yii::app()->user->addMsg(WebUser::INFO, "concert added successfully");
             return $concert;
         } else {
             Yii::app()->user->addMsg(WebUser::ERROR, "concert adding error");
@@ -39,10 +39,10 @@ class RecordManager extends CApplicationComponent {
             $saveResult = $saveResult && $newVaModel->save();
         }
         if ($saveResult) {
-            Yii::app()->user->addMsg(WebUser::SUCCESS, "record added successfully");
+            Yii::app()->user->addMsg(WebUser::INFO, "record added successfully");
             return $recordModel->id;
         } else {
-            Yii::app()->user->addMsg(WebUser::ERROR, "record adding faile");
+            Yii::app()->user->addMsg(WebUser::ERROR, "record adding failed");
             return NULL;
         }
     }

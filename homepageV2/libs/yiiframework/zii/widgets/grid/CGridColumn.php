@@ -134,21 +134,22 @@ abstract class CGridColumn extends CComponent
 	 */
 	public function renderDataCell($row)
 	{
-		$data=$this->grid->dataProvider->data[$row];
-		$options=$this->htmlOptions;
-		if($this->cssClassExpression!==null)
-		{
-			$class=$this->evaluateExpression($this->cssClassExpression,array('row'=>$row,'data'=>$data));
-			if(!empty($class))
-			{
-				if(isset($options['class']))
-					$options['class'].=' '.$class;
-				else
-					$options['class']=$class;
-			}
-		}
-		echo CHtml::openTag('td',$options);
-		$this->renderDataCellContent($row,$data);
+//		$data=$this->grid->dataProvider->data[$row];
+//		$options=$this->htmlOptions;
+//		if($this->cssClassExpression!==null)
+//		{
+//			$class=$this->evaluateExpression($this->cssClassExpression,array('row'=>$row,'data'=>$data));
+//			if(!empty($class))
+//			{
+//				if(isset($options['class']))
+//					$options['class'].=' '.$class;
+//				else
+//					$options['class']=$class;
+//			}
+//		}
+//		echo CHtml::openTag('td',$options);
+            echo '<td>';
+		//$this->renderDataCellContent($row,$data);
 		echo '</td>';
 	}
 

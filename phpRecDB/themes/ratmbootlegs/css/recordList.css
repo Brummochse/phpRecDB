@@ -15,21 +15,21 @@
 
 }
 
-.grid-view .colLength {
+.grid-view .cLength {
      white-space:nowrap;
 }
 
-.grid-view .colDate
+.grid-view .cDate
 {
 	font-weight: bold;
 }
 
-.grid-view .colLocation
+.grid-view .cLocation
 {
 	
 }
 
-.grid-view .colArtist
+.grid-view .cArtist
 {
 	font-weight: bold;
 }
@@ -61,14 +61,14 @@ li.page, li.next, li.previous {margin:0}
     margin-right: 10px;
 }
 
-.grid-view tbody .colTradeStatus
+.grid-view tbody .cTradeStatus
 {
     background:none !important;
     color: #FF0000;
     font-weight:bold;
 }
 
-.grid-view tbody .colButtons
+.grid-view tbody .cButtons
 {
     background: none !important ;
 }

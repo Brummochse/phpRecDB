@@ -7,9 +7,9 @@ return array(
     'defaultController' => 'site',
     'basePath' => $appPath . '/frontend',
     'components' => array(
-        'request' => array(
+        //'request' => array(
         //'baseUrl' => getRelativePathTo($appDir),
-        ),
+        //),
         'listDataConfigurator' => array('class' => 'ListDataConfigurator'),
     ),
     'import' => array(
