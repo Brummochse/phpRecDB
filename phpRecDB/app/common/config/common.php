@@ -13,7 +13,7 @@ return array(
     'language'=>'en_us',
     'sourceLanguage'=>'en_us',
     'charset'=>'utf-8',
-        'runtimePath'=>$phpRecDbPath . '/misc/runtime/',
+    'runtimePath'=>$phpRecDbPath . '/misc/runtime/',
     'components' => array(
         'settingsManager' => array('class' => 'SettingsManager'),
         'assetManager' => array(
@@ -25,7 +25,7 @@ return array(
             'baseUrl' =>  $phpRecDbUrl .(empty($phpRecDbUrl)?'':'/') . 'themes',
         ),
         'cache' => array(
-            'class' => 'CFileCache'
+            'class' => 'CMaxSizeFileCache','maxSize'=>50 * 1024 * 1024,
         ),
 //        'request' => array(
 //            'baseUrl' =>  $phpRecDbUrl,
@@ -40,8 +40,6 @@ return array(
         'common.components.widgets.RecordList.*',
         'common.components.widgets.RecordList.PrdGridView.*',
         'common.components.widgets.RecordList.ListDataConfigs.*',
-
-        
     ),
     'params' => require(dirname(__FILE__) . '/params.php'),
 );
