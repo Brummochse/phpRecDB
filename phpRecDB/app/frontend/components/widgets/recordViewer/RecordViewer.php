@@ -194,8 +194,8 @@ class RecordViewer extends CWidget {
             }
 
             //
-            $recordInfo[RI::USERDEFINED1LABEL] = Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED1_LABEL);
-            $recordInfo[RI::USERDEFINED2LABEL] = Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED2_LABEL);
+            $recordInfo[RI::USERDEFINED1LABEL] = Yii::app()->settingsManager->getPropertyValue(Settings::USER_DEFINED1_LABEL);
+            $recordInfo[RI::USERDEFINED2LABEL] = Yii::app()->settingsManager->getPropertyValue(Settings::USER_DEFINED2_LABEL);
             
             //
             $this->render('record', array(

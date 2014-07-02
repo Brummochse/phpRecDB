@@ -14,14 +14,10 @@ $this->beginWidget('bootstrap.widgets.TbModal',
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'inlineForm',
         'type' => 'horizontal',
-        'htmlOptions' => array('class' => 'well'),
-        
-            ));
+        'htmlOptions' => array('class' => 'well')));
   
-            echo $form->toggleButtonRow($model, 'collapsed');
-            $form->checkBoxRow($model,'collapsed');
-
-    ?>
+    echo $form->toggleButtonRow($model, 'collapsed');  ?>
+        
     <div class="form-actions">
         <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => 'OK')); ?>
     </div>

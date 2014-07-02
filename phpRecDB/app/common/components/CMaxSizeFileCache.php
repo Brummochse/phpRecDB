@@ -12,7 +12,7 @@ class CMaxSizeFileCache extends CFileCache {
     }
 
     private function gcFileSize() {
-        $cachedFiles = $this->getCacheFiles();
+        $cachedFiles = $this->getCachedFiles();
         $size = $this->calcSize($cachedFiles);
 
         $sizeToRemove = $size - $this->maxSize;
@@ -48,9 +48,11 @@ class CMaxSizeFileCache extends CFileCache {
         return $size;
     }
 
-    private function getCacheFiles() {
-
-        $files = array();
+    /**
+     * @return array(array(path, file zize,  last access date))
+     */
+    private function getCachedFiles() {
+        $cachedFiles = array();
 
         $path = $this->cachePath;
         if (($handle = opendir($path)) === false)
@@ -60,13 +62,13 @@ class CMaxSizeFileCache extends CFileCache {
                 continue;
             $fullPath = $path . DIRECTORY_SEPARATOR . $file;
 
-            $lastAccess = date("F d Y H:i:s.", fileatime($fullPath));
+            $lastAccess = fileatime($fullPath);
             $fileSize = filesize($fullPath);
-            $files[] = array($fullPath, $fileSize, $lastAccess);
+            $cachedFiles[] = array($fullPath, $fileSize, $lastAccess);
         }
         closedir($handle);
 
-        return $files;
+        return $cachedFiles;
     }
 
     protected function setValue($key, $value, $expire) {

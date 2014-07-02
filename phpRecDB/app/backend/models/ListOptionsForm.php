@@ -4,7 +4,6 @@ class ListOptionsForm extends SettingsDbModel {
 
     public $collapsed = false;
     
-    private $dbSettingsPrefix="listOptions_collapsed_";
     public $listId; //name of list, saved to the settings
     
     public function __construct($listId) {
@@ -14,7 +13,7 @@ class ListOptionsForm extends SettingsDbModel {
 
     protected function givePropertiesDbMap() {
         return array(
-            'collapsed' => $this->dbSettingsPrefix . $this->listId,
+            'collapsed' => Settings::LIST_COLLAPSED_PREFIX . $this->listId,
         );
     }
 

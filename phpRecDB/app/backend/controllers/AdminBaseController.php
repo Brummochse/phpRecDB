@@ -74,7 +74,6 @@ class AdminBaseController extends AdminController {
     public function actionAddRecord() {
         $addRecordFormModel = new AddRecordForm;
         if (isset($_POST['AddRecordForm'])) {
-            //$addRecordFormModel->attributes = $_POST['AddRecordForm'];
             $addRecordFormModel->setAttributes($_POST['AddRecordForm']);
 
             if ($addRecordFormModel->validate()) {
@@ -167,10 +166,10 @@ class AdminBaseController extends AdminController {
     }
 
     public function actionTheme() {
-        $model = new ThemeForm();
+        $model = new OneValueSettingsForm(Settings::THEME_NAME,'default','theme');
 
-        if (isset($_POST['ThemeForm'])) {
-            $model->attributes = $_POST['ThemeForm'];
+        if (isset($_POST['OneValueSettingsForm'])) {
+            $model->attributes = $_POST['OneValueSettingsForm'];
 
             if ($model->validate()) {
                 $model->saveToSettingsDb();
@@ -234,22 +233,38 @@ class AdminBaseController extends AdminController {
         );
     }
 
-    public function actionScreenshotCompression() {
-        $model = new ScreenshotCompressionForm();
+     public function actionScreenshotCompression() {
+        $model = new OneValueSettingsForm(Settings::SCREENSHOT_COMPRESSION,true,'Enable Compression');
 
-        if (isset($_POST['ScreenshotCompressionForm'])) {
-            $model->attributes = $_POST['ScreenshotCompressionForm'];
+        if (isset($_POST['OneValueSettingsForm'])) {
+            $model->attributes = $_POST['OneValueSettingsForm'];
 
             if ($model->validate()) {
                 $model->saveToSettingsDb();
             }
         }
-
         $this->render('screenshotCompression', array(
             'model' => $model)
         );
     }
 
+    public function actionListCaching() {
+        $model = new OneValueSettingsForm(Settings::LIST_CACHING,false,'Enable List Caching');
+        
+        if (isset($_POST['OneValueSettingsForm'])) {
+            $model->attributes = $_POST['OneValueSettingsForm'];
+
+            if ($model->validate()) {
+                $model->saveToSettingsDb();
+            }
+        }
+        
+        
+        $this->render('listCaching', array(
+            'model' => $model)
+        );
+    }
+    
     public function actionClearUserStatistics() {
         Uservisit::model()->deleteAll();
         $this->redirect(array('visitorStatistics'));
@@ -327,24 +342,21 @@ class AdminBaseController extends AdminController {
      * @param type $isFrontendConfig if this is true, no backend-cols get displayed
      */
     private function processColConfigurator($isFrontendConfig) {
-
         if ($isFrontendConfig) {
-            $dbSettingsName = ColumnStock::SETTINGS_DB_NAME_FRONTEND;
+            $dbSettingsName = Settings::LIST_COLS_FRONTEND;
             $defaults = ColumnStock::SETTINGS_DEFAULT_FRONTEND;
             $title = "Frontend";
         } else { //=backend
-            $dbSettingsName = ColumnStock::SETTINGS_DB_NAME_BACKEND;
+            $dbSettingsName = Settings::LIST_COLS_BACKEND;
             $defaults = ColumnStock::SETTINGS_DEFAULT_BACKEND;
             $title = "Administration Panel";
         }
-
         if (isset($_POST[ParamHelper::PARAM_SELECTED_COLS])) {
             Yii::app()->settingsManager->setPropertyValue($dbSettingsName, $_POST[ParamHelper::PARAM_SELECTED_COLS]);
             
             //empty cache, because some changes of the cols are not recognized by the list-content hash algorithm
             Yii::app()->cache->flush();
         }
-
         $selectedColsStr = Yii::app()->settingsManager->getPropertyValue($dbSettingsName);
         $selectedCols = explode(',', $selectedColsStr);
         $allCols = Cols::getAllColNames();
@@ -352,10 +364,8 @@ class AdminBaseController extends AdminController {
         if ($isFrontendConfig) {
             $allCols = array_diff($allCols, Cols::$BACKEND_ONLY_COLS);
         }
-
         $selectedCols = Helper::parallelArray(array_intersect($selectedCols, $allCols)); //ensure that all selected cols really exist (for the case that the string contains a wrong colname)
         $availableCols = Helper::parallelArray(array_diff($allCols, $selectedCols)); //means id and content is the same in the html list
-
 
         $selectedCols = $this->highlightColListEntry($selectedCols, Cols::$REQUIRED_COLS, '#88FF88');
         //
@@ -377,7 +387,6 @@ class AdminBaseController extends AdminController {
         if (isset($_POST['WatermarkForm'])) {
             $model->attributes = $_POST['WatermarkForm'];
         }
-
         $watermarkScreenshotUrl = '';
         $watermarkthumbnailUrl = '';
 
@@ -395,7 +404,6 @@ class AdminBaseController extends AdminController {
                 $watermarkScreenshotUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . $destFileName);
 
                 if ($model->watermarkThumbnail) {
-
                     $path_parts = pathinfo(Yii::app()->params['watermarkTestThumbnail']);
                     $destFileInfo->fileNameBase = $path_parts['basename'];
                     $destFileInfo->fileExtension = $path_parts['extension'];
@@ -405,7 +413,6 @@ class AdminBaseController extends AdminController {
             }
             $model->saveToSettingsDb();
         }
-
         $this->render('watermark', array(
             'model' => $model, 'watermarkScreenshotUrl' => $watermarkScreenshotUrl, 'watermarkthumbnailUrl' => $watermarkthumbnailUrl
         ));

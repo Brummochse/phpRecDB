@@ -224,7 +224,7 @@ class ColUserDefined1 extends ConfigColumn {
 
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
-                'header' => Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED1_LABEL),
+                'header' => Yii::app()->settingsManager->getPropertyValue(Settings::USER_DEFINED1_LABEL),
                 'name'=>Cols::USERDEFINED1
         ));
     }
@@ -238,7 +238,7 @@ class ColUserDefined2 extends ConfigColumn {
 
     public function getColDefinitions($dataProvider, $isAdmin) {
         return array(array(
-                'header' => Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED2_LABEL),
+                'header' => Yii::app()->settingsManager->getPropertyValue(Settings::USER_DEFINED2_LABEL),
                 'name'=>Cols::USERDEFINED2
         ));
     }
@@ -281,10 +281,9 @@ class Cols {
     }
 
     //cols only available in admin panel
-    public static $BACKEND_ONLY_COLS = array(Cols::CHECKBOX, Cols::VISIBLE);
+    public static $BACKEND_ONLY_COLS = array(Cols::CHECKBOX, Cols::VISIBLE, Cols::VISITCOUNTER);
     //cols must exist in query, not allowed to remove
     public static $REQUIRED_COLS = array(Cols::ARTIST, Cols::DATE);
-
 }
 
 class ColumnStock {
@@ -303,17 +302,15 @@ class ColumnStock {
         "audio" => "recordings_id IS NOT NULL As AudioType",
     );
 
-    const SETTINGS_DB_NAME_FRONTEND = 'listOptions_selectedColumnsFrontend';
-    const SETTINGS_DB_NAME_BACKEND = 'listOptions_selectedColumnsBackend';
     const SETTINGS_DEFAULT_FRONTEND = 'Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
     const SETTINGS_DEFAULT_BACKEND = 'CheckBox,Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
 
     public function __construct($isAdmin = false) {
 
         if ($isAdmin) { //means backend col settings get loaded
-            $dbColSettingsName = ColumnStock::SETTINGS_DB_NAME_BACKEND;
+            $dbColSettingsName = Settings::LIST_COLS_BACKEND;
         } else { //frontend cols
-            $dbColSettingsName = ColumnStock::SETTINGS_DB_NAME_FRONTEND;
+            $dbColSettingsName = Settings::LIST_COLS_FRONTEND;
         }
 
         $colsString = Yii::app()->settingsManager->getPropertyValue($dbColSettingsName);

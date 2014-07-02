@@ -1,22 +1,20 @@
 <?php
 $this->beginWidget('bootstrap.widgets.TbBox', array(
-    'title' => 'Choose Frontend Theme',
+    'title' => 'List Caching',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
+     'headerButtons' => array(
+         Yii::app()->helpCreator->renderModalAndGetHelpBtn($this,'listCaching')
+    )
 ));
-?>
-
-    <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'inlineForm',
         'type' => 'horizontal',
         'htmlOptions' => array('class' => 'well'),
             ));
+    
+    echo $form->toggleButtonRow($model, 'value',array('hint'=>'<strong>Maximum Cache Size: </strong>'.(Yii::app()->cache->maxSize/1024./1024.)." MB"));
     ?>
-    <fieldset>
 
-        <?php echo $form->dropDownListRow($model, 'value', Helper::parallelArray(Yii::app()->themeManager->themeNames)); ?>
-
-    </fieldset>
 
     <div class="form-actions">
         <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => 'Save')); ?>
@@ -24,5 +22,3 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
 
     <?php $this->endWidget(); ?>
 <?php $this->endWidget();?>
-
-
