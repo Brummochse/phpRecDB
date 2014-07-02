@@ -7,8 +7,8 @@ class UserdefinedForm extends SettingsDbModel {
 
     protected function givePropertiesDbMap() {
         return array(
-            'userDefined1Label' => Record::SETTINGS_USER_DEFINED1_LABEL,
-            'userDefined2Label' => Record::SETTINGS_USER_DEFINED2_LABEL,
+            'userDefined1Label' => Settings::USER_DEFINED1_LABEL,
+            'userDefined2Label' => Settings::USER_DEFINED2_LABEL,
         );
     }
 
@@ -17,7 +17,5 @@ class UserdefinedForm extends SettingsDbModel {
             array('userDefined1Label, userDefined2Label', 'required'),
         );
     }
-
 }
-
 ?>

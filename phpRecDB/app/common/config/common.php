@@ -25,7 +25,8 @@ return array(
             'baseUrl' =>  $phpRecDbUrl .(empty($phpRecDbUrl)?'':'/') . 'themes',
         ),
         'cache' => array(
-            'class' => 'CMaxSizeFileCache','maxSize'=>50 * 1024 * 1024,
+            'class' => 'CMaxSizeFileCache',
+            'maxSize'=>50 * 1024 * 1024, //=50 * 1024 * 1024 = 50 MegaBytes
         ),
 //        'request' => array(
 //            'baseUrl' =>  $phpRecDbUrl,

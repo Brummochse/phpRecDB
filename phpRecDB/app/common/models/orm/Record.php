@@ -41,9 +41,6 @@
  * @property Youtubesamples[] $youtubesamples
  */
 class Record extends CActiveRecord {
-
-    const SETTINGS_USER_DEFINED1_LABEL = 'record_userDefined1Label';
-    const SETTINGS_USER_DEFINED2_LABEL = 'record_userDefined2Label';
     
     /**
      * Returns the static model of the specified AR class.
@@ -109,8 +106,8 @@ class Record extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'hiddennotes'=>'Hidden Notes',
-            'userdefined1'=>Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED1_LABEL),
-            'userdefined2'=>Yii::app()->settingsManager->getPropertyValue(Record::SETTINGS_USER_DEFINED2_LABEL),
+            'userdefined1'=>Yii::app()->settingsManager->getPropertyValue(Settings::USER_DEFINED1_LABEL),
+            'userdefined2'=>Yii::app()->settingsManager->getPropertyValue(Settings::USER_DEFINED2_LABEL),
             'id' => 'ID',
             'concerts_id' => 'Concerts',
             'visible' => 'Visible',

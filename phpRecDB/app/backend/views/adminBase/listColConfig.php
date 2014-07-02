@@ -50,20 +50,20 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
         </tr>
         <tr>
             <td>
-<?php
-$this->widget('zii.widgets.jui.CJuiSortable', array(
-    'id' => 'listLeft',
-    'items' => $colsSelected,
-    'htmlOptions' => array(
-        'class' => 'connectedSortable',
-    ),
-    'options' => array(
-        'update' => "js:function(event,ui){
-                            return isMovingAllowed(event,ui);
-                         }",
-    ),
-));
-?>
+                <?php
+                $this->widget('zii.widgets.jui.CJuiSortable', array(
+                    'id' => 'listLeft',
+                    'items' => $colsSelected,
+                    'htmlOptions' => array(
+                        'class' => 'connectedSortable',
+                    ),
+                    'options' => array(
+                        'update' => "js:function(event,ui){
+                                            return isMovingAllowed(event,ui);
+                                         }",
+                    ),
+                ));
+                ?>
             </td>
             <td>
                 <?php

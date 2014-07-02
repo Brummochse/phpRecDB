@@ -12,8 +12,8 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
         $this->addColumn('recordings', 'userdefined2', 'string');
 
         // set default settings for user defined cols
-        Yii::app()->settingsManager->setPropertyValue(Record::SETTINGS_USER_DEFINED1_LABEL, "User Defined 1");
-        Yii::app()->settingsManager->setPropertyValue(Record::SETTINGS_USER_DEFINED2_LABEL, "User Defined 2");
+        Yii::app()->settingsManager->setPropertyValue(Settings::USER_DEFINED1_LABEL, "User Defined 1");
+        Yii::app()->settingsManager->setPropertyValue(Settings::USER_DEFINED2_LABEL, "User Defined 2");
 
         
         //add database infrastructure to save fontsize for signatures
@@ -25,8 +25,8 @@ class m131009_000000_phprecdb_1_1 extends CDbMigration {
         }
 
         // set default settings for configurable list cols
-        Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME_FRONTEND, ColumnStock::SETTINGS_DEFAULT_FRONTEND);
-        Yii::app()->settingsManager->setPropertyValue(ColumnStock::SETTINGS_DB_NAME_BACKEND, ColumnStock::SETTINGS_DEFAULT_BACKEND);
+        Yii::app()->settingsManager->setPropertyValue(Settings::LIST_COLS_FRONTEND, ColumnStock::SETTINGS_DEFAULT_FRONTEND);
+        Yii::app()->settingsManager->setPropertyValue(Settings::LIST_COLS_BACKEND, ColumnStock::SETTINGS_DEFAULT_BACKEND);
 
         //create new table for saving ip adresses for record detail visits
         $this->createTable('uservisit', array(

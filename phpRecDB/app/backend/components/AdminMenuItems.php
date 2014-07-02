@@ -43,8 +43,14 @@ class AdminMenuItems {
             ),
             array('label' => 'Configuration',
                 'items' => array(
-                    array('label' => 'Sublist Management', 'url' => array('/sublist/admin')),
+                    array('label' => 'User Management', 'visible' => !Yii::app()->user->isDemo(),
+                        'items' => array(
+                            array('label' => 'Users', 'url' => array('/user/admin'), 'visible' => Yii::app()->user->isAdmin()),
+                            array('label' => 'My Profile', 'url' => array('/user/profile')),
+                        )
+                    ),                    
                     array('label' => 'Theme', 'url' => array('/adminBase/theme')),
+                    array('label' => 'Sublist Management', 'url' => array('/sublist/admin')),
                     array('label' => 'Signature Management', 'url' => array('/signature/admin')),
                     array('label' => 'Screenshots',
                         'items' => array(
@@ -52,7 +58,7 @@ class AdminMenuItems {
                             array('label' => 'Compression', 'url' => array('/adminBase/screenshotCompression')),
                         )
                     ),
-                    array('label' => 'List Presets',
+                    array('label' => 'Presets',
                         'items' => array(
                             array('label' => 'Aspect Ratio', 'url' => array('/aspectratio/admin')),
                             array('label' => 'Medium', 'url' => array('/medium/admin')),
@@ -63,15 +69,10 @@ class AdminMenuItems {
                             array('label' => 'User Defined Record Fields', 'url' => array('/adminBase/userdefined')),
                         ),
                     ),
-                    array('label' => 'User Management', 'visible' => !Yii::app()->user->isDemo(),
-                        'items' => array(
-                            array('label' => 'Users', 'url' => array('/user/admin'), 'visible' => Yii::app()->user->isAdmin()),
-                            array('label' => 'My Profile', 'url' => array('/user/profile')),
-                        )
-                    ),
-                    array('label' => 'List Columns', 'items' => array(
-                            array('label' => 'Frontend', 'url' => array('/adminBase/listColConfigFrontend')),
-                            array('label' => 'Admininistration Panel', 'url' => array('/adminBase/listColConfigBackend')),
+                    array('label' => 'List', 'items' => array(
+                            array('label' => 'Columns Frontend', 'url' => array('/adminBase/listColConfigFrontend')),
+                            array('label' => 'Columns Admininistration Panel', 'url' => array('/adminBase/listColConfigBackend')),
+                            array('label' => 'Caching', 'url' => array('/adminBase/listCaching'), 'visible' => Yii::app()->user->isAdmin()),
                         )
                     ),
                     array('label' => 'Backup', 'url' => array('/backup/index'), 'visible' => Yii::app()->user->isAdmin()),                    

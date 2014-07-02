@@ -134,17 +134,21 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
     }
 
     public function run() {
-        $contentStr = $this->dataProvider->getSort()->getOrderBy();
-        foreach ($this->dataProvider->data as $row) {
-            foreach ($row as $col) {
-                $contentStr.=$col;
+        if (Yii::app()->settingsManager->getPropertyValue(Settings::LIST_CACHING) == true) {
+            $contentStr = $this->dataProvider->getSort()->getOrderBy();
+            foreach ($this->dataProvider->data as $row) {
+                foreach ($row as $col) {
+                    $contentStr.=$col;
+                }
             }
-        }
-        $contentHash = hash("md5", $contentStr);
+            $contentHash = hash("md5", $contentStr);
 
-        if ($this->beginCache($contentHash)) {
-            parent::run();
-            $this->endCache();
+            if ($this->beginCache($contentHash)) {
+                parent::run();
+                $this->endCache();
+            }
+        } else {
+           parent::run(); 
         }
     }
 

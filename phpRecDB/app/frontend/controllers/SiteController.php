@@ -75,8 +75,7 @@ class SiteController extends CController implements PrdServiceProvider {
         //check if theme is loaded via config file
         if (!isset(Yii::app()->theme)) {
             //load theme from db
-            $themeModel = new ThemeForm();
-            Yii::app()->theme = $themeModel->theme;
+            Yii::app()->theme = Yii::app()->settingsManager->getPropertyValue(Settings::THEME_NAME);
         }
         //fallback if selected theme is not available
         if (!isset(Yii::app()->theme)) {
