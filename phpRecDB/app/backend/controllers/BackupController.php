@@ -130,7 +130,7 @@ class BackupController extends AdminController {
             $mySqlMaxSize = $this->getMysqlMaxAllowedPacket();
 
             if ($backupSize > $mySqlMaxSize) {
-                Yii::app()->user->addMsg(WebUser::ERROR, 'the selected backup file (' . $backupSize . ' Bytes) is bigger than the maximum allowed query size (' . $mySqlMaxSize . ' Bytes). Change your MxSQL max_allowed_packet settings to restore this backup: <a href="http://dev.mysql.com/doc/refman/5.1/en/packet-too-large.html">link</a>');
+                Yii::app()->user->addMsg(WebUser::ERROR, 'the selected backup file (' . $backupSize . ' Bytes) is bigger than the maximum allowed query size (' . $mySqlMaxSize . ' Bytes). Change your MySQL max_allowed_packet settings to restore this backup: <a href="http://dev.mysql.com/doc/refman/5.1/en/packet-too-large.html">link</a>');
             } else {
 
 

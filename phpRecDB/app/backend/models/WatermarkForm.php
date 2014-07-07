@@ -18,16 +18,16 @@ class WatermarkForm extends SettingsDbModel {
     
     protected function givePropertiesDbMap() {
         return array(
-            'enable' => 'watermark_textEnabled',
-            'text' => 'watermark_text',
-            'fontSize' => 'watermark_fontSize',
-            'border' => 'watermark_textBorder',
-            'align' => 'watermark_align',
-            'valign' => 'watermark_valign',
-            'fontStyle' => 'watermark_fontStyle',
-            'color' => 'watermark_color',
-            'watermarkThumbnail' => 'watermark_thumbnail',
-            'resizeOnThumbnail' => 'watermark_resizeThumbnail',
+            'enable' => Settings::WATERMARK_ENABLED,
+            'text' => Settings::WATERMARK_TEXT,
+            'fontSize' => Settings::WATERMARK_FONTSIZE,
+            'border' => Settings::WATERMARK_BORDER,
+            'align' => Settings::WATERMARK_ALIGN,
+            'valign' => Settings::WATERMARK_VALIGN,
+            'fontStyle' => Settings::WATERMARK_FONTSTYLE,
+            'color' => Settings::WATERMARK_COLOR,
+            'watermarkThumbnail' => Settings::WATERMARK_THUMBNAIL,
+            'resizeOnThumbnail' => Settings::WATERMARK_THUMBNAIL_RESIZE,
         );
     }
 

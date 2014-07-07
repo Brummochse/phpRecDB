@@ -26,7 +26,8 @@ class CPrdDataColumn extends CDataColumn {
 //                else
 //                    $options['class'] = $class;
 //            }
-            $options['rowspan'] = $rowSpan + 1;
+            $options['rowspan'] = $rowSpan + 1;     
+            
             echo CHtml::openTag('td', $options);
             $this->renderDataCellContent($row, $data);
             echo CHtml::closeTag('td');
