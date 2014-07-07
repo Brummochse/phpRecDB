@@ -12,7 +12,6 @@ class CPrdSort extends CSort {
         }
         return $orderBy;
     }
-
 }
 
 abstract class CAbstractPrdGridView extends CGridView {
@@ -111,6 +110,8 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
     private $artistId = -1;
 
     public function init() {
+        $this->nullDisplay=""; //defaul is &nbsp, but this takes lot of memory on big lists
+        
         $sorti = new CPrdSort();
         $sorti->attributes = $this->dataProvider->sort->attributes;
         $sorti->defaultOrder = $this->dataProvider->sort->defaultOrder;
@@ -150,6 +151,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         } else {
            parent::run(); 
         }
+  
     }
 
     /**

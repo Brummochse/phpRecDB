@@ -26,7 +26,7 @@ return array(
         ),
         'cache' => array(
             'class' => 'CMaxSizeFileCache',
-            'maxSize'=>50 * 1024 * 1024, //=50 * 1024 * 1024 = 50 MegaBytes
+            'maxSize'=>25 * 1024 * 1024, //=25 * 1024 * 1024 = 50 MegaBytes
         ),
 //        'request' => array(
 //            'baseUrl' =>  $phpRecDbUrl,
