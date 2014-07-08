@@ -90,14 +90,12 @@ class RecordsListFetcher {
 
         //
         $dbC = Yii::app()->db->createCommand();
-        $dbC->distinct = true;
-        $dbC->select('artists.name,artists.id');
+        $dbC->select('artists.name,artists.id,count(*) as recordCount');
         $dbC->from($queryParts[QueryBuilder::FROM_]);
         $dbC->join = $queryParts[QueryBuilder::JOIN];
         $dbC->where($this->createWhereClause($this->config->getArtistMenuFilters()));
+        $dbC->group('artists.name,artists.id');
         $dbC->order('artists.name');
-
-
         //
         $result = $dbC->queryAll();
         return $result;
@@ -133,20 +131,44 @@ class RecordsListFetcher {
             array('label' => 'all artists', 'url' => ParamHelper::createArtistListUrl(-1))
         );
 
+        //creating labels and urls for all artists
+        $artistLinkList=array();
         foreach ($artistData as $artistRow) {
             $artistId = $artistRow['id'];
+            $recordCount = $artistRow['recordCount'];
             $artistName = $artistRow['name'];
 
             $orderChar = $this->evalOrderChar($artistName);
-            if (!array_key_exists($orderChar, $items)) {
-                $items[$orderChar] = array('label' => $orderChar, 'items' => array());
+            if (!array_key_exists($orderChar, $artistLinkList)) {
+                $artistLinkList[$orderChar]=array();
             }
-            $items[$orderChar]['items'][] = array('label' => $artistName, 'url' => ParamHelper::createArtistListUrl($artistId));
+            $artistLinkList[$orderChar][] = array('label' => $artistName.' ['.$recordCount.']', 'url' => ParamHelper::createArtistListUrl($artistId));
+        }
+        
+        //chunk artist links in submenus when too much artists per character exist
+        $artistMenuChunkSize=Yii::app()->params['artistMenuMaxChunkSize'];
+        foreach ($artistLinkList as $char => $artists) {
+            $items[$char] = array('label' => $char, 'items' => array());
+            
+            if (count($artists)<=$artistMenuChunkSize+1) { 
+                //no submenu needed
+                $items[$char]['items'] = $artists;
+            } else { 
+                //create several submenus for this char
+                $artistCharChunks=array_chunk($artists, $artistMenuChunkSize);
+                $chunkCounter=0;
+                foreach ($artistCharChunks as $artistChunks) {  
+                    $firstArtistCount=($chunkCounter*$artistMenuChunkSize);
+                    $label='> '. $char.' ('.($firstArtistCount+1).' - '.($firstArtistCount+count($artistChunks)).')';
+                    $items[$char]['items'][] = array('label'=>$label,'items'=>$artistChunks);
+                    $chunkCounter++;
+                }
+            }
         }
 
         return $items;
     }
-
+    
 }
 
 ?>
