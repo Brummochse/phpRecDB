@@ -48,11 +48,11 @@ class ScreenshotManager extends CApplicationComponent {
      * returns the filename of the saved image or NULL when some error occured
      */
     public function doSaveImage(ImgSource $source, FileInfo $destFileInfo) {
-        $screenComprModel = new ScreenshotCompressionForm();
+        $screenshotCompressionEnabled = Yii::app()->settingsManager->getPropertyValue(Settings::SCREENSHOT_COMPRESSION);
         $newFileName = "";
         $result = NULL;
 
-        if ($screenComprModel->enable_compression) {
+        if ($screenshotCompressionEnabled) {
 
             if ($source->sourceUploadedFile != NULL) { //2.
                 $source->sourceSimpleImage = new SimpleImage($source->sourceUploadedFile->getTempName());
