@@ -56,7 +56,7 @@
 
 li.page, li.next, li.previous {margin:0}
 
-.grid-view tbody .colButtons
+.grid-view tbody .cButtons
 {
     background:none !important;
 }
