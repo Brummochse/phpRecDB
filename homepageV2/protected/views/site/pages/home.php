@@ -11,4 +11,4 @@ $this->beginWidget('yiiwheels.widgets.box.WhBox', array(
 include dirname(__FILE__) . '/_news.php';
 $this->endWidget();
 ?>
-<?php include dirname(__FILE__) . '/news/2013-08-27.php'; ?>
+
