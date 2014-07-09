@@ -5,14 +5,27 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
 ));
 
-$this->widget('bootstrap.widgets.TbLabel', array( 'label'=>'script version:',)); 
-echo " ".$scriptVersion; 
+    $this->widget('bootstrap.widgets.TbDetailView', array(
+        'data' => $phpRecDbInfo,
+    ));
 ?>
-<br>
-<?php $this->widget('bootstrap.widgets.TbLabel', array('label'=>'Database version:',)); 
-echo " ".$dbVersion;
-?>
-<br><br>
-for updates check <?= CHtml::link("www.phpRecDB.de.vu","http://www.phpRecDB.de.vu"); ?>
 
-<?php $this->endWidget();?>
+for updates check <?= CHtml::link("www.phpRecDB.de.vu", "http://www.phpRecDB.de.vu"); ?>
+
+<?php $this->endWidget(); ?>
+
+<br>
+<?php
+$this->beginWidget('bootstrap.widgets.TbBox', array(
+    'title' => 'Server Information',
+    'headerIcon' => 'icon-info-sign',
+    'htmlOptions' => array('class' => 'bootstrap-box-small'),
+));
+
+    $this->widget('bootstrap.widgets.TbDetailView', array(
+        'data' => $serverInfos,
+        'attributes' => $serverInfoAttributes,
+    ));
+
+$this->endWidget();
+?>

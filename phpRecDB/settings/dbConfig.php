@@ -6,10 +6,9 @@ class DbConfig {
 		"host" => "localhost", //fill in here the hostname of your database server . for example "host" => "localhost",
 		"user" => "root", //fill in here the username for example "user" => "username",
 		"pass" => "", //fill in here the password for example "pass" => "password",
-		"db" => "tripkore"// "ratmbootlegs_rec" //fill in here the database name for example "db" => "database"
+		"db" => "ratmbootlegs_rec"// "ratmbootlegs_rec"//fill in here the database name for example "db" => "database" 
 	);
 
-        
 	public function getHost() { 
 		return $this->_CONFIG["host"];
 	}

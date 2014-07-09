@@ -166,7 +166,7 @@ class AdminBaseController extends AdminController {
     }
 
     public function actionTheme() {
-        $model = new OneValueSettingsForm(Settings::THEME_NAME,'default','theme');
+        $model = new OneValueSettingsForm(Settings::THEME_NAME, 'default', 'theme');
 
         if (isset($_POST['OneValueSettingsForm'])) {
             $model->attributes = $_POST['OneValueSettingsForm'];
@@ -191,17 +191,40 @@ class AdminBaseController extends AdminController {
                 $model->saveToSettingsDb();
             }
         }
-
         $this->render('userdefined', array(
             'model' => $model)
         );
     }
+
+    private function getServerInfo() {
+        $installed='installed';
+        $notInstalled='<div class="alert-danger">not installed</div>';
+        
+        $infos=array();
+        $infos['PHP_Version']=phpversion();
+        $infos['GD']=extension_loaded('gd') ? $installed : $notInstalled;
+        $infos['GD_FreeType']=Helper::isGdFreeTypeInstalled() ? $installed : $notInstalled;
+      
+        $attributes=array ();
+        $attributes[]='PHP_Version';
+        $attributes[]=array('name' => 'GD','type'=>'raw');
+        $attributes[]=array('name' => 'GD_FreeType','type'=>'raw');
+
+        return array('data'=>$infos,'attributes'=>$attributes);
+    }
     
     public function actionIndex() {
-        $dbSchemaVersion = Yii::app()->dbMigrator->evalCurrentDbVersion();
-        $scriptVersion = Yii::app()->params['version'];
-
-        $this->render('home', array('scriptVersion' => $scriptVersion, 'dbVersion' => $dbSchemaVersion));
+        $phpRecDbInfo=array();
+        $phpRecDbInfo['scriptVersion'] = Yii::app()->params['version'];
+        $phpRecDbInfo['databaseVersion'] = Yii::app()->dbMigrator->evalCurrentDbVersion();
+ 
+        $serverInfos=$this->getServerInfo();
+        
+        $this->render('home', array(
+            'phpRecDbInfo' => $phpRecDbInfo, 
+            'serverInfos'=>$serverInfos['data'],
+            'serverInfoAttributes'=>$serverInfos['attributes']
+        ));
     }
 
     public function actionLogout() {
@@ -210,7 +233,6 @@ class AdminBaseController extends AdminController {
     }
 
     public function actionScreenshotStatistics() {
-
         $dirIter = new RecursiveDirectoryIterator(Yii::app()->params['screenshotsPath']);
         $recursiveIterator = new RecursiveIteratorIterator($dirIter, RecursiveIteratorIterator::SELF_FIRST, RecursiveIteratorIterator::CATCH_GET_CHILD);
 
@@ -225,7 +247,6 @@ class AdminBaseController extends AdminController {
                     break;
             }
         }
-
         $sizeInMb = sprintf("%.2f", $size / 1024 / 1024);
 
         $this->render('screenshotStatistics', array(
@@ -233,8 +254,8 @@ class AdminBaseController extends AdminController {
         );
     }
 
-     public function actionScreenshotCompression() {
-        $model = new OneValueSettingsForm(Settings::SCREENSHOT_COMPRESSION,true,'Enable Compression');
+    public function actionScreenshotCompression() {
+        $model = new OneValueSettingsForm(Settings::SCREENSHOT_COMPRESSION, true, 'Enable Compression');
 
         if (isset($_POST['OneValueSettingsForm'])) {
             $model->attributes = $_POST['OneValueSettingsForm'];
@@ -249,8 +270,8 @@ class AdminBaseController extends AdminController {
     }
 
     public function actionListCaching() {
-        $model = new OneValueSettingsForm(Settings::LIST_CACHING,false,'Enable List Caching');
-        
+        $model = new OneValueSettingsForm(Settings::LIST_CACHING, false, 'Enable List Caching');
+
         if (isset($_POST['OneValueSettingsForm'])) {
             $model->attributes = $_POST['OneValueSettingsForm'];
 
@@ -258,13 +279,13 @@ class AdminBaseController extends AdminController {
                 $model->saveToSettingsDb();
             }
         }
-        
-        
+
+
         $this->render('listCaching', array(
             'model' => $model)
         );
     }
-    
+
     public function actionClearUserStatistics() {
         Uservisit::model()->deleteAll();
         $this->redirect(array('visitorStatistics'));
@@ -274,7 +295,7 @@ class AdminBaseController extends AdminController {
         Recordvisit::model()->deleteAll();
         $this->redirect(array('visitorStatistics'));
     }
-    
+
     public function actionVisitorStatisticsDetail() {
         if (($visitorIp = ParamHelper::decodeStringGetParam(Terms::IP)) != NULL) {
             $userVisits = Uservisit::model()->findAllByAttributes(array('ip' => $visitorIp), array('order' => 'date DESC'));
@@ -286,7 +307,7 @@ class AdminBaseController extends AdminController {
                 $id++;
                 if ($userVisit->record_id != NULL) { //record visit
                     $record = Record::model()->findByPk($userVisit->record_id);
-                    if ($record!=NULL) {
+                    if ($record != NULL) {
                         $visitedPageLabel = '<b>' . $record->concert->artist->name . '</b> <i>' . $record->concert . '</i> ' . $record;
                     } else {
                         $visitedPageLabel = 'deleted record';
@@ -353,7 +374,7 @@ class AdminBaseController extends AdminController {
         }
         if (isset($_POST[ParamHelper::PARAM_SELECTED_COLS])) {
             Yii::app()->settingsManager->setPropertyValue($dbSettingsName, $_POST[ParamHelper::PARAM_SELECTED_COLS]);
-            
+
             //empty cache, because some changes of the cols are not recognized by the list-content hash algorithm
             Yii::app()->cache->flush();
         }
@@ -381,41 +402,47 @@ class AdminBaseController extends AdminController {
         );
     }
 
-     public function actionWatermark() {
+    public function actionWatermark() {
         $model = new WatermarkForm();
 
-        if (isset($_POST['WatermarkForm'])) {
-            $model->attributes = $_POST['WatermarkForm'];
-        }
-        $watermarkScreenshotUrl = '';
-        $watermarkthumbnailUrl = '';
+        if (!Helper::isGdFreeTypeInstalled()) {
+            Yii::app()->user->addMsg(WebUser::ERROR, "Watermark feature can't be used on this server. GD library extension FreeType ist not installed.");
+            $model->enable=false;
+            $model->saveToSettingsDb();
+            $this->redirect(array('adminBase/Index'));
+        } else {            
+            if (isset($_POST['WatermarkForm'])) {
+                $model->attributes = $_POST['WatermarkForm'];
+            }
+            $watermarkScreenshotUrl = '';
+            $watermarkthumbnailUrl = '';
 
-        if ($model->validate()) {
+            if ($model->validate()) {
 
-            if ($model->enable) {
+                if ($model->enable) {
 
-                $destFileInfo = new FileInfo();
-                $destFileInfo->dir = Yii::app()->params['miscPath'] . DIRECTORY_SEPARATOR;
+                    $destFileInfo = new FileInfo();
+                    $destFileInfo->dir = Yii::app()->params['miscPath'] . DIRECTORY_SEPARATOR;
 
-                $path_parts = pathinfo(Yii::app()->params['watermarkTestScreenshot']);
-                $destFileInfo->fileNameBase = $path_parts['basename'];
-                $destFileInfo->fileExtension = $path_parts['extension'];
-                $destFileName = Yii::app()->screenshotManager->watermarkScreenshot($model, Yii::app()->params['emptyScreenshot'], $destFileInfo);
-                $watermarkScreenshotUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . $destFileName);
-
-                if ($model->watermarkThumbnail) {
-                    $path_parts = pathinfo(Yii::app()->params['watermarkTestThumbnail']);
+                    $path_parts = pathinfo(Yii::app()->params['watermarkTestScreenshot']);
                     $destFileInfo->fileNameBase = $path_parts['basename'];
                     $destFileInfo->fileExtension = $path_parts['extension'];
-                    $destFileName = Yii::app()->screenshotManager->watermarkThumbnail($model, Yii::app()->params['emptyScreenshot'], $destFileInfo);
-                    $watermarkthumbnailUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . $destFileName);
-                }
-            }
-            $model->saveToSettingsDb();
-        }
-        $this->render('watermark', array(
-            'model' => $model, 'watermarkScreenshotUrl' => $watermarkScreenshotUrl, 'watermarkthumbnailUrl' => $watermarkthumbnailUrl
-        ));
-    }
+                    $destFileName = Yii::app()->screenshotManager->watermarkScreenshot($model, Yii::app()->params['emptyScreenshot'], $destFileInfo);
+                    $watermarkScreenshotUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . $destFileName);
 
+                    if ($model->watermarkThumbnail) {
+                        $path_parts = pathinfo(Yii::app()->params['watermarkTestThumbnail']);
+                        $destFileInfo->fileNameBase = $path_parts['basename'];
+                        $destFileInfo->fileExtension = $path_parts['extension'];
+                        $destFileName = Yii::app()->screenshotManager->watermarkThumbnail($model, Yii::app()->params['emptyScreenshot'], $destFileInfo);
+                        $watermarkthumbnailUrl = Helper::checkSlashes(Yii::app()->params['miscUrl'] . '/' . $destFileName);
+                    }
+                }
+                $model->saveToSettingsDb();
+            }
+            $this->render('watermark', array(
+                'model' => $model, 'watermarkScreenshotUrl' => $watermarkScreenshotUrl, 'watermarkthumbnailUrl' => $watermarkthumbnailUrl
+            ));
+        }
+    }
 }

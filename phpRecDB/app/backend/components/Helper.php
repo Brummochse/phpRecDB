@@ -2,6 +2,16 @@
 
 class Helper {
 
+    public static function isGdFreeTypeInstalled() {
+        if (extension_loaded('gd')) {
+            $gdinfo = gd_info();
+            if($gdinfo['FreeType Support']) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static function getFilesFromFolder($folderPath) {
         $fontstyles = array();
         $dp = opendir($folderPath);

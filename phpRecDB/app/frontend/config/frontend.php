@@ -1,5 +1,4 @@
 <?php
-
 $appPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
 Yii::setPathOfAlias('common', $appPath . DIRECTORY_SEPARATOR . 'common');
 
@@ -7,9 +6,6 @@ return array(
     'defaultController' => 'site',
     'basePath' => $appPath . '/frontend',
     'components' => array(
-        //'request' => array(
-        //'baseUrl' => getRelativePathTo($appDir),
-        //),
         'listDataConfigurator' => array('class' => 'ListDataConfigurator'),
     ),
     'import' => array(

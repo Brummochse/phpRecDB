@@ -24,13 +24,13 @@ class SignatureController extends AdminController {
 
         if ($model->validate())
             Yii::app()->signatureManager->generateSignature($model);
-        
+
         if (!$model->isNewRecord && $model->enabled) {
             $staticSigDirUrl = $this->getStaticSigDirUrl($model->name);
-            $baseUrl = (isset($_SERVER['HTTPS'])?'https':'http').'://' . $_SERVER['HTTP_HOST'].Yii::app()->baseUrl;
+            $baseUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . Yii::app()->baseUrl;
             $pushParams['signaturePreviewUrl'] = $staticSigDirUrl . '/' . SignatureManager::SIG_FILENAME;
-            $pushParams['signatureStaticUrl'] = $baseUrl. '/'. $pushParams['signaturePreviewUrl'];
-            $pushParams['signatureDynamicUrl'] = $baseUrl. '/'. $staticSigDirUrl;
+            $pushParams['signatureStaticUrl'] = $baseUrl . '/' . $pushParams['signaturePreviewUrl'];
+            $pushParams['signatureDynamicUrl'] = $baseUrl . '/' . $staticSigDirUrl;
         }
 
         $this->render('update', $pushParams);
@@ -53,26 +53,30 @@ class SignatureController extends AdminController {
     public function actionDelete($id) {
         $model = $this->loadModel($id);
 
-         Yii::app()->signatureManager->deleteSignature($model);
+        Yii::app()->signatureManager->deleteSignature($model);
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
-
     /**
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new Signature('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Signature']))
-            $model->attributes = $_GET['Signature'];
+        if (!Helper::isGdFreeTypeInstalled()) {
+            Yii::app()->user->addMsg(WebUser::ERROR, "Signature feature can't be used on this server. GD library extension FreeType ist not installed.");
+            $this->redirect(array('adminBase/Index'));
+        } else {
+            $model = new Signature('search');
+            $model->unsetAttributes();  // clear any default values
+            if (isset($_GET['Signature']))
+                $model->attributes = $_GET['Signature'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+            $this->render('admin', array(
+                'model' => $model,
+            ));
+        }
     }
 
     /**
