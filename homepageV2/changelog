@@ -1,4 +1,5 @@
 1.1
+- added: php extension/library check for GD and FreeType
 - added: record count per artist in artistmenu
 - added: submenus in artist menu
 - added: handling for user defined record information fields

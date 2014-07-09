@@ -7,9 +7,7 @@ $phpRecDbUrl = PathResolver::getRelativePathTo($phpRecDbPath);
 Yii::setPathOfAlias('common', $appPath . DIRECTORY_SEPARATOR . 'common');
 
 return array(
-    'preload' => array(
-        'settingsManager',
-    ),
+    'preload' => array('settingsManager'),
     'language'=>'en_us',
     'sourceLanguage'=>'en_us',
     'charset'=>'utf-8',
@@ -28,9 +26,6 @@ return array(
             'class' => 'CMaxSizeFileCache',
             'maxSize'=>25 * 1024 * 1024, //=25 * 1024 * 1024 = 50 MegaBytes
         ),
-//        'request' => array(
-//            'baseUrl' =>  $phpRecDbUrl,
-//        ),
     ),
     'import' => array(
         'common.components.*',

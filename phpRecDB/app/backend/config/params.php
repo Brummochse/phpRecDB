@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'screenshotsPath' => $phpRecDbPath . DIRECTORY_SEPARATOR . 'screenshots',
     'thumbnailWidth' => 250,

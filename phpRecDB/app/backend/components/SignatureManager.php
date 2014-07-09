@@ -43,12 +43,14 @@ class SignatureManager extends CApplicationComponent {
     }
 
     public function updateSignatures($signatureModels=NULL) {
-        if ($signatureModels==NULL) {
-            $signatureModels = Signature::model()->findAll();
-        }
-        
-        foreach ($signatureModels as $signatureModel) {
-            $this->generateSignature($signatureModel);
+        if (Helper::isGdFreeTypeInstalled()) {
+            if ($signatureModels==NULL) {
+                $signatureModels = Signature::model()->findAll();
+            }
+
+            foreach ($signatureModels as $signatureModel) {
+                $this->generateSignature($signatureModel);
+            }
         }
     }
 

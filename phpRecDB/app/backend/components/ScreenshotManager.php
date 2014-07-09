@@ -30,9 +30,13 @@ class ScreenshotManager extends CApplicationComponent {
     }
 
     private function watermark(WatermarkForm $watermarkModel, SimpleImage $image) {
-        return $image->text(
+        if (Helper::isGdFreeTypeInstalled()) {
+            return $image->text(
                         $watermarkModel->text, Yii::app()->params['fontFolder'] . '/' . $watermarkModel->fontStyle, $watermarkModel->fontSize, $watermarkModel->color, $watermarkModel->getSimpleImagePosition(), $watermarkModel->calcSimpleImageXOffset(), $watermarkModel->calcSimpleImageYOffset()
-        );
+            );
+        } else {
+            return $image;
+        }
     }
 
     /**

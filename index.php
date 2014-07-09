@@ -2,7 +2,6 @@
 ////////////generating time////////////////
 $starttime = explode(' ', microtime());
 $starttime = $starttime[1] + $starttime[0];
-
 //////////////////////////////////////////
 ?>
 <?php

@@ -12,9 +12,7 @@ return array(
     'basePath' => $appPath . '/backend',
     'name' => 'phpRecDB Administration Panel',
     'onBeginRequest' => array('DbMigrator', 'checkDbState'), //check db version on start up
-    'preload' => array(
-        'bootstrap',
-    ),
+    'preload' => array('bootstrap'),
     'components' => array(
         'user' => array(
             'allowAutoLogin' => false,
@@ -28,10 +26,7 @@ return array(
         'dbCleaner' => array('class' => 'DbCleaner'),
         'dbMigrator' => array('class' => 'DbMigrator'),
         'helpCreator' => array('class' => 'HelpCreator', 'helpFilesPath'=>'application.views.help'),
-        'bootstrap' => array(
-            'class' => 'ext.bootstrap.components.Bootstrap',
-            'responsiveCss' => false,
-        ),
+        'bootstrap' => array('class' => 'ext.bootstrap.components.Bootstrap','responsiveCss' => false),
     ),
     'import' => array(
         'application.components.*',
