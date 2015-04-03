@@ -1,60 +1,97 @@
 <?php
 
 class Want {
-
     public $artist;
     public $date;
     public $location;
     public $comment;
+    public $pictureFolder;
     public $pictures = array();
-    public $links = array();
-
+    public $youtube;
 }
 
-$wants = array();
+function convertToUtf8($innerHtml) {
+    $innerHtml= mb_convert_encoding($innerHtml, 'UTF-8',mb_detect_encoding($innerHtml, 'UTF-8, ISO-8859-1', true));
+    return '<td>'.($innerHtml).'</td>';
+}
 
-$file_handle = fopen( dirname(__FILE__). "/wants.csv", "r");
-while (!feof($file_handle)) {
+function parseWantsFromCSV() {
+    $wants = array();
+    $file_handle = fopen( dirname(__FILE__). DIRECTORY_SEPARATOR."wants.csv", "r");
+    while (!feof($file_handle)) {
 
-    $parts = fgetcsv($file_handle,0,";");
-
-    if (count($parts)>=3) {
-
-        
-        $want = new Want();
-        $want->artist = $parts[0];
-        $want->date = $parts[1];
-        $want->location = $parts[2];
-        $want->comment = $parts[3];
-        $wants[]=$want;
+        $parts = fgetcsv($file_handle,0,";");
+        if (count($parts)>=3) {
+            $want = new Want();
+            $want->artist = $parts[0];
+            $want->date = $parts[1];
+            $want->location = $parts[2];
+            $want->comment = $parts[3];
+            
+            $want->pictureFolder = $parts[4];
+            if (!empty($want->pictureFolder)) {
+                $allFiles = scandir(dirname(__FILE__). "/screens/".$want->pictureFolder); //Ordner "files" auslesen
+                 foreach ($allFiles as $file) {
+                    if ($file != "." && $file != "..") {
+                         $want->pictures[]=$file;
+                    }
+                };
+            }
+            $want->youtube = $parts[5];
+            
+            $wants[]=$want;
+        }
     }
-}
-fclose($file_handle);
-
-function col($innerHtml) {
-    return '<td>'.$innerHtml.'</td>';
+    fclose($file_handle);
+    
+    return $wants;
 }
 
-?>
+$wants=parseWantsFromCSV();
 
-<style>
-    #wants  {
-          border: 1px solid #4F4F4F;
-  border-collapse: collapse;
-    }    
-</style>
-
-
-<table id="wants" border="1" >
-    <thead><tr><td>Artist</td><td>Date</td><td>Location</td></tr></thead>
-
-
-<?php
+$accordionData=array();
+$counter=0;
 foreach ($wants as $want) {
-    echo '<tr>';
-    echo col($want->artist).col($want->date).col($want->location);// ." ".    $want->comment."<br>";
-    echo '</tr>';
+    $recStr= '<b>'.convertToUtf8($want->artist).'</b> '.convertToUtf8($want->date).' '.convertToUtf8($want->location);
+    $detailContentStr=  nl2br($want->comment);
+
+    foreach ($want->pictures as $picture) {
+        $publishedPictureLink=Yii::app()->getAssetManager()->publish(dirname(__FILE__). "/screens/".$want->pictureFolder.'/'.$picture);
+        $detailContentStr.= '<br>'. CHtml::link($picture, $publishedPictureLink,array("rel" => "group".$counter));
+
+        $widget=$this->widget('application.extensions.fancybox.EFancyBox', array(
+                  'target' => 'a[rel="group'.$counter.'"]',
+                  'config' => array(
+                      'titleShow' => true,
+                      'scrolling' => 'auto',
+                      'titlePosition' => 'outside')),true
+        );
+        $detailContentStr.=$widget;
+    }
+
+    if (!empty($want->youtube)) {
+        $detailContentStr.= '<br>'. CHtml::link("youtube", $want->youtube);
+
+
+    }
+
+    $accordionData[$recStr]=$detailContentStr;
+
+    $counter++;
 }
+
+$this->widget('zii.widgets.jui.CJuiAccordion', array(
+    'themeUrl' => Yii::app()->getThemeManager()->getBaseUrl(),
+    'theme' => Yii::app()->getTheme()->name . "/css",
+    'panels'=>$accordionData,
+    'options'=>array(
+        'collapsible'=>true,
+        'active'=>false,
+    ),
+    'htmlOptions'=>array(
+       // 'style'=>'width:500px;'
+    ),
+));
+
 ?>
 
-    </table>
