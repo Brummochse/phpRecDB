@@ -24,6 +24,7 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
         <?php $this->renderPartial('concertForm', array('model' => $model, 'form'=>$form)); ?>
 
         <?php echo $form->radioButtonListRow($model, 'va', array(VA::VIDEO => VA::vaIdToStr(VA::VIDEO), VA::AUDIO => VA::vaIdToStr(VA::AUDIO))); ?>
+        <?php echo $form->checkBoxRow($model, 'visible'); ?>
 
         <div class="form-actions">
             <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => 'Add Record')); ?>

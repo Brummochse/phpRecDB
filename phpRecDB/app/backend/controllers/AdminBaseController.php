@@ -102,7 +102,7 @@ class AdminBaseController extends AdminController {
                 } else {
 
                     $concertModel = Yii::app()->recordManager->createNewConcert($addRecordFormModel);
-                    $newRecordId = Yii::app()->recordManager->addRecordToConcert($addRecordFormModel->va, $concertModel);
+                    $newRecordId = Yii::app()->recordManager->addRecordToConcert($addRecordFormModel->va,$addRecordFormModel->visible, $concertModel);
 
                     Yii::app()->signatureManager->updateSignaturesIfRequired($newRecordId);
 
@@ -217,7 +217,8 @@ class AdminBaseController extends AdminController {
         $phpRecDbInfo=array();
         $phpRecDbInfo['scriptVersion'] = Yii::app()->params['version'];
         $phpRecDbInfo['databaseVersion'] = Yii::app()->dbMigrator->evalCurrentDbVersion();
- 
+        $phpRecDbInfo['YII_Version']=Yii::getVersion();
+                
         $serverInfos=$this->getServerInfo();
         
         $this->render('home', array(
