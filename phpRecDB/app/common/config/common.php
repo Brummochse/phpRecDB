@@ -24,7 +24,7 @@ return array(
         ),
         'cache' => array(
             'class' => 'CMaxSizeFileCache',
-            'maxSize'=>25 * 1024 * 1024, //=25 * 1024 * 1024 = 50 MegaBytes
+            'maxSize'=>25 * 1024 * 1024, //=25 * 1024 * 1024 = 25 MegaBytes
         ),
     ),
     'import' => array(
