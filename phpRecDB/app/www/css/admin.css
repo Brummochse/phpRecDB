@@ -62,29 +62,29 @@
 
 /* edit record mene layout  */
 #all {
-     width:100%; height: 100%;  overflow:auto;
+    width:100%; height: 100%;  overflow:auto;
 }
 
 #left {	
-     height: 100%;  width:30%; min-width:150px; float:left; 
+    height: 100%;  width:30%; min-width:150px; float:left; 
 }
 
 #middle {
-  height: 100%;  width:30%; min-width:150px; float:left; 
+    height: 100%;  width:30%; min-width:150px; float:left; 
 }
 #right {
-   height: 100%;  width:40%; min-width:150px; float:right; 
+    height: 100%;  width:40%; min-width:150px; float:right; 
 }
 #all {
     margin: 0 auto;
 }
 #all input, #all select {
 
-  width:90%;  
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  height: 25pt;
+    width:90%;  
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    height: 25pt;
 }
 #right textarea  {
     width:95%;
@@ -95,3 +95,28 @@
     padding: 0px;
 }
 
+/* a tabs navigation in bootstrap well layout  */
+.well-tabnav .tab-content {
+    padding: 19px;
+    background-color: #F5F5F5;
+    border:  solid #BBB;
+    border-left: 1px solid #BBB;
+    border-right:  1px solid #BBB;
+    border-bottom:  1px solid #BBB;
+    border-top: 0px;
+
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius:4px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05)
+}
+.well-tabnav .nav {
+    margin-bottom: 0;
+}
+.well-tabnav li.active a {
+    border-color: #BBB #BBB transparent #BBB;
+    background-color:#F5F5F5;
+}
+.well-tabnav li a { 
+    border-color: #BBB;
+}

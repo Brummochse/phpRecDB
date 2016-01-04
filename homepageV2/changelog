@@ -1,3 +1,7 @@
+1.2
+- added: adding records possible as invisible
+
+
 1.1
 - added: php extension/library check for GD and FreeType
 - added: record count per artist in artistmenu

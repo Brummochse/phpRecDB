@@ -66,9 +66,35 @@ class AdminBaseController extends AdminController {
             $listDataConfig = new SublistListDataConfig($sublistModel->id, $listOptionsModel->collapsed, $isAdmin);
 
             $this->renderList($listDataConfig, 'manage sublist: ' . CHtml::encode($sublistModel->label), $listOptionsModel);
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+    }
+
+    private function getAddRecordTabItems() {
+        $tabs = array(
+            "manually"=>array('label' => 'Manually',
+                'content' => '',
+                'url' => Yii::app()->createUrl('AdminBase/addRecord'),
+                'active' => false,
+            ),
+            "phpRecCode"=>array('label' => 'phpRecCode',
+                'content' => '',
+                'url' => Yii::app()->createUrl('AdminBase/addPhpRecCode'),
+                'active' => false,
+            ),
+        );
+        return $tabs;
+    }
+
+    public function actionAddPhpRecCode() {
+        
+        
+        $addPhpRecCodeFormModel = new AddPhpRecCodeForm;
+        
+        $tabItems=$this->getAddRecordTabItems();
+        $tabItems['phpRecCode']['content']=$this->renderPartial("_addRecordPhpRecCode", array('model'=>$addPhpRecCodeFormModel), true);
+        $tabItems['phpRecCode']['active']=true;
+        $this->render('addRecord', array('tabItems' => $tabItems));
     }
 
     public function actionAddRecord() {
@@ -102,7 +128,7 @@ class AdminBaseController extends AdminController {
                 } else {
 
                     $concertModel = Yii::app()->recordManager->createNewConcert($addRecordFormModel);
-                    $newRecordId = Yii::app()->recordManager->addRecordToConcert($addRecordFormModel->va,$addRecordFormModel->visible, $concertModel);
+                    $newRecordId = Yii::app()->recordManager->addRecordToConcert($addRecordFormModel->va, $addRecordFormModel->visible, $concertModel);
 
                     Yii::app()->signatureManager->updateSignaturesIfRequired($newRecordId);
 
@@ -112,8 +138,10 @@ class AdminBaseController extends AdminController {
                 }
             }
         }
-
-        $this->render('addRecord', array('model' => $addRecordFormModel));
+        $tabItems=$this->getAddRecordTabItems();
+        $tabItems['manually']['content']=$this->renderPartial("_addRecordManually", array('model' => $addRecordFormModel), true);
+        $tabItems['manually']['active']=true;
+        $this->render('addRecord', array('tabItems' => $tabItems));
     }
 
     public function actionAssignRecordsToSublist() {
@@ -126,8 +154,7 @@ class AdminBaseController extends AdminController {
                     }
                 }
             }
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -146,8 +173,7 @@ class AdminBaseController extends AdminController {
                     Yii::app()->signatureManager->updateSignatures();
                 }
             }
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -160,8 +186,7 @@ class AdminBaseController extends AdminController {
             //delete unused database db entrys
             Yii::app()->dbCleaner->deleteAllUnusedDbEntrys();
             Yii::app()->signatureManager->updateSignatures();
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -197,34 +222,34 @@ class AdminBaseController extends AdminController {
     }
 
     private function getServerInfo() {
-        $installed='installed';
-        $notInstalled='<div class="alert-danger">not installed</div>';
-        
-        $infos=array();
-        $infos['PHP_Version']=phpversion();
-        $infos['GD']=extension_loaded('gd') ? $installed : $notInstalled;
-        $infos['GD_FreeType']=Helper::isGdFreeTypeInstalled() ? $installed : $notInstalled;
-      
-        $attributes=array ();
-        $attributes[]='PHP_Version';
-        $attributes[]=array('name' => 'GD','type'=>'raw');
-        $attributes[]=array('name' => 'GD_FreeType','type'=>'raw');
+        $installed = 'installed';
+        $notInstalled = '<div class="alert-danger">not installed</div>';
 
-        return array('data'=>$infos,'attributes'=>$attributes);
+        $infos = array();
+        $infos['PHP_Version'] = phpversion();
+        $infos['GD'] = extension_loaded('gd') ? $installed : $notInstalled;
+        $infos['GD_FreeType'] = Helper::isGdFreeTypeInstalled() ? $installed : $notInstalled;
+
+        $attributes = array();
+        $attributes[] = 'PHP_Version';
+        $attributes[] = array('name' => 'GD', 'type' => 'raw');
+        $attributes[] = array('name' => 'GD_FreeType', 'type' => 'raw');
+
+        return array('data' => $infos, 'attributes' => $attributes);
     }
-    
+
     public function actionIndex() {
-        $phpRecDbInfo=array();
+        $phpRecDbInfo = array();
         $phpRecDbInfo['scriptVersion'] = Yii::app()->params['version'];
         $phpRecDbInfo['databaseVersion'] = Yii::app()->dbMigrator->evalCurrentDbVersion();
-        $phpRecDbInfo['YII_Version']=Yii::getVersion();
-                
-        $serverInfos=$this->getServerInfo();
-        
+        $phpRecDbInfo['YII_Version'] = Yii::getVersion();
+
+        $serverInfos = $this->getServerInfo();
+
         $this->render('home', array(
-            'phpRecDbInfo' => $phpRecDbInfo, 
-            'serverInfos'=>$serverInfos['data'],
-            'serverInfoAttributes'=>$serverInfos['attributes']
+            'phpRecDbInfo' => $phpRecDbInfo,
+            'serverInfos' => $serverInfos['data'],
+            'serverInfoAttributes' => $serverInfos['attributes']
         ));
     }
 
@@ -408,10 +433,10 @@ class AdminBaseController extends AdminController {
 
         if (!Helper::isGdFreeTypeInstalled()) {
             Yii::app()->user->addMsg(WebUser::ERROR, "Watermark feature can't be used on this server. GD library extension FreeType ist not installed.");
-            $model->enable=false;
+            $model->enable = false;
             $model->saveToSettingsDb();
             $this->redirect(array('adminBase/Index'));
-        } else {            
+        } else {
             if (isset($_POST['WatermarkForm'])) {
                 $model->attributes = $_POST['WatermarkForm'];
             }
@@ -446,4 +471,5 @@ class AdminBaseController extends AdminController {
             ));
         }
     }
+
 }
