@@ -1,5 +1,5 @@
 
-    
+
 <?php $this->beginContent('/layouts/main'); ?>
 
 <?php
@@ -12,6 +12,7 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
     'items' => array(
         array(
             'class' => 'bootstrap.widgets.TbMenu',
+            'type' => 'navbar',
             'items' => $this->getMenuItems()
         ),
         array(
@@ -20,6 +21,7 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
                 'data-toggle' => 'modal',
                 'data-target' => '#notificationsmodal',
             ),
+            'type' => 'navbar',
             'items' => $this->getNotificationMenuItems()
         ),
     )
@@ -47,10 +49,10 @@ $this->beginWidget('bootstrap.widgets.TbModal', array(
     <h4>Notifications</h4>
 </div>
 <div class="modal-body" style="max-height:600px !important;">
- <?= $this->getNotificationsHtml();   ?>   
+    <?= $this->getNotificationsHtml(); ?>   
 </div>
 </div>
-<?php 
-$this->endWidget(); 
+<?php
+$this->endWidget();
 //notifications modal///////////////////begin
 ?>

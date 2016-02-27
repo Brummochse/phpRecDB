@@ -19,7 +19,7 @@ class RecordManager extends CApplicationComponent {
      * creates a new record model together with a audio or video model
      * 
      * @param type $va  VA::VIDEO or VA::Audio
-     * @param type $visible  true or false
+     * @param type $visible  1 or 0
      * @param type $concertModel a existing concert
      * @return the record-id of the new created record model (or null if any error occurs)
      */
@@ -31,7 +31,7 @@ class RecordManager extends CApplicationComponent {
             $recordModel->visible=$visible;
             $recordModel->concerts_id = $concertModel->id;
             $saveResult = $recordModel->save();
-
+            
             if ($va == VA::VIDEO) {
                 $newVaModel = new Video();
             } else { //= VA::AUDIO

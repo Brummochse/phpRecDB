@@ -14,7 +14,7 @@ class AdminEditRecordController extends AdminController {
 
     private function addRecord($va) {
         if (($concertModel = ParamHelper::decodeConcertModel()) != NULL) {
-            $newRecordId = Yii::app()->recordManager->addRecordToConcert($va, $concertModel);
+            $newRecordId = Yii::app()->recordManager->addRecordToConcert($va,1 /*1=visible*/, $concertModel);
 
             Yii::app()->signatureManager->updateSignaturesIfRequired($newRecordId);
 
@@ -56,24 +56,21 @@ class AdminEditRecordController extends AdminController {
         if (($screenshotModel = ParamHelper::decodeScreenshotModel()) != NULL) {
             Yii::app()->screenshotManager->deleteScreenshot($screenshotModel);
             $screenshotModel->delete();
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     public function actionMoveUpScreenshot() {
         if (Yii::app()->request->isPostRequest && ($screenshotId = ParamHelper::decodeScreenshotIdParam()) != NULL) {
             Screenshot::model()->moveBefore($screenshotId);
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     public function actionMoveDownScreenshot() {
         if (Yii::app()->request->isPostRequest && ($screenshotId = ParamHelper::decodeScreenshotIdParam()) != NULL) {
             Screenshot::model()->moveBehind($screenshotId);
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
@@ -96,24 +93,21 @@ class AdminEditRecordController extends AdminController {
     public function actionDeleteYoutube() {
         if (Yii::app()->request->isPostRequest && ($youtubeModel = ParamHelper::decodeYoutubeModel()) != NULL) {
             $youtubeModel->delete();
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     public function actionMoveDownYoutube() {
         if (Yii::app()->request->isPostRequest && ($youtubeId = ParamHelper::decodeYoutubeIdParam()) != NULL) {
             Youtube::model()->moveBehind($youtubeId);
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     public function actionMoveUpYoutube() {
         if (($youtubeId = ParamHelper::decodeYoutubeIdParam()) != NULL) {
             Youtube::model()->moveBefore($youtubeId);
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again!.');
     }
 
@@ -203,8 +197,7 @@ class AdminEditRecordController extends AdminController {
             $sublistAssignmentModel = Sublistassignment::model()->findByAttributes(array('lists_id' => $sublistId, 'recordings_id' => $recordId));
             $sublistAssignmentModel->delete();
             $this->redirect(array('AdminEditRecord/updateSublists', ParamHelper::PARAM_RECORD_ID => $recordId));
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again1.');
     }
 
@@ -357,8 +350,7 @@ class AdminEditRecordController extends AdminController {
                 'tabs' => $tabs,
                 'concertFormModel' => $concertForm)
             );
-        }
-        else
+        } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
