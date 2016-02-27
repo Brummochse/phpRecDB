@@ -9,14 +9,14 @@ class AdminBaseController extends AdminController {
             $addRecordFormModel = Yii::app()->session[self::ADD_RECORD_FORM_MODEL];
             unset(Yii::app()->session[self::ADD_RECORD_FORM_MODEL]);
 
+            $concertModel=null;
             if ($_POST['choice'] === 'newConcert') {
                 $concertModel = Yii::app()->recordManager->createNewConcert($addRecordFormModel);
-                $newRecordId = Yii::app()->recordManager->addRecordToConcert($addRecordFormModel->va, $concertModel);
             } else { //=='appendRecord'
                 $concertId = $_POST['existingConcerts'];
                 $concertModel = Concert::model()->findByPk($concertId);
-                $newRecordId = Yii::app()->recordManager->addRecordToConcert($addRecordFormModel->va, $concertModel);
             }
+            $newRecordId = Yii::app()->recordManager->addRecordToConcert($addRecordFormModel->va,$addRecordFormModel->visible, $concertModel);
             if ($newRecordId != NULL) {
 
                 Yii::app()->signatureManager->updateSignaturesIfRequired($newRecordId);

@@ -3,7 +3,7 @@
 class AddRecordForm extends ConcertForm {
 
     public $va = VA::VIDEO;
-    public $visible = true;
+    public $visible = 1;
 
     public function rules() {
         return array_merge_recursive(parent::rules(), array(
