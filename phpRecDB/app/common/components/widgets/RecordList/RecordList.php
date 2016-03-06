@@ -12,7 +12,9 @@ class RecordList extends CWidget {
             $listDataProvider = $this->data[RecordsListFetcher::DATA_PROVIDER];
             $listColumns = $this->data[RecordsListFetcher::COLUMNS];
 
-            $this->widget("ArtistMenu",array("items" => $artistMenuItems));
+            echo '<div id="artistMenu">';
+            $this->widget("DropdownMenu",array("items" => $artistMenuItems));
+            echo '</div>';
             
             if ($listDataProvider != NULL) {
                 $this->render("list", array(
