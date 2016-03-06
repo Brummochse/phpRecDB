@@ -1,4 +1,12 @@
 <?php
+$time = microtime();
+$time = explode(' ', $time);
+$time = $time[1] + $time[0];
+$start = $time;
+?>
+
+ 
+<?php
 /*
  * This file is part of phpRecDB.
  *
@@ -23,4 +31,13 @@ header('Content-Type:text/html; charset=UTF-8');
 include_once "phpRecDB/phpRecDB.php";
 $prdb = new phpRecDB();
 $prdb->startInternalSite();
+?>
+
+<?php
+$time = microtime();
+$time = explode(' ', $time);
+$time = $time[1] + $time[0];
+$finish = $time;
+$total_time = round(($finish - $start), 4);
+echo 'Page generated in '.$total_time.' seconds.';
 ?>
