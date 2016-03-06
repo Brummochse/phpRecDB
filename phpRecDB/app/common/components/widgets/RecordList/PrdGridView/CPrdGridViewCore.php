@@ -253,6 +253,21 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         }
     }
 
+    private function getYears() {
+        $years = array();
+        foreach ($this->dataProvider->data as $curRow) {
+            $misc = $curRow['misc'] ? '_misc' : '';
+            $date = $curRow['Date'];
+            $year = substr($date, 0, 4) . $misc;
+            $years[$year] = $year;
+        }
+        $yearMenuItems = array();
+        foreach ($years as $year) {
+            $yearMenuItems[] = array('label' => $year, 'url' => '#' . $year);
+        }
+        return $yearMenuItems;
+    }
+
     protected function doRenderTableRow($row) {
         ////////////////////////////////////////////////////
         // order by splitter row
@@ -292,38 +307,16 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
                     $orderLabel = CHtml::link($orderLabel, $artistListUrl);
                 }
             }
-
-             echo "<tr>";
+            echo "<tr>";
             echo '<td colspan="' . ($this->colCount - 1) . '" >';
             echo '<div class="splittext">' . $orderLabel . ' [' . $counter . ' records]</div>';
 
-            
-                    
-                    if ($this->orderBy == $this->mainColumn && $this->artistId != NULL && $this->artistId > 0) {
-
-                        $years=array ();
-                        foreach ($this->dataProvider->data as $curRow) {
-                            $misc=$curRow['misc']?'_misc':'';
-                            $date = $curRow['Date'];
-                            $year = substr($date, 0, 4).$misc;
-                            $years[$year]=$year;
-                        }
-                        $menuItems=array();
-                        foreach ($years as $year) {
-                            $menuItems[]=array('label'=>$year, 'url'=>'#'.$year);
-                        }
-                        
-                        $widgetStr=$this->widget('ArtistMenu', array('items'=>array(array('label'=>'jump to year','items'=>$menuItems))),true);
-                        echo '<div class="yearselector" >'.$widgetStr.'</div>';
-                    }
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-            
+            //when only 1 artist is shown, it adds a year selection menu
+            if ($this->orderBy == $this->mainColumn && $this->artistId != NULL && $this->artistId > 0) {
+                $yearMenuItems=$this->getYears();
+               $yearSelectionWidgetStr=$this->widget('DropdownMenu', array('items'=>array(array('label'=>'jump to year','items'=>$yearMenuItems))),true);
+                echo '<div class="yearselector" >'.$yearSelectionWidgetStr.'</div>';
+            }
             echo '</td>';
             echo "</tr>";
 
