@@ -92,6 +92,16 @@ table.items {
 				color: #fff;
 			}
 
+                        
+        table.items div.yearselector
+        {
+            font-weight:bold;
+            padding: 10px 0px 10px 20px;
+         
+            float: right; 
+            text-align: right; 
+        }
+                        
 	table.items div.videoaudio {
 		float: left;
 		padding: 5px 10px 5px 10px;

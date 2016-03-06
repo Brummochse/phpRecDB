@@ -12,6 +12,7 @@ class CPrdSort extends CSort {
         }
         return $orderBy;
     }
+
 }
 
 abstract class CAbstractPrdGridView extends CGridView {
@@ -110,8 +111,8 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
     private $artistId = -1;
 
     public function init() {
-        $this->nullDisplay=""; //defaul is &nbsp, but this takes lot of memory on big lists
-        
+        $this->nullDisplay = ""; //defaul is &nbsp, but this takes lot of memory on big lists
+
         $sorti = new CPrdSort();
         $sorti->attributes = $this->dataProvider->sort->attributes;
         $sorti->defaultOrder = $this->dataProvider->sort->defaultOrder;
@@ -149,9 +150,8 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
                 $this->endCache();
             }
         } else {
-           parent::run(); 
+            parent::run();
         }
-  
     }
 
     /**
@@ -227,13 +227,10 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         if ($this->orderBy == $this->mainColumn) {
             foreach ($this->columns as $column) {
                 if ($this->isOrderedColumn($column)) {
-                    echo "<tr>";
                     $colSpan = $this->colCount - 1 /* - 2 */; //- 2 = info link col and tradestatus col
-                    echo '<th colspan="' . $colSpan . '" >';
+                    echo '<tr><th colspan="' . $colSpan . '" >';
                     echo $column->renderHeaderCellContent();
-                    echo "</th>";
-
-                    echo "</tr>";
+                    echo "</th></tr>";
                 }
             }
         }
@@ -296,8 +293,38 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
                 }
             }
 
-            echo "<tr>";
-            echo '<td colspan="' . ($this->colCount - 1) . '" ><div class="splittext">' . $orderLabel . ' [' . $counter . ' records]</div></td>';
+             echo "<tr>";
+            echo '<td colspan="' . ($this->colCount - 1) . '" >';
+            echo '<div class="splittext">' . $orderLabel . ' [' . $counter . ' records]</div>';
+
+            
+                    
+                    if ($this->orderBy == $this->mainColumn && $this->artistId != NULL && $this->artistId > 0) {
+
+                        $years=array ();
+                        foreach ($this->dataProvider->data as $curRow) {
+                            $misc=$curRow['misc']?'_misc':'';
+                            $date = $curRow['Date'];
+                            $year = substr($date, 0, 4).$misc;
+                            $years[$year]=$year;
+                        }
+                        $menuItems=array();
+                        foreach ($years as $year) {
+                            $menuItems[]=array('label'=>$year, 'url'=>'#'.$year);
+                        }
+                        
+                        $widgetStr=$this->widget('ArtistMenu', array('items'=>array(array('label'=>'jump to year','items'=>$menuItems))),true);
+                        echo '<div class="yearselector" >'.$widgetStr.'</div>';
+                    }
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+            
+            echo '</td>';
             echo "</tr>";
 
             $this->ancestorVAType = -2; //reset VideoOrAudio memory
@@ -347,8 +374,9 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
             $date = $this->dataProvider->data[$row]['Date'];
             $year = substr($date, 0, 4);
             if ($year != $this->ancestorYear) {
+                $misc=$this->dataProvider->data[$row]['misc']?'_misc':'';
                 echo "<tr>";
-                echo '<td colspan="' . ($this->colCount - 1) . '" ><div class="splittext">' . $year . '</div></td>';
+                echo '<td id="'.$year.$misc.'" colspan="' . ($this->colCount - 1) . '" ><div class="splittext">' . $year . '</div></td>';
                 echo "</tr>";
             }
             $this->ancestorYear = $year;
