@@ -6,25 +6,7 @@
     If you don't wanna see your name on this list please contact me and we will work that out!
     <br><br>
 
-        <table width="548" bordercolorlight="#9F0000" bordercolordark="#9F0000" bgcolor="#5F0000" cellspacing="0" border>
-        <tr>
-            <td><b>Name:</b></td>
-            <td>TripKore</td>
-        </tr>
-        <tr>
-            <td><b>Email:</b></td>
-            <td>tripkore@gmail.com</td>
-        </tr>
-        <tr>
-            <td><b>Homepage:</b></td>
-            <td>http://www.xplicitbootlegs.com/</td>
-        </tr>
-        <tr>
-            <td class="oben"><b>Notes:</b></td>
-            <td>Owes me 2 tapes since April 2012, ignores mails, always saying "he has a life" and didn't found time in 2 years to send out a single package.</td>
-        </tr>
-    </table>
-    <br><br>
+      
     
     <table width="548" bordercolorlight="#9F0000" bordercolordark="#9F0000" bgcolor="#5F0000" cellspacing="0" border>
         <tr>
@@ -90,7 +72,7 @@
         </tr>
         <tr>
             <td class="oben"><b>Notes:</b></td>
-            <td>He ripps me off with 4 Boy Sets Fire DVDs. Communication was very good until he received my package. Never heard from him again.</td>
+            <td>He ripped me off with 4 Boy Sets Fire DVDs. Communication was very good until he received my package. Never heard from him again.</td>
         </tr>
     </table>
     <br><br>
@@ -118,7 +100,7 @@
         </tr>
         <tr>
             <td class="oben"><b>Notes:</b></td>
-            <td>I send him 3 shows and he never send me my 3 shows. Don't trade with this Trader!!</td>
+            <td>I sent him 3 shows and he never sent me my 3 shows.</td>
         </tr>
     </table>
 

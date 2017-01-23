@@ -12,7 +12,7 @@
     <body >
         <div id="top_menu">
             <div style="font-size:24px;font-weight:bold;">Nothing here is for sale!</div>
-            <?= CHtml::image(Yii::app()->getTheme()->getBaseUrl() . '/images/logo.gif'); ?><br />
+            <?= CHtml::image(Yii::app()->getTheme()->getBaseUrl() . '/images/logo.png'); ?><br />
             <ul >
                 <li><?= CHtml::link('Home', '?r=site/page&view=index'); ?></li>
                 <li><?= CHtml::link('News', '?r=site/page&view=news'); ?></li> <!--V2-->
