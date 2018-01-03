@@ -1,6 +1,6 @@
 <?php
 //signature explanation///////////////////begin
-$this->beginWidget('bootstrap.widgets.TbModal', 
+$this->beginWidget('booster.widgets.TbModal',
         array('id' => 'listOptions'));
 ?>
 
@@ -11,15 +11,15 @@ $this->beginWidget('bootstrap.widgets.TbModal',
 <div class="modal-body" style="max-height:600px !important;">
     <div class="form">
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'id' => 'inlineForm',
         'type' => 'horizontal',
         'htmlOptions' => array('class' => 'well')));
   
-    echo $form->toggleButtonRow($model, 'collapsed');  ?>
+    echo $form->switchGroup($model, 'collapsed');  ?>
         
     <div class="form-actions">
-        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => 'OK')); ?>
+        <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => 'OK')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

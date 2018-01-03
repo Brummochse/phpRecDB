@@ -1,25 +1,22 @@
 <?php
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Choose Frontend Theme',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
 ));
 ?>
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'id' => 'inlineForm',
         'type' => 'horizontal',
         'htmlOptions' => array('class' => 'well'),
             ));
     ?>
     <fieldset>
-
-        <?php echo $form->dropDownListRow($model, 'value', Helper::parallelArray(Yii::app()->themeManager->themeNames)); ?>
-
+        <?php echo $form->dropDownListGroup($model, 'value',array('widgetOptions' => array('data' => Helper::parallelArray(Yii::app()->themeManager->themeNames)))); ?>
     </fieldset>
-
     <div class="form-actions">
-        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => 'Save')); ?>
+        <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => 'Save')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

@@ -26,7 +26,7 @@ return array(
         'dbCleaner' => array('class' => 'DbCleaner'),
         'dbMigrator' => array('class' => 'DbMigrator'),
         'helpCreator' => array('class' => 'HelpCreator', 'helpFilesPath'=>'application.views.help'),
-        'bootstrap' => array('class' => 'ext.yiibooster107.components.Bootstrap'),
+        'bootstrap' => array('class' => 'ext.yiibooster-4-0-1.components.Booster'),
     ),
     'import' => array(
         'application.components.*',

@@ -3,21 +3,21 @@
 
 
 
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Manage database backup files',
     'htmlOptions' => array('class' => 'bootstrap-box-big'),
     'headerButtons' => array(
         Yii::app()->helpCreator->renderModalAndGetHelpBtn($this,'backup'),
         array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
+            'class' => 'booster.widgets.TbButtonGroup',
+            'context' => 'inverse',
             'buttons' => array(
                 array('label' => 'Upload Backup', 'url' => array('upload'))
             ),
         ),
         array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
+            'class' => 'booster.widgets.TbButtonGroup',
+            'context' => 'inverse',
             'buttons' => array(
                 array('label' => 'Manage Backups', 'url' => array('index')),
             ),

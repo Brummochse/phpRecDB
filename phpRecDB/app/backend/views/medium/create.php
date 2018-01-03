@@ -1,11 +1,11 @@
 <?php
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Create Medium',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
     'headerButtons' => array(
         array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse', 
+            'class' => 'booster.widgets.TbButtonGroup',
+            'context' => 'inverse',
             'buttons' => array(
                 array('label' => 'Manage Media', 'url' => array('admin'))
             ),

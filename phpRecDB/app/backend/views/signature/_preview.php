@@ -1,7 +1,7 @@
 
 <?php
 //preview image///////////////////begin
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Sample Signature',
 ));
 echo CHtml::image($signaturePreviewUrl);
@@ -11,7 +11,7 @@ $this->endWidget();
 
 <?php
 //signature links///////////////////begin
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Signature Image Link',
 ));
 ?>
@@ -24,17 +24,17 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
 <label><b>Dynamic Signature Creation Path:</b></label>
 <?= CHtml::link('Test', $signatureDynamicUrl, array('target' => '_blank')); ?>
 <?= CHtml::textField('static', $signatureDynamicUrl, array('readonly' => true, 'style' => 'width:100%;')); ?>
-
 <?php
 //signature explanation///////////////////begin
-$this->widget('bootstrap.widgets.TbButton', array(
-    'label' => 'Which of these links should i use?',
-    'type' => 'inverse',
+$this->widget('booster.widgets.TbButton', array(
+    'label' => 'Which of these links should I use?',
+    'context' => 'primary',
     'htmlOptions' => array(
         'data-toggle' => 'modal',
         'data-target' => '#sigExplain',
+        'style' => 'margin-top:20px'
 )));
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'sigExplain'));
+$this->beginWidget('booster.widgets.TbModal', array('id' => 'sigExplain'));
 ?>
 
 <div class="modal-header">

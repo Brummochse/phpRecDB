@@ -26,7 +26,7 @@ $this->widget('zii.widgets.jui.CJuiAccordion', array(
     ),
 ));
 
-$this->widget('bootstrap.widgets.TbButton', array(
+$this->widget('booster.widgets.TbButton', array(
     'label' => 'OK',
     'url' => array('login/login'),
 ));

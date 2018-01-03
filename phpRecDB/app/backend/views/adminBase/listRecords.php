@@ -1,19 +1,20 @@
 <?php
 
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => CHtml::encode($title),
     'htmlOptions' => array('class' => 'bootstrap-box-big'),
     'headerButtons' => array(
         array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
+            'class' => 'booster.widgets.TbButtonGroup',
+            'context' => 'inverse',
             'buttons' => array(
                 array(
                     'label' => 'Options',
-                    'type' => 'inverse',
+                    'context' => 'default',
                     'htmlOptions' => array(
                         'data-toggle' => 'modal',
                         'data-target' => '#listOptions',
+                        'class'=>'btn-dark'
                     )),
             ),
         ),

@@ -1,17 +1,17 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'id' => 'inlineForm',
     'type' => 'horizontal',
         ));
 ?>
 
-    <?php echo $form->textAreaRow($model, 'text'); ?>
-    <?php echo $form->fileFieldRow($model, 'file'); ?>
-    <?php echo $form->checkBoxRow($model, 'visible'); ?>
+    <?php echo $form->textAreaGroup($model, 'text'); ?>
+    <?php echo $form->fileFieldGroup($model, 'file'); ?>
+    <?php echo $form->checkBoxGroup($model, 'visible'); ?>
 
-    <?php //echo $form->checkBoxRow(null, 'visible');  ?>
+    <?php //echo $form->checkBoxGroup(null, 'visible');  ?>
     <div class="form-actions">
-        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => 'Add Record')); ?>
+        <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => 'Add Record')); ?>
     </div>
 
 <?php $this->endWidget(); ?>

@@ -1,6 +1,6 @@
 <?php
 
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Last visited phpRecDB-pages by Visitor with ip: [' . $ip . ']',
     'htmlOptions' => array('class' => 'bootstrap-box-big'),
 ));
@@ -9,13 +9,13 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
 
 <p>
     <?php
-    $this->widget('bootstrap.widgets.TbLabel', array('label' => 'Visitor Ip Address:',));
+    $this->widget('booster.widgets.TbLabel', array('label' => 'Visitor Ip Address:',));
     echo ' '.$ip;
     ?>
 </p>
 <p>
     <?php
-    $this->widget('bootstrap.widgets.TbLabel', array('label' => 'Try to Lookup IP:',));
+    $this->widget('booster.widgets.TbLabel', array('label' => 'Try to Lookup IP:',));
     echo ' '.CHtml::link('ip lookup', $ipLookUpUrl);
     ?>
 </p>  

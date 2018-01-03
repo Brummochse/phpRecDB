@@ -1,11 +1,10 @@
 <?php
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => CHtml::link($artistName, $artistListUrl) . ' ' . $concertInfo,
     'htmlOptions' => array('class' => 'bootstrap-box-big'),
     'headerButtons' => array(
         array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
+            'class' => 'booster.widgets.TbButtonGroup',
             'buttons' => array(
                  array('items' => array(
                         array('label' => 'add Video Record', 'url' => Yii::app()->createUrl('adminEditRecord/addVideoRecord', array(ParamHelper::PARAM_CONCERT_ID => $concertId))),
@@ -13,19 +12,19 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
                         array('label' => 'add Record from phpRecCode', 'url' => Yii::app()->createUrl('adminBase/addPhpRecCode', array(ParamHelper::PARAM_CONCERT_ID => $concertId))),
                         ($allowDeleteRecord) ? '---' : array(),
                         ($allowDeleteRecord) ? array('label' => 'delete selected Record', 'url' => Yii::app()->createUrl('adminEditRecord/deleteRecord', array(ParamHelper::PARAM_RECORD_ID => $recordId))) : array(),
-                    )),
+                    ),'htmlOptions' => array('class'=>'btn-dark')),
+
             )
         ),
         array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
+            'class' => 'booster.widgets.TbButtonGroup',
             'buttons' => array(
                 array(
                     'label' => 'Edit',
-                    'type' => 'inverse',
                     'htmlOptions' => array(
                         'data-toggle' => 'modal',
                         'data-target' => '#editConcert',
+                       'class'=>'btn-dark'
                     )),
             ),
         ),
@@ -35,14 +34,14 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
 ?>
 <div class="recordsInlay">
     <?php
-    $this->widget('bootstrap.widgets.TbMenu', array(
+    $this->widget('booster.widgets.TbMenu', array(
         'type' => 'list',
         'items' => $recordChoiceMenuItems,
     ));
     ?>
 </div>
 <?php
-$this->widget('bootstrap.widgets.TbTabs', array(
+$this->widget('booster.widgets.TbTabs', array(
     'type' => 'tabs',
     'htmlOptions' => array('class' => 'well-tabnav'),
     'tabs' => $tabs)

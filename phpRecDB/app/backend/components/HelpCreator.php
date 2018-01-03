@@ -12,17 +12,18 @@ class HelpCreator extends CApplicationComponent {
         self::$modalCounter++;
         $modalDialogId='helpModal'.self::$modalCounter;
         
-        $controller->beginWidget('bootstrap.widgets.TbModal', array('id' => $modalDialogId));
+        $controller->beginWidget('booster.widgets.TbModal', array('id' => $modalDialogId));
         $controller->renderPartial($this->helpFilesPath.'.' . $helpFile);
         $controller->endWidget();
 
         $bootstrapButtonGroupHelp = array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
+            'class' => 'booster.widgets.TbButtonGroup',
+            'context' => 'dark',
             'buttons' => array(
                 array('label' => 'Help', 'htmlOptions' => array(
                         'data-toggle' => 'modal',
                         'data-target' => '#'.$modalDialogId,
+                        'class'=>'btn-dark'
                     ))
             ),
         );
