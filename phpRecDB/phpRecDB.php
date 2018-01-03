@@ -29,7 +29,7 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 define("LAST_RECORDS_PER_DAY", 3);
 
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'PrdServiceProvider.php');
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'yii-1.1.15' . DIRECTORY_SEPARATOR . 'yii.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'yii-1.1.19' . DIRECTORY_SEPARATOR . 'yii.php');
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings' . DIRECTORY_SEPARATOR . 'dbConfig.php');
 
 class phpRecDB implements PrdServiceProvider {

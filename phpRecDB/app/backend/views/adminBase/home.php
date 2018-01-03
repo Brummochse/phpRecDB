@@ -1,11 +1,11 @@
 <?php
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'phpRecDB',
-    'headerIcon' => 'icon-home',
+    'headerIcon' => 'home',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
 ));
 
-    $this->widget('bootstrap.widgets.TbDetailView', array(
+    $this->widget('booster.widgets.TbDetailView', array(
         'data' => $phpRecDbInfo,
     ));
 ?>
@@ -16,13 +16,13 @@ for updates check <?= CHtml::link("www.phpRecDB.de.vu", "http://www.phpRecDB.de.
 
 <br>
 <?php
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Server Information',
-    'headerIcon' => 'icon-info-sign',
+    'headerIcon' => 'info-sign',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
 ));
 
-    $this->widget('bootstrap.widgets.TbDetailView', array(
+    $this->widget('booster.widgets.TbDetailView', array(
         'data' => $serverInfos,
         'attributes' => $serverInfoAttributes,
     ));

@@ -29,7 +29,7 @@ Yii::app()->getClientScript()->registerCss('listCss', '#listLeft, #listRight { b
 
 
 <?php
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Configure List Columns for ' . $title,
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
     'headerButtons' => array(
@@ -81,19 +81,19 @@ $this->beginWidget('bootstrap.widgets.TbBox', array(
 
 
     <div class="form-actions" style="text-align: center; padding: 10px;">
-<?php
-echo CHtml::button('Restore Defaults', array(
-    'submit' => '',
-    'class' => "btn btn-inverse",
-    'params' => array(ParamHelper::PARAM_SELECTED_COLS => $defaults)
-));
+        <?php
+        echo CHtml::button('Restore Defaults', array(
+            'submit' => '',
+            'class' => "btn btn-default",
+            'params' => array(ParamHelper::PARAM_SELECTED_COLS => $defaults)
+        ));
 
-echo CHtml::button('Save', array(
-    'submit' => '',
-    'params' => array(ParamHelper::PARAM_SELECTED_COLS => 'js:$("#listLeft").sortable("toArray").toString()'),
-    'class' => "btn btn-primary",
-));
-?>
+        echo CHtml::button('Save', array(
+            'submit' => '',
+            'params' => array(ParamHelper::PARAM_SELECTED_COLS => 'js:$("#listLeft").sortable("toArray").toString()'),
+            'class' => "btn btn-primary",
+        ));
+        ?>
     </div>
 </div>
 

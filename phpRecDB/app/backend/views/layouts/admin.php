@@ -6,17 +6,17 @@
 Yii::app()->clientScript->registerCssFile(Yii::app()->params['wwwUrl'] . '/css/form.css');
 Yii::app()->clientScript->registerCssFile(Yii::app()->params['wwwUrl'] . '/css/admin.css');
 
-$this->widget('bootstrap.widgets.TbNavbar', array(
+$this->widget('booster.widgets.TbNavbar', array(
     'brandUrl' => Yii::app()->HomeUrl,
     'type' => 'inverse',
     'items' => array(
         array(
-            'class' => 'bootstrap.widgets.TbMenu',
+            'class' => 'booster.widgets.TbMenu',
             'type' => 'navbar',
             'items' => $this->getMenuItems()
         ),
         array(
-            'class' => 'bootstrap.widgets.TbMenu',
+            'class' => 'booster.widgets.TbMenu',
             'htmlOptions' => array('class' => 'pull-right',
                 'data-toggle' => 'modal',
                 'data-target' => '#notificationsmodal',
@@ -39,7 +39,7 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
 
 <?php
 //notifications modal///////////////////begin
-$this->beginWidget('bootstrap.widgets.TbModal', array(
+$this->beginWidget('booster.widgets.TbModal', array(
     'id' => 'notificationsmodal',
     'autoOpen' => $this->hasAutoOpenMessages()
 ));

@@ -1,5 +1,5 @@
 <?php
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Manage Tradestatus',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
 ));

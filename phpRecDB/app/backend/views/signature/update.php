@@ -1,14 +1,13 @@
 <?php
 
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Update Signature "' . $model->name.'"',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
     'headerButtons' => array(
         array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
+            'class' => 'booster.widgets.TbButtonGroup',
             'buttons' => array(
-                array('label' => 'Manage Signatures', 'url' => array('admin'))
+                array('label' => 'Manage Signatures', 'buttonType' =>'link', 'url' => array('admin'))
             ),
         ),
     )

@@ -10,7 +10,7 @@ $ajaxUpdateOption = array('update' => '#dialog_div', 'beforeSend' => 'function()
 <div style="width:500px;text-align-last: center;margin: 50px auto auto;">
 
     <?php
-    $this->beginWidget('bootstrap.widgets.TbBox', array(
+    $this->beginWidget('booster.widgets.TbPanel', array(
         'title' => 'administration area',
     ));
     ?>
@@ -18,7 +18,7 @@ $ajaxUpdateOption = array('update' => '#dialog_div', 'beforeSend' => 'function()
         <?php echo CHtml::image(Yii::app()->params['wwwUrl'] . '/images/logo.png', 'phpRecDB'); ?>
     </div>
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'id' => 'horizontalForm',
         'type' => 'horizontal',
         'htmlOptions' => array('class' => 'well'),

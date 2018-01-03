@@ -1,12 +1,12 @@
 <?php
 
-$this->beginWidget('bootstrap.widgets.TbBox', array(
+$this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Last Visitors',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
     'headerButtons' => array(
         array(
-            'class' => 'bootstrap.widgets.TbButtonGroup',
-            'type' => 'inverse',
+            'class' => 'booster.widgets.TbButtonGroup',
+            'context' => 'inverse',
             'buttons' => array(
                 array('items' => array(
                         array('label' => 'clear visitor statistics', 'url' => Yii::app()->createUrl('adminBase/clearUserStatistics')),

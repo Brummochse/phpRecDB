@@ -1,15 +1,19 @@
-<?php echo $form->maskedTextFieldRow($model, 'date', '9999-99-99'); ?>
+<?php
+echo $form->maskedTextFieldGroup($model, 'date', array('widgetOptions'=>array('mask'=>'9999-99-99','htmlOptions'=>array('placeholder'=>'Date'))));
+?>
 
-<div class="control-group"><?php echo CHtml::activeLabel($model, 'country', array('class' => 'control-label')); ?>
-    <div class="controls"> 
-        <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array('model' => $model, 'attribute' => 'country', 'id' => 'country_tf', 'source' => $this->createUrl('suggest/suggestCountry',array('mode'=>'suggest')), 'options' => array('autoFocus' => true, 'minLength' => '0'))); ?>
+<div class="form-group"><?php echo CHtml::activeLabel($model, 'country', array('class' => 'control-label col-sm-3 ')); ?>
+    <div class="col-sm-9">
+        <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array('htmlOptions'=>array('class'=>'form-control','placeholder'=>'Country'),'model' => $model, 'attribute' => 'country', 'id' => 'country_tf', 'source' => $this->createUrl('suggest/suggestCountry',array('mode'=>'suggest')), 'options' => array('autoFocus' => true, 'minLength' => '0'))); ?>
     </div>
 </div>
 
-<div class="control-group"><?php echo CHtml::activeLabel($model, 'city', array('class' => 'control-label')); ?>
-    <div class="controls"> 
+
+
+<div class="form-group"><?php echo CHtml::activeLabel($model, 'city', array('class' => 'control-label col-sm-3 ')); ?>
+    <div class="col-sm-9">
         <?php
-        $this->widget('zii.widgets.jui.CJuiAutoComplete', array('model' => $model, 'attribute' => 'city', 'id' => 'city_tf', 'options' => array('autoFocus' => true, 'minLength' => '0'),
+        $this->widget('zii.widgets.jui.CJuiAutoComplete', array('htmlOptions'=>array('class'=>'form-control','placeholder'=>'City'),'model' => $model, 'attribute' => 'city', 'id' => 'city_tf', 'options' => array('autoFocus' => true, 'minLength' => '0'),
             'source' => 'js: function(request, response) {
                         $.ajax({
                             url: "' . $this->createUrl('suggest/suggestCity',array('mode'=>'suggest')) . '",
@@ -29,10 +33,10 @@
 </div>
 
 
-<div class="control-group"><?php echo CHtml::activeLabel($model, 'venue', array('class' => 'control-label')); ?>
-    <div class="controls"> 
+<div class="form-group"><?php echo CHtml::activeLabel($model, 'venue', array('class' => 'control-label col-sm-3 ')); ?>
+    <div class="col-sm-9">
         <?php
-        $this->widget('zii.widgets.jui.CJuiAutoComplete', array('model' => $model, 'attribute' => 'venue', 'options' => array('autoFocus' => true, 'minLength' => '0'),
+        $this->widget('zii.widgets.jui.CJuiAutoComplete', array('htmlOptions'=>array('class'=>'form-control','placeholder'=>'Venue'),'model' => $model, 'attribute' => 'venue', 'options' => array('autoFocus' => true, 'minLength' => '0'),
             'source' => 'js: function(request, response) {
                         $.ajax({
                             url: "' . $this->createUrl('suggest/suggestVenue',array('mode'=>'suggest')) . '",
@@ -53,6 +57,5 @@
 </div>
 
 
-<?php echo $form->textFieldRow($model, 'supplement'); ?>
-<?php echo $form->checkBoxRow($model, 'misc'); ?>
-
+<?php echo $form->textFieldGroup($model, 'supplement'); ?>
+<?php echo $form->checkBoxGroup($model, 'misc'); ?>

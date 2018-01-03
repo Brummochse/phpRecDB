@@ -1,4 +1,11 @@
-/*css for autocomplete result scrolling START */
+/*css for autocomplete result scrolling BEGIN */
+
+.ui-autocomplete-loading {
+    background-image: url(../images/loading.gif);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
 
 .ui-autocomplete {
     max-height: 100px;
@@ -17,14 +24,18 @@
 
 
 #content {
-    margin-top: 40px;
+    margin-top: 60px;
     padding: 10px;
+}
+
+.detail-view {
+    margin-bottom: 20px !important;
 }
 
 .recordsInlay
 {
     position: relative;
-    margin: 15px 0;
+    margin-bottom: 15px;
     padding: 7px 7px 7px 75px;
     background-color: white;
     border: 1px solid #BBB;
@@ -60,7 +71,7 @@
     max-width: 1200px;
 }
 
-/* edit record mene layout  */
+/* edit record menu layout  */
 #all {
     width:100%; height: 100%;  overflow:auto;
 }
@@ -126,3 +137,78 @@
    margin-left: auto;
    margin-right: auto;
 }
+
+/* navbar submenu definitions BEGIN
+
+submenus were removed in bootstrap 3:  "Submenus just don't have much of a place on the web right now, especially the mobile web. They will be removed with 3.0" - https://github.com/twbs/bootstrap/pull/6342
+ */
+
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top:0;
+    left:100%;
+    margin-top:-6px;
+    margin-left:-1px;
+    -webkit-border-radius:0 6px 6px 6px;
+    -moz-border-radius:0 6px 6px 6px;
+    border-radius:0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+    display:block;
+}
+.dropdown-submenu>a:after {
+    display:block;
+    content:" ";
+    float:right;
+    width:0;
+    height:0;
+    border-color:transparent;
+    border-style:solid;
+    border-width:5px 0 5px 5px;
+    border-left-color:#cccccc;
+    margin-top:5px;
+    margin-right:-10px;
+}
+.dropdown-submenu:hover>a:after {
+    border-left-color:#ffffff;
+}
+.dropdown-submenu.pull-left {
+    float:none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left:-100%;
+    margin-left:10px;
+    -webkit-border-radius:6px 0 6px 6px;
+    -moz-border-radius:6px 0 6px 6px;
+    border-radius:6px 0 6px 6px;
+}
+
+/* navbar submenu definitions END */
+
+.btn-dark {
+
+    background-color: #000000;
+    border-color: #000000;
+    color: #fff;
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+    background-color: #666;
+    border-color: #000000;
+    color: #fff;
+}
+
+.recordsInlay .nav a {
+    padding: 3px;
+}
+.recordsInlay .active a:hover,
+.recordsInlay .active a {
+    background-color: #0088CC;
+    color: #FFFFFF;
+}
+
+

@@ -1,21 +1,10 @@
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'sublist-form',
-	'enableAjaxValidation'=>false,
-)); ?>
-	<?php echo $form->errorSummary($model); ?>
+    <?php $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
+        'id' => 'sublist-form',
+    ));
+        echo $form->textFieldGroup($model, 'label');
+        $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'label' => $model->isNewRecord ? 'Create' : 'Save', 'context' => 'primary'));
+    $this->endWidget(); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'label'); ?>
-		<?php echo $form->textField($model,'label'); ?>
-		<?php echo $form->error($model,'label'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- form -->
+</div>
