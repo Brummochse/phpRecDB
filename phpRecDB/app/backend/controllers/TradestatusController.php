@@ -18,7 +18,7 @@ class TradestatusController extends AdminController {
                 $this->redirect(array('admin'));
         }
 
-        $this->render('create', array(
+        $this->render('cu', array(
             'model' => $model,
         ));
     }
@@ -40,7 +40,7 @@ class TradestatusController extends AdminController {
                 $this->redirect(array('admin'));
         }
 
-        $this->render('update', array(
+        $this->render('cu', array(
             'model' => $model,
         ));
     }

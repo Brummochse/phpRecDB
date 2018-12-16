@@ -33,6 +33,8 @@ $prdb = new phpRecDB();
 $prdb->startInternalSite();
 ?>
 
+<div style="text-align: center; font-size: 0.6em; color: grey;margin-top: 10px;">
+
 <?php
 $time = microtime();
 $time = explode(' ', $time);
@@ -41,3 +43,5 @@ $finish = $time;
 $total_time = round(($finish - $start), 4);
 echo 'Page generated in '.$total_time.' seconds.';
 ?>
+
+</div>

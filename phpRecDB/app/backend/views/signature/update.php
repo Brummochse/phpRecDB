@@ -7,7 +7,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
         array(
             'class' => 'booster.widgets.TbButtonGroup',
             'buttons' => array(
-                array('label' => 'Manage Signatures', 'buttonType' =>'link', 'url' => array('admin'))
+                array('label' => 'Manage Signatures', 'buttonType' =>'link', 'url' => array('admin'),'htmlOptions' => array('class'=>'btn-dark'))
             ),
         ),
     )

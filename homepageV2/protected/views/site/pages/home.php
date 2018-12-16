@@ -1,5 +1,4 @@
-<p>phpRecDB is a free php script for creating a bootleg trading site.</p>
-<p>I programmed it for my own trading page (<a href="http://www.ratm-bootlegs.de.vu">www.ratm-bootlegs.de.vu</a>) because there was no free software available before.</p>
+<p>phpRecDB is a free php script to create a live record collection site (so called bootleg trading page).</p>
 <p>This software is licensed under the GPLv3.(free for non-commercial usage)</p>
 <?php
 $this->beginWidget('yiiwheels.widgets.box.WhBox', array(

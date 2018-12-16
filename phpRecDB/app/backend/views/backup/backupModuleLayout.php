@@ -12,14 +12,14 @@ $this->beginWidget('booster.widgets.TbPanel', array(
             'class' => 'booster.widgets.TbButtonGroup',
             'context' => 'inverse',
             'buttons' => array(
-                array('label' => 'Upload Backup', 'url' => array('upload'))
+                array('label' => 'Upload Backup', 'url' => array('upload'),'buttonType' =>'link','htmlOptions' => array('class'=>'btn-dark'))
             ),
         ),
         array(
             'class' => 'booster.widgets.TbButtonGroup',
             'context' => 'inverse',
             'buttons' => array(
-                array('label' => 'Manage Backups', 'url' => array('index')),
+                array('label' => 'Manage Backups', 'url' => array('index'),'buttonType' =>'link','htmlOptions' => array('class'=>'btn-dark')),
             ),
         ),
     )

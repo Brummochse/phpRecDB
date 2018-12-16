@@ -40,7 +40,7 @@
 		<div id="footer">
 			<div id="BottomBarContent">
 				<div id="Credits">
-					Powered by <a href="http://www.phprecdb.de.vu">phpRecDB</a> Version <?= Yii::app()->params['version'] ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Theme by <a href="http://www.rezter.co.uk/?r=site/page&view=contact">Rezter</a>
+					Powered by <a href="http://www.phprecdb.com">phpRecDB</a> Version <?= Yii::app()->params['version'] ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Theme by Rezter
 				</div>
 				<div id="BackToTop">
 					<a href="#" class="go-top">To the top &#x25B2;</a>
@@ -51,7 +51,7 @@
 		$(document).ready(function() {
 			$('.go-top').click(function(event) {
 				event.preventDefault();
-				
+
 				$('html, body').animate({scrollTop: 0}, 300);
 			})
 		});

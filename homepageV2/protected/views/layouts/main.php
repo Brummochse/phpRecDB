@@ -63,7 +63,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/www/css/site.c
 
                 <div style="margin-top: 20px;height: 15px;background: #222222;  "></div>
             </div>
-            <script>var d='phprecdb.de.vu';</script><script src="http://8685.statistiq.com/8685.js"></script>
+
         </div>
     </body>
 </html>

@@ -1,3 +1,5 @@
+- phprecdb auf github bringen und link auf start seite ändern
+
 - ajax fehlermeldung wenn löschen fehlschlägt (nö doch nich)
 
 - list presets bootleg type sorti machen
@@ -15,3 +17,5 @@
 - settings cleaner (listoptions, signature)
 
 - delete backups when version/db update
+
+- password hashing algorithmus von md5 nach php standard refactoren

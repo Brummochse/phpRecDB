@@ -3,20 +3,17 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     'title' => 'Manage Videoformats',
     'htmlOptions' => array('class' => 'bootstrap-box-small'),
 ));
-?>
-<?php
-$this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'videoformat-grid',
-    'dataProvider' => $model->search(),
-    'columns' => array(
-        'id',
-        'label',
-        array(
-            'class' => 'CButtonColumn',
-            'template' => '{update}{delete}'
+    $this->widget('zii.widgets.grid.CGridView', array(
+        'id' => 'videoformat-grid',
+        'dataProvider' => $model->search(),
+        'columns' => array(
+            'id',
+            'label',
+            array(
+                'class' => 'CButtonColumn',
+                'template' => '{update}{delete}'
+            ),
         ),
-    ),
-));
-?>
-<?php echo CHtml::link('Create new Videoformat', array('create')); ?>
-<?php $this->endWidget();?>
+    ));
+    $this->widget('booster.widgets.TbButton', array('label' => 'Create', 'url' => array('create'), 'buttonType' =>'link','context' => 'primary'));
+$this->endWidget();

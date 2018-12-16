@@ -11,26 +11,20 @@ $this->beginWidget('booster.widgets.TbPanel', array(
         'id' => 'inlineForm',
         'type' => 'horizontal',
         'htmlOptions' => array('class' => 'well'),
-            ));
-    ?>
+     ));
+            echo $form->checkBoxGroup($model, 'enable');
+            echo $form->textFieldGroup($model, 'text', array('maxlength' => 255));
+            echo $form->textFieldGroup($model, 'fontSize');
+            echo $form->textFieldGroup($model, 'border', array('maxlength' => 5));
+            echo $form->dropDownListGroup($model, 'align',array('widgetOptions' => array('data' => Helper::parallelArray(WatermarkForm::$ALIGN_ENUM))));
+            echo $form->dropDownListGroup($model, 'valign',array('widgetOptions' => array('data' => Helper::parallelArray(WatermarkForm::$VALIGN_ENUM))));
+            echo $form->dropDownListGroup($model, 'fontStyle',array('widgetOptions' => array('data' => Helper::parallelArray(Yii::app()->screenshotManager->getFonts()))));
+            echo $form->colorpickerGroup($model, 'color', array('maxlength' => 7));
+            echo $form->checkBoxGroup($model, 'watermarkThumbnail');
+            echo $form->checkBoxGroup($model, 'resizeOnThumbnail');
+            $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => 'Save'));
 
-        <?php echo $form->checkBoxGroup($model, 'enable'); ?>
-        <?php echo $form->textFieldGroup($model, 'text', array('maxlength' => 255)) ?>
-        <?php echo $form->textFieldGroup($model, 'fontSize'); ?>
-        <?php echo $form->textFieldGroup($model, 'border', array('maxlength' => 5)); ?>
-        <?php echo $form->dropDownListGroup($model, 'align',array('widgetOptions' => array('data' => Helper::parallelArray(WatermarkForm::$ALIGN_ENUM)))); ?>
-        <?php echo $form->dropDownListGroup($model, 'valign',array('widgetOptions' => array('data' => Helper::parallelArray(WatermarkForm::$VALIGN_ENUM)))); ?>
-        <?php echo $form->dropDownListGroup($model, 'fontStyle',array('widgetOptions' => array('data' => Helper::parallelArray(Yii::app()->screenshotManager->getFonts())))); ?>
-        <?php echo $form->colorpickerGroup($model, 'color', array('maxlength' => 7)); ?>
-        <?php echo $form->checkBoxGroup($model, 'watermarkThumbnail') ?>
-        <?php echo $form->checkBoxGroup($model, 'resizeOnThumbnail') ?>
-
-
-    <div class="form-actions">
-        <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => 'Save')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
+     $this->endWidget(); ?>
 </div>
 
 <div style="float:left;margin: 5px;">

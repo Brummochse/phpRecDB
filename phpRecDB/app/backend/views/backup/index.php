@@ -1,8 +1,3 @@
 <?php 
-$this->renderPartial('_list', array(
-		'dataProvider'=>$dataProvider,
-));
-
-echo CHtml::link('Create Backup File', array('create'));
-
-?>
+$this->renderPartial('_list', array('dataProvider'=>$dataProvider));
+$this->widget('booster.widgets.TbButton', array('label' => 'Create Backup File', 'url' => array('create'), 'buttonType' =>'link','context' => 'primary'));
