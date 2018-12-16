@@ -9,7 +9,6 @@ $this->beginWidget('booster.widgets.TbPanel', array(
                  array('items' => array(
                         array('label' => 'add Video Record', 'url' => Yii::app()->createUrl('adminEditRecord/addVideoRecord', array(ParamHelper::PARAM_CONCERT_ID => $concertId))),
                         array('label' => 'add Audio Record', 'url' => Yii::app()->createUrl('adminEditRecord/addAudioRecord', array(ParamHelper::PARAM_CONCERT_ID => $concertId))),
-                        array('label' => 'add Record from phpRecCode', 'url' => Yii::app()->createUrl('adminBase/addPhpRecCode', array(ParamHelper::PARAM_CONCERT_ID => $concertId))),
                         ($allowDeleteRecord) ? '---' : array(),
                         ($allowDeleteRecord) ? array('label' => 'delete selected Record', 'url' => Yii::app()->createUrl('adminEditRecord/deleteRecord', array(ParamHelper::PARAM_RECORD_ID => $recordId))) : array(),
                     ),'htmlOptions' => array('class'=>'btn-dark')),
