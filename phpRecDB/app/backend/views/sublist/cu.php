@@ -6,18 +6,13 @@ $this->beginWidget('booster.widgets.TbPanel', array(
         array(
             'class' => 'booster.widgets.TbButtonGroup',
             'buttons' => array(
-                array('label' => 'Manage Sublists', 'buttonType' => 'link', 'url' => array('admin'))
+                array('label' => 'Manage Sublists', 'buttonType' => 'link', 'url' => array('admin'),'htmlOptions' => array('class'=>'btn-dark'))
             ),
         ),
     )
 ));
-?>
-    <div class="form">
-        <?php $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
-            'id' => 'sublist-form',
-        ));
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array('id' => 'sublist-form'));
         echo $form->textFieldGroup($model, 'label');
         $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'label' => $model->isNewRecord ? 'Create' : 'Save', 'context' => 'primary'));
-        $this->endWidget(); ?>
-    </div>
-<?php $this->endWidget(); ?>
+    $this->endWidget();
+$this->endWidget();

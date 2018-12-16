@@ -15,6 +15,7 @@ class UserdefinedForm extends SettingsDbModel {
     public function rules() {
         return array(
             array('userDefined1Label, userDefined2Label', 'required'),
+            array('userDefined1Label, userDefined2Label', 'length','max' => 255),
         );
     }
 }

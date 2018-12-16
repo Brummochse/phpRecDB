@@ -48,7 +48,7 @@ class UserController extends AdminController {
             }
         }
 
-        $this->render('create', array(
+        $this->render('cu', array(
             'model' => $model,
         ));
     }
@@ -81,7 +81,7 @@ class UserController extends AdminController {
     }
 
     public function actionUpdate($id) {
-        $this->update($id, 'update', 'admin');
+        $this->update($id, 'cu', 'admin');
     }
 
     /**

@@ -6,12 +6,11 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     'headerButtons' => array(
         array(
             'class' => 'booster.widgets.TbButtonGroup',
-            'context' => 'inverse',
             'buttons' => array(
                 array('items' => array(
                         array('label' => 'clear visitor statistics', 'url' => Yii::app()->createUrl('adminBase/clearUserStatistics')),
                         array('label' => 'clear record visit counters', 'url' => Yii::app()->createUrl('adminBase/clearRecordVisitStatistics')),
-                    )),
+                    ),'htmlOptions' => array('class'=>'btn-dark')),
             )
         ),
         Yii::app()->helpCreator->renderModalAndGetHelpBtn($this,'visitorStatistics')

@@ -9,7 +9,6 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     <?php echo $form->fileFieldGroup($model, 'file'); ?>
     <?php echo $form->checkBoxGroup($model, 'visible'); ?>
 
-    <?php //echo $form->checkBoxGroup(null, 'visible');  ?>
     <div class="form-actions">
         <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => 'Add Record')); ?>
     </div>

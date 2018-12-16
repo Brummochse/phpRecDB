@@ -4,5 +4,5 @@
     
 </div>
 <div id="sign" class="contentSize">
-Powered by <a href="http://www.phprecdb.de.vu">phpRecDB</a> Version <?= Yii::app()->params['version'] ?>
+Powered by <a href="http://www.phprecdb.com">phpRecDB</a> Version <?= Yii::app()->params['version'] ?>
 </div>

@@ -5,7 +5,6 @@ class AdminMenuItems {
     private static $instance = NULL;
 
     private function __construct() {
-        
     }
 
     public static function getInstance() {
@@ -50,7 +49,6 @@ class AdminMenuItems {
                         )
                     ),                    
                     array('label' => 'Theme', 'url' => array('/adminBase/theme')),
-                    array('label' => 'Sublist Management', 'url' => array('/sublist/admin')),
                     array('label' => 'Signature Management', 'url' => array('/signature/admin')),
                     array('label' => 'Screenshots',
                         'items' => array(
@@ -72,6 +70,7 @@ class AdminMenuItems {
                     array('label' => 'List', 'items' => array(
                             array('label' => 'Columns Frontend', 'url' => array('/adminBase/listColConfigFrontend')),
                             array('label' => 'Columns Admininistration Panel', 'url' => array('/adminBase/listColConfigBackend')),
+                            array('label' => 'Sublist Management', 'url' => array('/sublist/admin')),
                             array('label' => 'Caching', 'url' => array('/adminBase/listCaching'), 'visible' => Yii::app()->user->isAdmin()),
                         )
                     ),
@@ -86,7 +85,6 @@ class AdminMenuItems {
             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/adminBase/logout')),
         );
     }
-
 }
 
 ?>

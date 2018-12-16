@@ -10,7 +10,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
     ));
 ?>
 
-for updates check <?= CHtml::link("www.phpRecDB.de.vu", "http://www.phpRecDB.de.vu"); ?>
+for updates check <?= CHtml::link("www.phpRecDB.com", "http://www.phpRecDB.com "); ?>
 
 <?php $this->endWidget(); ?>
 

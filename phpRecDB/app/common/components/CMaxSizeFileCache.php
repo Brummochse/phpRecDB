@@ -4,11 +4,11 @@ class CMaxSizeFileCache extends CFileCache {
 
     //set by config
     public $maxSize = 52428800; //=50 * 1024 * 1024 = 50 MegaBytes
-    
+
     protected function getValue($key) {
         $cacheFile = $this->getCacheFile($key);
         touch($cacheFile); //to update the "last access time"
-        return @file_get_contents($cacheFile, false, null, $this->embedExpiry ? 10 : -1);
+        return parent::getValue($key);
     }
 
     private function gcFileSize() {
