@@ -72,15 +72,30 @@ class AdminBaseController extends AdminController {
 
     private function getAddRecordTabItems() {
         $tabs = array(
-            "manually"=>array('label' => '',
+            "manually"=>array('label' => 'Manually',
                 'content' => '',
                 'url' => Yii::app()->createUrl('AdminBase/addRecord'),
+                'active' => false,
+            ),
+            "phpRecCode"=>array('label' => 'phpRecCode',
+                'content' => '',
+                'url' => Yii::app()->createUrl('AdminBase/addPhpRecCode'),
                 'active' => false,
             ),
         );
         return $tabs;
     }
 
+    public function actionAddPhpRecCode() {
+        
+        
+        $addPhpRecCodeFormModel = new AddPhpRecCodeForm;
+        
+        $tabItems=$this->getAddRecordTabItems();
+        $tabItems['phpRecCode']['content']=$this->renderPartial("_addRecordPhpRecCode", array('model'=>$addPhpRecCodeFormModel), true);
+        $tabItems['phpRecCode']['active']=true;
+        $this->render('addRecord', array('tabItems' => $tabItems));
+    }
 
     public function actionAddRecord() {
         $addRecordFormModel = new AddRecordForm;
