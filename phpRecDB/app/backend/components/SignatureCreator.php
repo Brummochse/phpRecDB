@@ -174,7 +174,7 @@ class SignatureCreator {
     }
 
     private function addFooter() {
-        $text = "www.phpRecDB.de.vu";
+        $text = "www.phpRecDB.com";
 
         $color = $this->getColor1();
 

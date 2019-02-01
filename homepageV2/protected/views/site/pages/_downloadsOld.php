@@ -9,6 +9,12 @@
             <th><b>Release Date</b></th>
         </tr>
         <tr>
+            <td>1.1</td>
+            <td><a href="download.php?action=download&file=phpRecDB_script_1.1.zip">phpRecDB_script_1.1.zip</a></td>
+            <td><a href="download/phpRecDB_dbSchema_1.0.zip">phpRecDB_dbSchema_1.0.zip</a></td>
+            <td>2014-07-10</td>
+        </tr>
+        <tr>
             <td>1.0</td>
             <td><a href="download.php?action=download&file=phpRecDB_script_1.0.zip">phpRecDB_script_1.0.zip</a></td>
             <td><a href="download/phpRecDB_dbSchema_1.0.zip">phpRecDB_dbSchema_1.0.zip</a></td>

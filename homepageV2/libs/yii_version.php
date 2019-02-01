@@ -1,6 +1,6 @@
 <?php
 /*
  * Yii Version:
- * yii-1.1.14.f0fee9
+ * Yii 1.1.20
  */
 ?>

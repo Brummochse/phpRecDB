@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->getTheme()->getBaseUrl(); ?>/css/recordDetail.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->params['wwwUrl']; ?>/css/font-awesome.min.css" />
 
 <div id='phpRecDbInfo'>
 
@@ -68,20 +69,13 @@
 
     <?php if (isset($v[RI::SCREENSHOTS])) { ?>
         <div class='infobox'><label>Screenshots:</label><br>
-            <div style="text-align: center">;
-                <?php
-                foreach ($v[RI::SCREENSHOTS] as $screenshot) {
-                    echo CHtml::link(CHtml::image($screenshotFolder . '/' . $screenshot->thumbnail), $screenshotFolder . '/' . $screenshot->screenshot_filename, array("rel" => "group"));
-                }
-                $this->widget('application.extensions.fancybox.EFancyBox', array(
-                    'target' => 'a[rel="group"]',
-                    'config' => array(
-                        'titleShow' => true,
-                        'scrolling' => 'auto',
-                        'titlePosition' => 'outside'))
-                );
-                ?>
-            </div>
+            <?php
+            foreach ($v[RI::SCREENSHOTS] as $screenshot) {
+
+                echo CHtml::link(CHtml::image($screenshotFolder.'/'.$screenshot->thumbnail), $screenshotFolder.'/'.$screenshot->screenshot_filename, array("rel"=>"group"));
+            }
+            $this->widget('application.extensions.fancybox.AlFancybox', array('targetDOM' => '.infobox a'));
+            ?>
         </div>
     <?php } ?>
 

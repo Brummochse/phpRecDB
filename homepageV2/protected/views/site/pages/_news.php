@@ -4,6 +4,12 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/www/css/newsTa
 
 <div id="newsTable">
 
+    <label>2018-12-30</label>
+    <p>
+        Version 1.2 released
+        <?php echo TbHtml::button('more', array('size' => TbHtml::BUTTON_SIZE_SMALL, 'data-toggle' => 'modal','data-target' => '#modal2018-12-30',)); ?>
+    </p>
+
     <label>2014-07-10</label>
     <p>
         Version 1.1 released
@@ -34,3 +40,4 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/www/css/newsTa
 </div>
 <?php include dirname(__FILE__) . '/news/2013-08-27.php'; ?>
 <?php include dirname(__FILE__) . '/news/2014-07-10.php'; ?>
+<?php include dirname(__FILE__) . '/news/2018-12-30.php'; ?>

@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->params['wwwUrl']; ?>/css/font-awesome.min.css" />
+<div class="wantlist">
 <?php
 
 class Want {
@@ -18,16 +20,17 @@ function convertToUtf8($innerHtml) {
 function parseWantsFromCSV() {
     $wants = array();
     $file_handle = fopen( dirname(__FILE__). DIRECTORY_SEPARATOR."wants.csv", "r");
+    $i=0;
     while (!feof($file_handle)) {
 
-        $parts = fgetcsv($file_handle,0,";");
+        $parts = fgetcsv($file_handle,0,",");
         if (count($parts)>=3) {
             $want = new Want();
             $want->artist = $parts[0];
             $want->date = $parts[1];
             $want->location = $parts[2];
             $want->comment = $parts[3];
-            
+
             $want->pictureFolder = $parts[4];
             if (!empty($want->pictureFolder)) {
                 $allFiles = scandir(dirname(__FILE__). "/screens/".$want->pictureFolder); //Ordner "files" auslesen
@@ -38,9 +41,10 @@ function parseWantsFromCSV() {
                 };
             }
             $want->youtube = $parts[5];
-            
+
             $wants[]=$want;
         }
+        if ($i++>60) break;
     }
     fclose($file_handle);
     
@@ -57,16 +61,7 @@ foreach ($wants as $want) {
 
     foreach ($want->pictures as $picture) {
         $publishedPictureLink=Yii::app()->getAssetManager()->publish(dirname(__FILE__). "/screens/".$want->pictureFolder.'/'.$picture);
-        $detailContentStr.= '<br>'. CHtml::link($picture, $publishedPictureLink,array("rel" => "group".$counter));
-
-        $widget=$this->widget('application.extensions.fancybox.EFancyBox', array(
-                  'target' => 'a[rel="group'.$counter.'"]',
-                  'config' => array(
-                      'titleShow' => true,
-                      'scrolling' => 'auto',
-                      'titlePosition' => 'outside')),true
-        );
-        $detailContentStr.=$widget;
+        $detailContentStr.= '<br>'. CHtml::link($picture, $publishedPictureLink,array("rel" => "group".$counter, "class"=>"screenshot"));
     }
 
     if (!empty($want->youtube)) {
@@ -93,5 +88,7 @@ $this->widget('zii.widgets.jui.CJuiAccordion', array(
     ),
 ));
 
-?>
+$this->widget('application.extensions.fancybox.AlFancybox', array('targetDOM' => '.screenshot'));
 
+?>
+</div>

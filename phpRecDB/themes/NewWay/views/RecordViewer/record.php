@@ -136,7 +136,6 @@ if ($r[RI::NOTES] != '') {
 				array("rel" => "lightbox-rel")
 			);
 		}
-		$this->widget('application.extensions.fancybox.EFancyBox', array( 'target' => 'a[rel="group"]', 'config' => array('titleShow' => true, 'scrolling' => 'auto', 'titlePosition' => 'outside')));
 	?>
 	</div>
 </div>

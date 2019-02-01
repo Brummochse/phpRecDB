@@ -10,9 +10,9 @@
         </tr>
         <tr>
             <td>1.1</td>
-            <td><a href="download.php?action=download&file=phpRecDB_script_1.1.zip">phpRecDB_script_1.1.zip</a></td>
+            <td><a href="download.php?action=download&file=phpRecDB_script_1.2.zip">phpRecDB_script_1.2.zip</a></td>
             <td><a href="download/phpRecDB_dbSchema_1.0.zip">phpRecDB_dbSchema_1.0.zip</a></td>
-            <td>2014-07-10</td>
+            <td>2018-12-30</td>
         </tr>
     </table>
 
