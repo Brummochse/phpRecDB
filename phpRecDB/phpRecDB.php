@@ -15,7 +15,7 @@
  * along with phpRecDB. If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author <the-patient@gmx.de>
- * @link http://www.phprecdb.de.vu
+ * @link http://www.phprecdb.com
  * @copyright 2009-2013 <the-patient@gmx.de>
  * @license http://www.gnu.org/licenses/
  */

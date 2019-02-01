@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->params['wwwUrl']; ?>/css/recordDetail.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->params['wwwUrl']; ?>/css/font-awesome.min.css" />
 
 <div id='phpRecDbInfo'>
         
@@ -58,13 +59,7 @@
 
                      echo CHtml::link(CHtml::image($screenshotFolder.'/'.$screenshot->thumbnail), $screenshotFolder.'/'.$screenshot->screenshot_filename, array("rel"=>"group"));
                 }
-                $this->widget('application.extensions.fancybox.EFancyBox', array(
-                    'target' => 'a[rel="group"]',
-                    'config' => array(
-                        'titleShow' => true,
-                        'scrolling' => 'auto',
-                        'titlePosition' => 'outside'))
-                 );
+                $this->widget('application.extensions.fancybox.AlFancybox', array('targetDOM' => '.infobox a'));
             ?>
         </div>
         <?php } ?>

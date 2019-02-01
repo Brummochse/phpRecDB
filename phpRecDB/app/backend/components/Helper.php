@@ -50,6 +50,8 @@ class Helper {
     }
 
     public static $dropBoxDefaultNullStr = array('empty' => array("" => "-"));
+    public static $dropBoxDefaultNull =array('htmlOptions' => array('empty'=>'-'));
+
 
     // if a value is a string == $dropBoxDefaultNullStr, it gets converted to NULL
     public static function convertNullStrValsToNull($arrayToConvert) {

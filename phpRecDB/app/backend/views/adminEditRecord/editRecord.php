@@ -23,7 +23,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
                     'htmlOptions' => array(
                         'data-toggle' => 'modal',
                         'data-target' => '#editConcert',
-                       'class'=>'btn-dark'
+                        'class'=>'btn-dark'
                     )),
             ),
         ),
