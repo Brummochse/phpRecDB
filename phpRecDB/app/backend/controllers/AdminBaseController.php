@@ -70,32 +70,6 @@ class AdminBaseController extends AdminController {
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
-    private function getAddRecordTabItems() {
-        $tabs = array(
-            "manually"=>array('label' => 'Manually',
-                'content' => '',
-                'url' => Yii::app()->createUrl('AdminBase/addRecord'),
-                'active' => false,
-            ),
-            "phpRecCode"=>array('label' => 'phpRecCode',
-                'content' => '',
-                'url' => Yii::app()->createUrl('AdminBase/addPhpRecCode'),
-                'active' => false,
-            ),
-        );
-        return $tabs;
-    }
-
-    public function actionAddPhpRecCode() {
-        
-        
-        $addPhpRecCodeFormModel = new AddPhpRecCodeForm;
-        
-        $tabItems=$this->getAddRecordTabItems();
-        $tabItems['phpRecCode']['content']=$this->renderPartial("_addRecordPhpRecCode", array('model'=>$addPhpRecCodeFormModel), true);
-        $tabItems['phpRecCode']['active']=true;
-        $this->render('addRecord', array('tabItems' => $tabItems));
-    }
 
     public function actionAddRecord() {
         $addRecordFormModel = new AddRecordForm;
@@ -138,10 +112,10 @@ class AdminBaseController extends AdminController {
                 }
             }
         }
-        $tabItems=$this->getAddRecordTabItems();
-        $tabItems['manually']['content']=$this->renderPartial("_addRecordManually", array('model' => $addRecordFormModel), true);
-        $tabItems['manually']['active']=true;
-        $this->render('addRecord', array('tabItems' => $tabItems));
+//        $tabItems=$this->getAddRecordTabItems();
+//        $tabItems['manually']['content']=$this->renderPartial("_addRecordManually", array('model' => $addRecordFormModel), true);
+//        $tabItems['manually']['active']=true;
+        $this->render('addRecord', array('model' => $addRecordFormModel));
     }
 
     public function actionAssignRecordsToSublist() {
