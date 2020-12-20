@@ -102,7 +102,7 @@ class RecordsListFetcher {
     }
 
     private function evalOrderChar($artistName) {
-        $firstChr = strtoupper($artistName{0});
+        $firstChr = strtoupper($artistName[0]);
 
         if ($firstChr >= 'A' && $firstChr <= 'Z') {
             return $firstChr;

@@ -246,6 +246,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
     }
 
     protected function doRenderDataCells($row) {
+
         foreach ($this->columns as $column) {
             if (!($this->orderBy == $this->mainColumn && $this->isOrderedColumn($column))) { //do not render main-col-header, because it was alreay rendered as a extra row before
                 $column->renderDataCell($row);
@@ -265,6 +266,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         foreach ($years as $year) {
             $yearMenuItems[] = array('label' => $year, 'url' => '#' . $year);
         }
+        print_r($this->dataProvider->data);
         return $yearMenuItems;
     }
 
