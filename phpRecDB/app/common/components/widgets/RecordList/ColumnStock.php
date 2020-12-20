@@ -291,21 +291,16 @@ class ColumnStock {
     private $configCols = array();
     private $colNames = array();
     private $allSqlBuildCols = array();
-    //works as hashset, data is sotred in keys
+    //works as hashset, data is sorted in keys
     private $selectedSqlBuildColNames = array();
     //db fields for builind the sql query 
-    private $baseSqlBuildCols = array(
-        "" => array("id as RecordId"),
-        "concert" => array("id", "misc"),
-        "concert.artist" => array("id as ArtistId"),
-        "video" => "recordings_id IS NOT NULL As VideoType",
-        "audio" => "recordings_id IS NOT NULL As AudioType",
-    );
+    private $baseSqlBuildCols = array();
 
     const SETTINGS_DEFAULT_FRONTEND = 'Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
     const SETTINGS_DEFAULT_BACKEND = 'CheckBox,Artist,Date,Location,Length,Quality,Type,Medium,Source,Version,Buttons,TradeStatus';
 
     public function __construct($isAdmin = false) {
+        $this->initBaseSqlBuildCols();
 
         if ($isAdmin) { //means backend col settings get loaded
             $dbColSettingsName = Settings::LIST_COLS_BACKEND;
@@ -320,32 +315,61 @@ class ColumnStock {
         $this->initSqlBuildColStock();
     }
 
+    public function initBaseSqlBuildCols()
+    {
+        $this->baseSqlBuildCols[] = new SqlBuildCol("", "id", "RecordId");
+        $this->baseSqlBuildCols[] = new SqlBuildCol("concert", "id", "");
+        $this->baseSqlBuildCols[] = new SqlBuildCol("concert", "misc", "");
+        $this->baseSqlBuildCols[] = new SqlBuildCol("concert.artist", "id", "ArtistId");
+        $this->baseSqlBuildCols[] = new SqlBuildCol("video", "recordings_id IS NOT NULL", "VideoType");
+        $this->baseSqlBuildCols[] = new SqlBuildCol("audio", "recordings_id IS NOT NULL", "AudioType");
+
+//        "" => array("id as RecordId"),
+//        "concert" => array("id", "misc"),
+//        "concert.artist" => array("id as ArtistId"),
+//        "video" => "recordings_id IS NOT NULL As VideoType",
+//        "audio" => "recordings_id IS NOT NULL As AudioType",
+
+    }
+
     public function getSelectedSqlBuildColNames() {
         return array_keys($this->selectedSqlBuildColNames); //needed becasue data is stored in keys
     }
 
+
+
     private function initSqlBuildColStock() {
-        $this->allSqlBuildCols[Cols::SCREENSHOT] = array("screenshots" => "video_recordings_id");
-        $this->allSqlBuildCols[Cols::YOUTUBE] = array("youtubes" => "recordings_id");
-        $this->allSqlBuildCols[Cols::VISITCOUNTER] = array("recordvisit" => "visitors");
-        $this->allSqlBuildCols[Cols::DATE] = array("concert" => "date");
-        $this->allSqlBuildCols[Cols::ARTIST] = array("concert.artist" => "name");
-        $this->allSqlBuildCols[Cols::COUNTRY] = array("concert.country" => "name");
-        $this->allSqlBuildCols[Cols::CITY] = array("concert.city" => "name");
-        $this->allSqlBuildCols[Cols::VENUE] = array("concert.venue" => "name");
-        $this->allSqlBuildCols[Cols::TYPE] = array("rectype" => "shortname");
-        $this->allSqlBuildCols[Cols::MEDIUM] = array("medium" => "shortname");
-        $this->allSqlBuildCols[Cols::SOURCE] = array("source" => "shortname");
-        $this->allSqlBuildCols[Cols::LENGTH] = array("" => "sumlength");
-        $this->allSqlBuildCols[Cols::QUALITY] = array("" => "quality");
-        $this->allSqlBuildCols[Cols::USERDEFINED1] = array("" => "userdefined1");
-        $this->allSqlBuildCols[Cols::USERDEFINED2] = array("" => "userdefined2");
-        $this->allSqlBuildCols[Cols::VERSION] = array("" => "sourceidentification");
-        $this->allSqlBuildCols[Cols::SUPPLEMENT] = array("concert" => "supplement");
-        $this->allSqlBuildCols[Cols::TRADESTATUS] = array("tradestatus" => "shortname");
-        $this->allSqlBuildCols[Cols::VISIBLE] = array("" => "visible");
-        $this->allSqlBuildCols[Cols::VIDEOFORMAT] = array("video.videoformat" => "label");
-        $this->allSqlBuildCols[Cols::ASPECTRATIO] = array("video.aspectratio" => "label");
+        $this->allSqlBuildCols[] = new SqlBuildCol("screenshots" , "video_recordings_id",Cols::SCREENSHOT);
+        $this->allSqlBuildCols[] = new SqlBuildCol("youtubes", "recordings_id",Cols::YOUTUBE);
+        $this->allSqlBuildCols[] = new SqlBuildCol("recordvisit", "visitors",Cols::VISITCOUNTER);
+        $this->allSqlBuildCols[] = new SqlBuildCol("concert.artist", "name",Cols::ARTIST);
+        $this->allSqlBuildCols[] = new SqlBuildCol("concert.country", "name",Cols::COUNTRY);
+        $this->allSqlBuildCols[] = new SqlBuildCol("concert.city", "name",Cols::CITY);
+        $this->allSqlBuildCols[] = new SqlBuildCol("concert.venue", "name",Cols::VENUE);
+        $this->allSqlBuildCols[] = new SqlBuildCol("rectype", "shortname",Cols::TYPE);
+        $this->allSqlBuildCols[] = new SqlBuildCol("medium", "shortname",Cols::MEDIUM);
+        $this->allSqlBuildCols[] = new SqlBuildCol("source", "shortname",Cols::SOURCE);
+        $this->allSqlBuildCols[] = new SqlBuildCol("", "sumlength",Cols::LENGTH);
+        $this->allSqlBuildCols[] = new SqlBuildCol("", "quality",Cols::QUALITY);
+        $this->allSqlBuildCols[] = new SqlBuildCol("", "userdefined1",Cols::USERDEFINED1);
+        $this->allSqlBuildCols[] = new SqlBuildCol("", "userdefined2",Cols::USERDEFINED2);
+        $this->allSqlBuildCols[] = new SqlBuildCol("", "sourceidentification",Cols::VERSION);
+        $this->allSqlBuildCols[] = new SqlBuildCol("concert", "supplement",Cols::SUPPLEMENT);
+        $this->allSqlBuildCols[] = new SqlBuildCol("tradestatus", "shortname",Cols::TRADESTATUS);
+        $this->allSqlBuildCols[] = new SqlBuildCol("", "visible",Cols::VISIBLE);
+        $this->allSqlBuildCols[] = new SqlBuildCol("video.videoformat", "label",Cols::VIDEOFORMAT);
+        $this->allSqlBuildCols[] = new SqlBuildCol("video.aspectratio", "label",Cols::ASPECTRATIO);
+        $this->allSqlBuildCols[] = new class extends SqlBuildCol {
+            public function __construct()
+            {
+                parent::__construct("concert", "date", Cols::DATE);
+            }
+
+            public function postProcess($sqlColIdentifier)
+            {
+                return "DATE_FORMAT(".$sqlColIdentifier.", '%Y-%m-%d')";
+            }
+        };
     }
 
     /**
@@ -395,32 +419,28 @@ class ColumnStock {
         return $colDefinitions;
     }
 
-    public function getQueryBuilderSettings($additionalCols) {
+    public function getQueryBuilderSettings(array $additionalCols) {
 
         foreach ($this->selectedSqlBuildColNames as $sqlBuildColName => $notNeededValue) {
-            if (!key_exists($sqlBuildColName, $this->allSqlBuildCols)) {
+
+            $sqlCol=current(array_filter($this->allSqlBuildCols, function($e) use ($sqlBuildColName) {return $e->colLabel == $sqlBuildColName;}));
+
+            if ($sqlCol==null) {
                 continue; //no special sql needed for this col
             }
-
-            $sqlBuildColDefinition = $this->allSqlBuildCols[$sqlBuildColName];
-            $path = key($sqlBuildColDefinition);
-            $field = $sqlBuildColDefinition[$path] . ' as ' . $sqlBuildColName;
-            $this->addSqlBuildColDefinition($path, $field);
+            $this->baseSqlBuildCols[]=$sqlCol;
         }
 
-        foreach ($additionalCols as $path => $field) {
-            $this->addSqlBuildColDefinition($path, $field);
+        foreach ($additionalCols as $sqlCol) {
+            $this->baseSqlBuildCols[]=$sqlCol;
         }
 
         return $this->baseSqlBuildCols;
     }
 
-    private function addSqlBuildColDefinition($path, $field) {
-        if (!key_exists($path, $this->baseSqlBuildCols)) {
-            $this->baseSqlBuildCols[$path] = array();
-        }
-        $this->baseSqlBuildCols[$path][] = $field;
-    }
+
+
+
 
 }
 

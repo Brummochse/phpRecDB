@@ -30,12 +30,12 @@ abstract class ListDataConfig {
 
         switch ($va) {
             case VA::AUDIO:
-                $this->additionalArtistMenuCols["records.audio"] = "recordings_id IS NOT NULL As AudioType";
+                $this->additionalArtistMenuCols[] =new SqlBuildCol("records.audio", "recordings_id IS NOT NULL","AudioType");
                 $this->recordListFilters[] = 'audio.recordings_id IS NOT NULL';
                 $this->artistMenuFilters[] = 'audio.recordings_id IS NOT NULL';
                 break;
             case VA::VIDEO:
-                $this->additionalArtistMenuCols["records.video"] = "recordings_id IS NOT NULL As VideoType";
+                $this->additionalArtistMenuCols[] =new SqlBuildCol("records.video", "recordings_id IS NOT NULL","VideoType");
                 $this->recordListFilters[] = 'video.recordings_id IS NOT NULL';
                 $this->artistMenuFilters[] = 'video.recordings_id IS NOT NULL';
                 break;

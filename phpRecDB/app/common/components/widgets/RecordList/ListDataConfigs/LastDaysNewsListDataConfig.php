@@ -12,7 +12,7 @@ class LastDaysNewsListDataConfig extends ListDataConfig {
 
             $this->isArtistMenuVisible = false;
 
-            $this->additionalRecordListCols[""] = "created";
+            $this->additionalRecordListCols[] =new SqlBuildCol("","created","");
             $this->recordListFilters[] = "created>='" . $oldestDate . "'";
   
             $this->defaultOrder = array('Date (created) DESC',

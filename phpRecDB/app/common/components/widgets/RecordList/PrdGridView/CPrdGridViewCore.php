@@ -266,7 +266,6 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         foreach ($years as $year) {
             $yearMenuItems[] = array('label' => $year, 'url' => '#' . $year);
         }
-        print_r($this->dataProvider->data);
         return $yearMenuItems;
     }
 

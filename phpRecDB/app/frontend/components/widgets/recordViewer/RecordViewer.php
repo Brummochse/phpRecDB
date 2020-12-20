@@ -81,36 +81,36 @@ class RecordViewer extends CWidget {
 
     private function fetchRecordInfo($recordId) {
         $cols = array(
-            '' => array(
-                'sumlength AS ' . RI::SUMLENGTH,
-                'quality AS ' . RI::QUALITY,
-                'created AS ' . RI::CREATION,
-                'lastmodified AS ' . RI::LASTMODIFIED,
-                'summedia AS ' . RI::SUMMEDIA,
-                'sourcenotes AS ' . RI::SOURCENOTES,
-                'taper AS ' . RI::TAPER,
-                'transferer AS ' . RI::TRANSFERER,
-                'setlist AS ' . RI::SETLIST,
-                'notes AS ' . RI::NOTES,
-                'sourceidentification AS ' . RI::SOURCEIDENTIFICATION,
-                'userdefined1 AS ' . RI::USERDEFINED1,
-                'userdefined2 AS ' . RI::USERDEFINED2,
-            ),
-            'medium' => 'label AS ' . RI::MEDIUM,
-            'rectype' => 'label AS ' . RI::RECTYPE,
-            'source' => 'label AS ' . RI::SOURCE,
-            'tradestatus' => 'label AS ' . RI::TRADESTATUS,
-            'concert' => array(
-                'date AS ' . RI::DATE,
-                'supplement AS ' . RI::SUPPLEMENT,
-                'misc AS ' . RI::MISC,
-            ),
-            'concert.artist' => 'name AS ' . RI::ARTIST,
-            'concert.country' => 'name AS ' . RI::COUNTRY,
-            'concert.city' => 'name AS ' . RI::CITY,
-            'concert.venue' => 'name AS ' . RI::VENUE,
-            'video' => 'recordings_id IS NULL As ' . RI::VIDEOORAUDIO,
+            new SqlBuildCol("","sumlength",RI::SUMLENGTH),
+            new SqlBuildCol("","quality",RI::QUALITY),
+            new SqlBuildCol("","created",RI::CREATION),
+            new SqlBuildCol("","lastmodified",RI::LASTMODIFIED),
+            new SqlBuildCol("","summedia",RI::SUMMEDIA),
+            new SqlBuildCol("","sourcenotes",RI::SOURCENOTES),
+            new SqlBuildCol("","taper",RI::TAPER),
+            new SqlBuildCol("","transferer",RI::TRANSFERER),
+            new SqlBuildCol("","setlist",RI::SETLIST),
+            new SqlBuildCol("","notes",RI::NOTES),
+            new SqlBuildCol("","sourceidentification",RI::SOURCEIDENTIFICATION),
+            new SqlBuildCol("","userdefined1",RI::USERDEFINED1),
+            new SqlBuildCol("","userdefined2",RI::USERDEFINED2),
+
+            new SqlBuildCol("medium","label",RI::MEDIUM),
+            new SqlBuildCol("rectype","label",RI::RECTYPE),
+            new SqlBuildCol("source","label",RI::SOURCE),
+            new SqlBuildCol("tradestatus","label",RI::TRADESTATUS),
+
+            new SqlBuildCol("concert","date",RI::DATE),
+            new SqlBuildCol("concert","supplement",RI::SUPPLEMENT),
+            new SqlBuildCol("concert","misc",RI::MISC),
+
+            new SqlBuildCol("concert.artist","name",RI::ARTIST),
+            new SqlBuildCol("concert.country","name",RI::COUNTRY),
+            new SqlBuildCol("concert.city","name",RI::CITY),
+            new SqlBuildCol("concert.venue","name",RI::VENUE),
+            new SqlBuildCol("video","recordings_id IS NULL",RI::VIDEOORAUDIO),
         );
+
         $sourceModelName = 'Record';
 
         return $this->fetchInfo($cols, $sourceModelName, $recordId)->queryRow();
@@ -118,13 +118,11 @@ class RecordViewer extends CWidget {
 
     private function fetchVideoInfo($recordId) {
         $cols = array(
-            '' => array(
-                'bitrate AS ' . RI::BITRATE,
-                'authorer AS ' . RI::AUTHORER,
-            ),
-            'record' => 'id',
-            'videoformat' => 'label AS ' . RI::VIDEOFORMAT,
-            'aspectratio' => 'label AS ' . RI::ASPECTRATIO,
+            new SqlBuildCol("","bitrate",RI::BITRATE),
+            new SqlBuildCol("","authorer",RI::AUTHORER),
+            new SqlBuildCol("record","id",""),
+            new SqlBuildCol("videoformat","label",RI::VIDEOFORMAT),
+            new SqlBuildCol("aspectratio","label",RI::ASPECTRATIO),
         );
         $sourceModelName = 'Video';
 
@@ -133,11 +131,9 @@ class RecordViewer extends CWidget {
 
     private function fetchAudioInfo($recordId) {
         $cols = array(
-            '' => array(
-                'bitrate AS ' . RI::BITRATE,
-                'frequence AS ' . RI::FREQUENCY,
-            ),
-            'record' => 'id',
+            new SqlBuildCol("","bitrate",RI::BITRATE),
+            new SqlBuildCol("","frequence",RI::FREQUENCY),
+            new SqlBuildCol("record","id",""),
         );
         $sourceModelName = 'Audio';
 

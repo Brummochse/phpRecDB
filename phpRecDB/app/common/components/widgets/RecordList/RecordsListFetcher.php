@@ -6,7 +6,9 @@ class RecordsListFetcher {
     const COLUMNS = 'columns';
     const ARTIST_ITEMS = 'artistItems';
 
+    /** @var ListDataConfig */
     private $config;
+    /** @var ColumnStock */
     private $columnStock;
 
     public function __construct($listDataConfig) {
@@ -70,17 +72,18 @@ class RecordsListFetcher {
     }
 
     ///////////////////////////////////////////////////////
-    //Artstfetcher
+    //Artistfetcher
 
     private function getArtists() {
         $cols = array(
-            "" => array("id"),
-            "artist" => array("name as Artist", "id as ArtistId"),
-            "records" => array("id as RecordId"),
+            new SqlBuildCol("","id",""),
+            new SqlBuildCol("artist","name","Artist"),
+            new SqlBuildCol("artist","id","ArtistId"),
+            new SqlBuildCol("records","id","RecordId")
         );
 
         //add additional cols
-        $cols = array_merge_recursive($cols, $this->config->getAdditionalArtistMenuCols());
+        $cols = array_merge($cols, $this->config->getAdditionalArtistMenuCols());
 
         //
         $sourceModelName = "Concert";

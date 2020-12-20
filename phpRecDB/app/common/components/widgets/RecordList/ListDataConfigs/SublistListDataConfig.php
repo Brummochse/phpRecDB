@@ -10,8 +10,8 @@ class SublistListDataConfig extends CollapsableListDataConfig {
             $this->recordListFilters[] = 'sublists.lists_id=' . $sublistId;
             $this->artistMenuFilters[] = 'sublists.lists_id=' . $sublistId;
 
-            $this->additionalRecordListCols["sublistassignment"] = "lists_id";
-            $this->additionalArtistMenuCols["records.sublistassignment"] = array("lists_id");
+            $this->additionalRecordListCols[] =new SqlBuildCol("sublistassignment","lists_id","");
+            $this->additionalArtistMenuCols[] =new SqlBuildCol("records.sublistassignment","lists_id","");
         }
     }
 

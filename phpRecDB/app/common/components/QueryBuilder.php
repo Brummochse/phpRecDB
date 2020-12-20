@@ -8,6 +8,7 @@ class Joins {
     const INNER = 'INNER JOIN';
 }
 
+
 class QueryBuilder {
 
     const SELECT = 'select distinct';
@@ -51,7 +52,6 @@ class QueryBuilder {
     }
 
     private function resolveQueryElements($sourceModelName, $cols, $joinSpecsIn) {
-
         if ($joinSpecsIn==null) {
             $this->joinSpecs=array();
         } else {
@@ -64,8 +64,10 @@ class QueryBuilder {
         //FROM
         $this->addFrom($sourceTableName);
 
-        foreach ($cols as $relationPath => $attributes) {
+        /** @var SqlBuildCol $sqlBuildCol  */
+        foreach ($cols as $sqlBuildCol) {
 
+            $relationPath=$sqlBuildCol->path;
             $currentPathModel = $sourceModel;
             $attributeTablePrefix = $sourceTableName;
 
@@ -112,26 +114,24 @@ class QueryBuilder {
             }
 
             //SELECT
-            $this->processSelects($attributeTablePrefix, $attributes);
+            $this->processSelect($attributeTablePrefix, $sqlBuildCol);
         }
     }
 
-    private function processSelects($attributeTablePrefix, $attributes) {
+    private function processSelect($attributeTablePrefix,SqlBuildCol $sqlBuildCol) {
         if (strlen($attributeTablePrefix) > 0) {
             $attributeTablePrefix = $attributeTablePrefix . ".";
         }
-        if (is_array($attributes)) {
-            //more attributes from this table
-            foreach ($attributes as $attribute) {
-                $this->addSelect($attributeTablePrefix . $attribute);
-            }
-        } else {
-            //only one attribute from this table
-            $this->addSelect($attributeTablePrefix . $attributes);
-        }
+        //only one sqlColDefinition from this table
+        $this->addSelect($attributeTablePrefix , $sqlBuildCol);
+
     }
 
-    private function addSelect($selectPhrase) {
+
+    private function addSelect($attributeTablePrefix,SqlBuildCol $sqlColDefinition) {
+
+        $selectPhrase=$sqlColDefinition->postProcess($attributeTablePrefix.($sqlColDefinition->colName));
+        $selectPhrase .= (strlen($sqlColDefinition->colLabel)>0)?' AS '.($sqlColDefinition->colLabel):'';
         //add if not already has
         if (!in_array($selectPhrase, $this->selects)) {
             $this->selects[] = $selectPhrase;
