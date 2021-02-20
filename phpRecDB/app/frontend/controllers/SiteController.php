@@ -48,10 +48,15 @@ class YiiInternalRenderer extends Renderer {
 
 }
 
-class SiteController extends CController implements PrdServiceProvider {
+class SiteController extends BaseController implements PrdServiceProvider {
 
     private $renderer;
     private $actions = array();
+
+    public function getWwwUrlPath()
+    {
+        return '/phpRecDB/app/www';
+    }
 
     public function init() {
 
@@ -185,6 +190,7 @@ class SiteController extends CController implements PrdServiceProvider {
         $listDataConfig->setVideoAudioSelection($va);
         $this->renderer->renderList($listDataConfig);
     }
+
 
 }
 

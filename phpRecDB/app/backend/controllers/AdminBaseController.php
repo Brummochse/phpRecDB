@@ -406,7 +406,7 @@ class AdminBaseController extends AdminController {
         $model = new WatermarkForm();
 
         if (!Helper::isGdFreeTypeInstalled()) {
-            Yii::app()->user->addMsg(WebUser::ERROR, "Watermark feature can't be used on this server. GD library extension FreeType ist not installed.");
+            Yii::app()->user->addMsg(WebUser::ERROR, "Watermark feature can't be used on this server. GD library extension FreeType is not installed.");
             $model->enable = false;
             $model->saveToSettingsDb();
             $this->redirect(array('adminBase/Index'));

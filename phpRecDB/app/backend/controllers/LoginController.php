@@ -1,6 +1,6 @@
 <?php
 
-class LoginController extends CController {
+class LoginController extends BackendController {
 
     private $defaultAdminWarning = "<div >Use <span style='color:red;font-weight:bolder;'>admin/secret</span> as Username/Passwort and <span style='color:red;font-weight:bolder;'>CHANGE YOUR LOGIN!</span></div>";
     private $defaultDemoWarning = "<div >Use <span style='color:red;font-weight:bolder;'>demo/secret</span> as Username/Passwort</div>";

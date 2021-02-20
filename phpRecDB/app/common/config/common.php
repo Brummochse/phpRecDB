@@ -14,10 +14,6 @@ return array(
     'runtimePath'=>$phpRecDbPath . '/misc/runtime/',
     'components' => array(
         'settingsManager' => array('class' => 'SettingsManager'),
-        'assetManager' => array(
-            'basePath' => $phpRecDbPath . '/assets/',
-            'baseUrl' => $phpRecDbUrl .(empty($phpRecDbUrl)?'':'/'). 'assets',
-        ),
         'themeManager' => array(
             'basePath' => $phpRecDbPath . '/themes',
             'baseUrl' =>  $phpRecDbUrl .(empty($phpRecDbUrl)?'':'/') . 'themes',

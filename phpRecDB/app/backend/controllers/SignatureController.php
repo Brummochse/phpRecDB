@@ -65,7 +65,7 @@ class SignatureController extends AdminController {
      */
     public function actionAdmin() {
         if (!Helper::isGdFreeTypeInstalled()) {
-            Yii::app()->user->addMsg(WebUser::ERROR, "Signature feature can't be used on this server. GD library extension FreeType ist not installed.");
+            Yii::app()->user->addMsg(WebUser::ERROR, "Signature feature can't be used on this server. GD library extension FreeType is not installed.");
             $this->redirect(array('adminBase/Index'));
         } else {
             $model = new Signature('search');

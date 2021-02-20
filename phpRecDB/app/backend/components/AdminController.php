@@ -1,56 +1,62 @@
 <?php
 
-class AdminController extends CController {
+class AdminController extends BackendController
+{
 
     public $layout = 'admin';
-    private $flashMsgs = null; 
-    
-    public function getMenuItems() {
+    private $flashMsgs = null;
+
+    public function getMenuItems()
+    {
         return AdminMenuItems::getInstance()->createAdminMenuItems();
     }
-    
-    public function getFlashesArray($msgType) {
-        if ($this->flashMsgs==null) {
+
+    public function getFlashesArray($msgType)
+    {
+        if ($this->flashMsgs == null) {
             $this->flashMsgs = Yii::app()->user->getFlashes();
         }
-        $results=array();
-        
-        foreach($this->flashMsgs as $key => $message) {
+        $results = array();
+
+        foreach ($this->flashMsgs as $key => $message) {
             if (Helper::startsWith($key, $msgType)) {
-                $results[]=$message;
+                $results[] = $message;
             }
         }
-        return $results;        
+        return $results;
     }
-  
-    private function generateNotificationBlock($msgs,$label,$cssClass) {
+
+    private function generateNotificationBlock($msgs, $label, $cssClass)
+    {
         $notBlockHtml = '';
 
         foreach ($msgs as $key => $msg) {
-            $notBlockHtml .= '<div class="alert in alert-block fade '.$cssClass.'"><strong>'.$label.'</strong><br />' .  $msg . '</div>';
+            $notBlockHtml .= '<div class="alert in alert-block fade ' . $cssClass . '"><strong>' . $label . '</strong><br />' . $msg . '</div>';
         }
         return $notBlockHtml;
     }
 
-    public function getNotificationsHtml() {
+    public function getNotificationsHtml()
+    {
         $logsHtml = '';
-        
-        $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::ERROR),WebUser::ERROR,'alert-error');
-        $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::INFO),WebUser::INFO,'alert-warning');
-        $logsHtml.=$this->generateNotificationBlock($this->getFlashesArray(WebUser::SUCCESS),WebUser::SUCCESS,'alert-success');
-        
+
+        $logsHtml .= $this->generateNotificationBlock($this->getFlashesArray(WebUser::ERROR), WebUser::ERROR, 'alert-error');
+        $logsHtml .= $this->generateNotificationBlock($this->getFlashesArray(WebUser::INFO), WebUser::INFO, 'alert-warning');
+        $logsHtml .= $this->generateNotificationBlock($this->getFlashesArray(WebUser::SUCCESS), WebUser::SUCCESS, 'alert-success');
+
         echo $logsHtml;
     }
-    
+
     public function hasAutoOpenMessages()
     {
-        return count($this->getFlashesArray(WebUser::ERROR))>0 || count($this->getFlashesArray(WebUser::SUCCESS))>0;
+        return count($this->getFlashesArray(WebUser::ERROR)) > 0 || count($this->getFlashesArray(WebUser::SUCCESS)) > 0;
     }
 
-    public function getNotificationMenuItems() {
+    public function getNotificationMenuItems()
+    {
         $menuItems = array();
 
-        $flashMsgsSuccess =$this->getFlashesArray(WebUser::SUCCESS);
+        $flashMsgsSuccess = $this->getFlashesArray(WebUser::SUCCESS);
         $flashMsgsInfo = $this->getFlashesArray(WebUser::INFO);
         $flashMsgsError = $this->getFlashesArray(WebUser::ERROR);
 
@@ -66,15 +72,15 @@ class AdminController extends CController {
 
         return $menuItems;
     }
-    
+
     // access rules for all children classes
-    public function filters() {
-        return array(
-            'accessControl',
-        );
+    public function filters()
+    {
+        return array_merge(parent::filters(), array('accessControl'));
     }
 
-    public function accessRules() {
+    public function accessRules()
+    {
         return array(
             array('allow', // allow authenticated users to access all actions
                 'users' => array('@'),
