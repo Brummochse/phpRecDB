@@ -16,6 +16,9 @@ return array(
             'class' => 'WebUser',
             'authExpires' => 20 /* minutes */ * 60 /* seconds */, //means auto log out after 20 min
         ),
+        'urlManager'=>array(
+            'urlFormat'=>'path',
+        ),
     ),
     'import' => array(
         'common.models.orm.Artist',
