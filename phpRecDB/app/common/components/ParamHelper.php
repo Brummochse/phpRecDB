@@ -74,6 +74,10 @@ class ParamHelper {
         return self::createParamUrl('adminEditRecord/showRecordStatistics', self::PARAM_RECORD_ID, $recordId);
     }
 
+    public static function createRecordHelperUrl($recordId = null) {
+        return self::createParamUrl('adminEditRecord/showRecordHelper', self::PARAM_RECORD_ID, $recordId);
+    }
+
     public static function createRecordUpdateUrl($recordId = null) {
         return self::createParamUrl('adminEditRecord/updateRecord', self::PARAM_RECORD_ID, $recordId);
     }

@@ -254,6 +254,10 @@ class AdminEditRecordController extends AdminController {
         $this->actionUpdateRecord(Terms::STATISTICS);
     }
 
+    public function actionShowRecordHelper() {
+        $this->actionUpdateRecord(Terms::HELPER);
+    }
+
     public function actionUpdateYoutubes() {
         $this->actionUpdateRecord(Terms::YOUTUBE);
     }
@@ -269,6 +273,13 @@ class AdminEditRecordController extends AdminController {
     private function processTabStatistics($recordModel) {
         $recordVisit = Recordvisit::model()->getVisitorsForRecord($recordModel);
         return $this->renderPartial('_statistics', array('visitCounter' => $recordVisit->visitors), true, false);
+    }
+
+    private function processTabHelper(Record $recordModel) {
+        $baseUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . Yii::app()->baseUrl;
+        $helperEndpointUrl=$baseUrl.'/index.php/api/records/'.$recordModel->id;
+
+        return $this->renderPartial('_helper', array('helperEndpointUrl'=>$helperEndpointUrl), true, false);
     }
 
     /**
@@ -290,6 +301,7 @@ class AdminEditRecordController extends AdminController {
             $youtubeTabContent = ($section == Terms::YOUTUBE) ? $this->processTabYoutube($recordId) : '';
             $sublistsTabContent = ($section == Terms::SUBLISTS) ? $this->processTabSublists($recordModel) : '';
             $statisticsTabContent = ($section == Terms::STATISTICS) ? $this->processTabStatistics($recordModel) : '';
+            $helperTabContent = ($section == Terms::HELPER) ? $this->processTabHelper($recordModel) : '';
 
             $tabs = array(
                 Terms::INFORMATION => array(
@@ -326,6 +338,13 @@ class AdminEditRecordController extends AdminController {
                 'url' => ParamHelper::createRecordStatisticsUrl($recordId),
                 'content' => $statisticsTabContent,
                 'active' => $section == Terms::STATISTICS
+            );
+
+            $tabs[Terms::HELPER] = array(
+                'label' => 'Helper',
+                'url' => ParamHelper::createRecordHelperUrl($recordId),
+                'content' => $helperTabContent,
+                'active' => $section == Terms::HELPER
             );
 
             ////////////////////////////////

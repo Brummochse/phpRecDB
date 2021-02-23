@@ -7,6 +7,7 @@ class Terms {
     const INFORMATION = 'Record_Inormation';
     const SUBLISTS = 'Sublists';
     const STATISTICS = 'Statistics';
+    const HELPER = 'Helper';
     
     const BEFORE = 1;
     const BEHIND = 2;

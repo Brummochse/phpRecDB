@@ -37,7 +37,7 @@
  * @property Media $media
  * @property Tradestatus $tradestatus
  * @property Lists[] $sublists
- * @property Video[] $videos
+ * @property Video $video
  * @property Youtubesamples[] $youtubesamples
  */
 class Record extends CActiveRecord {
