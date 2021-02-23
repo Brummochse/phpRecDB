@@ -22,15 +22,15 @@
             echo $form->dropDownListGroup($model, 'tradestatus_id', array('widgetOptions' => array('htmlOptions' => array('empty'=>'-'),'data' => CHtml::listData(Tradestatus::model()->findAll(), 'id', 'label'))));
             echo $form->textFieldGroup($model, 'taper', array('widgetOptions' => array('htmlOptions' => array('maxlength' => 255))));
             echo $form->textFieldGroup($model, 'transferer', array('widgetOptions' => array('htmlOptions' => array('maxlength' => 255))));
-            ?>
-            <div class="form-group">
-                <?php echo CHtml::activeLabel($model, 'visible'); ?>
-                <?php echo $form->checkBox($model, 'visible'); ?>
-            </div>
-            <?php
+            echo $form->textFieldGroup($model, 'size');
+
             echo $form->textFieldGroup($model, 'userdefined1', array('widgetOptions' => array('htmlOptions' => array('maxlength' => 255))));
             echo $form->textFieldGroup($model, 'userdefined2', array('widgetOptions' => array('htmlOptions' => array('maxlength' => 255))));
             ?>
+            <div class="form-group row">
+                <div class="col-sm-3"><?php echo CHtml::activeLabel($model, 'visible'); ?></div>
+                <div class="col-sm-3"><?php echo $form->checkBox($model, 'visible'); ?></div>
+            </div>
         </div>
         <div id="middle" class="column">
             <!--  include video OR audio infos -->

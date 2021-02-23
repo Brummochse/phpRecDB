@@ -1,13 +1,4 @@
-<?php
-//infrastructure for ajax loading dialogs with loading animation
-$this->widget('LoadingWidget');
-$ajaxUpdateOption = array('update' => '#dialog_div', 'beforeSend' => 'function(){Loading.show();}', 'complete' => 'function(){ Loading.hide();}');
-?>
-<div id="dialog_div" style="display: none"></div>
-
-
-
-<div style="width:500px;text-align-last: center;margin: 50px auto auto;">
+<div style="width:600px;text-align-last: center;margin: 50px auto auto;">
 
     <?php
     $this->beginWidget('booster.widgets.TbPanel', array(
@@ -15,7 +6,7 @@ $ajaxUpdateOption = array('update' => '#dialog_div', 'beforeSend' => 'function()
     ));
     ?>
     <div style="margin: 20px;">
-        <?php echo CHtml::image(Yii::app()->params['wwwUrl'] . '/images/logo.png', 'phpRecDB'); ?>
+        <?php echo CHtml::image(Yii::app()->params['wwwUrl'] . '/images/logo.png', 'phpRecDB',array ('style'=>'width:100%')); ?>
     </div>
     <?php
     $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
@@ -31,7 +22,7 @@ $ajaxUpdateOption = array('update' => '#dialog_div', 'beforeSend' => 'function()
     <p >After clicking the upgrade-Button, <span style='color:red;font-weight:bolder;'>DO NOT CLOSE THIS PAGE</span> and wait for the response. This can take some seconds.</p> 
 
     <div style="text-align: center;">
-     <?php echo CHtml::ajaxButton('upgrade Database', array('login/upgradeDB'), $ajaxUpdateOption); ?>
+        <?php echo CHtml::link('<button type="button">upgrade Database</button>', array('login/upgradeDB')); ?>
     </div>
 
     <?php

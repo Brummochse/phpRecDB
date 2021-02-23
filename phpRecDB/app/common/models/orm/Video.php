@@ -6,13 +6,17 @@
  * The followings are the available columns in table 'video':
  * @property string $id
  * @property integer $recordings_id
+ * @property integer $width
+ * @property integer $height
+ * @property integer $menu
+ * @property integer $chapters
  * @property string $aspectratio_id
  * @property string $videoformat_id
  * @property string $bitrate
  * @property string $authorer
  *
  * The followings are the available model relations:
- * @property Recordings $recordings
+ * @property Record $record
  * @property Videoformat $videoformat
  * @property Aspectratio $aspectratio
  */
@@ -42,11 +46,11 @@ class Video extends CActiveRecord {
         return array(
             array('recordings_id', 'required'),
             array('recordings_id', 'numerical', 'integerOnly' => true),
-            array('bitrate', 'numerical', 'integerOnly' => false),
+            array('bitrate, width, height, menu, chapters', 'numerical', 'integerOnly' => false),
             array('authorer,videoformat_id,aspectratio_id', 'length', 'max' => 50),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, recordings_id, aspectratio_id, videoformat_id, bitrate, authorer', 'safe', 'on' => 'search'),
+            array('id, recordings_id, menu, chapters, aspectratio_id, videoformat_id, bitrate, authorer', 'safe', 'on' => 'search'),
         );
     }
 
@@ -74,6 +78,10 @@ class Video extends CActiveRecord {
             'videoformat_id' => 'Video Format',
             'bitrate' => 'Bitrate',
             'authorer' => 'Authorer',
+            'width' => 'Resolution Width',
+            'height' => 'Resolution Height',
+            'menu' => 'Menu',
+            'chapters' => 'Chapters',
         );
     }
 

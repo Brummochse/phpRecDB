@@ -1,37 +1,27 @@
-<?php
-Yii::app()->clientScript->registerCss('hideDialogCloseBtnCss','.no-close .ui-dialog-titlebar-close {display: none;}');
+<div style="width:1150px;text-align-last: center;margin: 50px auto auto;">
+    <?php
 
-$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-    'cssFile' => 'jquery-ui.css',
-    'theme' => "css",
-    'themeUrl' => Yii::app()->params['wwwUrl'],
-    'options' => array(
-        'title' => 'Database Upgrade Log',
-        'autoOpen' => true,
-        'modal' => true,
-        'width' => 'auto',
-        'close' => "js:function(){ $(this).dialog('destroy').remove(); }",
-        'dialogClass' => 'no-close',
-    ))
-);
+    $this->beginWidget('booster.widgets.TbPanel', array(
+        'title' => 'administration area',
+    ));
+    $this->widget('zii.widgets.jui.CJuiAccordion', array(
+        'panels' => $migrationInfoPanel,
+        'options' => array(
+            'collapsible' => true,
+            'active' => false,
+        ),
+        'htmlOptions' => array(
+            'style' => 'width:1000px;text-align-last: center; margin: 20px auto 50px auto;'
+        ),
+    ));
+    ?>
+    <div style="text-align: center;">
+       <?php echo CHtml::link('<button type="button">OK</button>', array('login/login')); ?>
+    </div>
+    <?php
+    $this->endWidget();
+    ?>
 
-$this->widget('zii.widgets.jui.CJuiAccordion', array(
-    'panels' => $migrationInfoPanel,
-    'options' => array(
-        'collapsible' => true,
-        'active' => false,
-    ),
-    'htmlOptions' => array(
-        'style' => 'width:1000px;text-align-last: center; margin: 20px auto 50px auto;'
-    ),
-));
-
-$this->widget('booster.widgets.TbButton', array(
-    'label' => 'OK',
-    'url' => array('login/login'),
-));
-
-$this->endWidget('zii.widgets.jui.CJuiDialog');
-?>
+</div>
 
 

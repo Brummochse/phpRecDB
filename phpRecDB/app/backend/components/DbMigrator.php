@@ -25,8 +25,8 @@ class DbMigrator extends MigrateCommand {
 
     /**
      * phpRecDB Versions 0.1 - 0.6 used another db updating strategy
-     * the migration files contain all db schema changes from version 0.1 to the currect version.
-     * this means all updeates done with the old updater must not executed again.
+     * the migration files contain all db schema changes from version 0.1 to the current version.
+     * this means all updates done with the old updater must not executed again.
      * 
      * this method manipulates the dbmigration table and marks all old updates as already done 
      * (because this updates were sone already with the old updater)

@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'recordings':
  * @property integer $id
+ * @property integer $size
  * @property string $concerts_id
  * @property integer $visible
  * @property string $sourceidentification
@@ -29,12 +30,12 @@
  * The followings are the available model relations:
  * @property Screenshot[] $screenshots
  * @property Youtube[] $youtubes
- * @property Audio[] $audios
+ * @property Audio $audio
  * @property Duration[] $durations
- * @property Concerts $concerts
- * @property Sources $sources
- * @property Rectypes $rectypes
- * @property Media $media
+ * @property Concert $concert
+ * @property Source $source
+ * @property Rectype $rectypes
+ * @property Medium $medium
  * @property Tradestatus $tradestatus
  * @property Lists[] $sublists
  * @property Video $video
@@ -65,7 +66,7 @@ class Record extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('concerts_id', 'required'),
-            array('visible, rectypes_id,  summedia, quality', 'numerical', 'integerOnly' => true),
+            array('visible, rectypes_id,  summedia, quality, size', 'numerical', 'integerOnly' => true),
             array('sumlength', 'numerical', 'integerOnly' => false),
             array('concerts_id, sources_id, media_id, tradestatus_id', 'length', 'max' => 10),
             array('sourceidentification, taper, transferer, userdefined1, userdefined2', 'length', 'max' => 255),
@@ -126,6 +127,7 @@ class Record extends CActiveRecord {
             'taper' => 'Taper',
             'transferer' => 'Transferer',
             'tradestatus_id' => 'Trade Status',
+            'size' => 'File Size (in MegaBytes)',
         );
     }
 
@@ -155,6 +157,7 @@ class Record extends CActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('sourcenotes', $this->sourcenotes, true);
         $criteria->compare('taper', $this->taper, true);
+        $criteria->compare('size', $this->size);
         $criteria->compare('transferer', $this->transferer, true);
         $criteria->compare('tradestatus_id', $this->tradestatus_id, true);
 
