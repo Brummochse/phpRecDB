@@ -8,12 +8,149 @@ interface UpdateAspectHandler
 class RecordEndpoint extends RestEndpoint
 {
 
-    private array $updateHandlers = [];
+    private $updateHandlers = [];
 
     public function __construct()
     {
         $this->updateHandlers['length']=$this->createLengthHandler();
         $this->updateHandlers['aspectRatio']=$this->createAspectRatioHandler();
+        $this->updateHandlers['width']=$this->createWidthHandler();
+        $this->updateHandlers['height']=$this->createHeightHandler();
+        $this->updateHandlers['size']=$this->createSizeHandler();
+        $this->updateHandlers['screenshot']=$this->createScreenshotHandler();
+        $this->updateHandlers['type']=$this->createTypeHandler();
+        $this->updateHandlers['mediaCount']=$this->createMediaCountHandler();
+        $this->updateHandlers['menu']=$this->createMenuHandler();
+        $this->updateHandlers['frameRate']=$this->createFramerateHandler();
+        $this->updateHandlers['format']=$this->createFormatHandler();
+    }
+    private function createFormatHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $videoformats = Videoformat::model()->findAllByAttributes(array('label' => $value));
+                if (count($videoformats)>0) {
+                    $record->video->videoformat_id=$videoformats[0]->id;
+                    $record->video->save();
+                } else {
+                    throw new InvalidArgumentException ("video format ".$value." does not exist.");
+                }
+            }
+        };
+    }
+
+
+    private function createFramerateHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $record->video->framerate=(float)$value;
+                $record->video->save();
+            }
+        };
+    }
+
+    private function createMenuHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $record->video->menu=(int)$value;
+                $record->video->save();
+            }
+        };
+    }
+
+    private function createMediaCountHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+
+                $record->summedia=(int)$value;
+            }
+        };
+    }
+
+    private function createTypeHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $mediaTypes = Helper::findAllBySomeAttributes(Medium::model(), array(
+                    'shortname' => $value,
+                    'label' => $value)
+                );
+                RecordEndpoint::writeFileToRoot("log.txt",print_r($mediaTypes,true));
+                if (count($mediaTypes)>0) {
+                    $record->media_id=$mediaTypes[0]->id;
+                } else {
+                    throw new InvalidArgumentException ("media type ".$value." (shortname) does not exist.");
+                }
+            }
+        };
+    }
+
+    private function createScreenshotHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler {
+
+            public function process(Record $record, string $value)
+            {
+               //write to tempfile and create a "fake" CUploadedFile
+                $fSetup = tmpfile();
+                fwrite($fSetup,base64_decode($value));
+                fseek($fSetup,0);
+
+                $metaDatas = stream_get_meta_data($fSetup);
+                $tmpFilename = $metaDatas['uri'];
+                $filesize = filesize($tmpFilename);
+                $error=0;//=OK
+
+                $CUploadedFile = new CUploadedFile(basename($tmpFilename),$tmpFilename,'image/jpeg',$filesize,$error);
+
+                /** @var ScreenshotManager $screenshotManager */
+                $screenshotManager = Yii::app()->screenshotManager;
+                $screenshotManager->processUploadedScreenshots([$CUploadedFile], $record->id);
+            }
+        };
+    }
+
+    private function createSizeHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $sizeInBytes=(int)$value;
+                $sizeInKB=$sizeInBytes/1024;
+                $sizeInMB=$sizeInKB/1024;
+                $record->size=(int)$sizeInMB;
+            }
+        };
+    }
+    private function createWidthHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $record->video->width=(int)$value;
+                $record->video->save();
+
+            }
+        };
+    }
+    private function createHeightHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $record->video->height=(int)$value;
+                $record->video->save();
+
+            }
+        };
     }
 
     private function createAspectRatioHandler(): UpdateAspectHandler
@@ -76,30 +213,6 @@ class RecordEndpoint extends RestEndpoint
         return [];
     }
 
-    public function list(): array
-    {
-
-        $aspectRatio = Aspectratio::model()->findAllByAttributes(array('label' => '16:9'));
-        $jsonData = '{"length":"700","snapshots":{"file1.png":"test1","datei.jpg":"blabla"}}';
-
-
-//        $person = json_decode($jsonData, RecordRestModel::class);
-
-        $res = print_r($aspectRatio, true);
-//
-        return ["ergebnis" => [$res]];
-        return [];
-    }
-
-
-    public function create(): array
-    {
-        $content = file_get_contents("php://input");
-        $file = "create.txt";
-        $this->writeFileToRoot($file, $content);
-        return [1 => 2];
-    }
-
 
     public function update(): array
     {
@@ -119,7 +232,9 @@ class RecordEndpoint extends RestEndpoint
             foreach ($this->updateHandlers as $aspectName => $handler) {
                 if (isset($data[$aspectName])) {
                     try {
-                        $handler->process($recordModel,$data[$aspectName]);
+                        if (strlen($data[$aspectName])>0) {
+                            $handler->process($recordModel, $data[$aspectName]);
+                        }
                     } catch (InvalidArgumentException $e) {
                         $returnArray[$aspectName] = $e->getMessage();
                     }
@@ -128,6 +243,7 @@ class RecordEndpoint extends RestEndpoint
             }
             $recordModel->save();
 
+            $this->writeFileToRoot("input.txt",$json);
 
             $returnArray["status"] = "success";
         } else {
@@ -137,10 +253,10 @@ class RecordEndpoint extends RestEndpoint
     }
 
 
-    public function writeFileToRoot(string $file, string $content)
+    public static function writeFileToRoot(string $file, string $content)
     {
-        $fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/' . $file, "wb");
-        fwrite($fp, $content);
+        $fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/' . $file, "a" );
+        fwrite($fp, $content."\n");
         fclose($fp);
     }
 

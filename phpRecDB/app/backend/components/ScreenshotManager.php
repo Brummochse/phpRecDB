@@ -148,11 +148,14 @@ class ScreenshotManager extends CApplicationComponent {
 
     /**
      * 
-     * @param type $screenshotFiles array of CUploadedFile
-     * @param type $recordId
+     * @param CUploadedFile[] $screenshotFiles
+     * @param int $recordId
      */
-    public function proccessUploadedScreenshots($screenshotFiles, $recordId) {
+    public function processUploadedScreenshots(array $screenshotFiles, $recordId) {
 
+        $fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/test.txt' , "wb");
+        fwrite($fp, $recordId);
+        fclose($fp);
         if (isset($screenshotFiles) && count($screenshotFiles) > 0) {
 
             $watermarkModel = new WatermarkForm();
@@ -161,9 +164,9 @@ class ScreenshotManager extends CApplicationComponent {
 
                 $screenshotCounter++;
 
-                //check if uplaod was seuccessfull, erros can happen when fielsize is bigger than max uplaod size
-                $screenshotTempname = $screenshotFile->getTempName();
-                if (empty($screenshotTempname) || $screenshotFile->getSize() == 0) {
+                //check if upload was successful, errors can happen when filesize is bigger than max upload size
+                $screenshotTempName = $screenshotFile->getTempName();
+                if (empty($screenshotTempName) || $screenshotFile->getSize() == 0) {
                     Yii::app()->user->addMsg(WebUser::ERROR, 'file upload failed: ' . $screenshotFile->getName());
                     continue;
                 }

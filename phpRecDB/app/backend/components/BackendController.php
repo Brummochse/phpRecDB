@@ -4,8 +4,13 @@
 class BackendController extends BaseController
 {
 
-    public function getWwwUrlPath()
+    protected function getWwwUrlPath()
     {
         return "app/www/";
+    }
+
+    protected function getScreenshotPath()
+    {
+        return "screenshots/";
     }
 }

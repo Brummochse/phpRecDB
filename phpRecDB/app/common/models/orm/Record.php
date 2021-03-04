@@ -12,7 +12,7 @@
  * @property integer $rectypes_id
  * @property string $sources_id
  * @property string $media_id
- * @property string  $sumlength
+ * @property float $sumlength
  * @property string $summedia
  * @property string $quality
  * @property string $setlist

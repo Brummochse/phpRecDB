@@ -14,6 +14,7 @@
  * @property string $videoformat_id
  * @property string $bitrate
  * @property string $authorer
+ * @property float $framerate
  *
  * The followings are the available model relations:
  * @property Record $record
@@ -45,8 +46,8 @@ class Video extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('recordings_id', 'required'),
-            array('recordings_id', 'numerical', 'integerOnly' => true),
-            array('bitrate, width, height, menu, chapters', 'numerical', 'integerOnly' => false),
+            array('recordings_id, menu, chapters, width, height', 'numerical', 'integerOnly' => true),
+            array('bitrate, framerate', 'numerical', 'integerOnly' => false),
             array('authorer,videoformat_id,aspectratio_id', 'length', 'max' => 50),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -82,6 +83,7 @@ class Video extends CActiveRecord {
             'height' => 'Resolution Height',
             'menu' => 'Menu',
             'chapters' => 'Chapters',
+            'framerate' => 'Frame Rate',
         );
     }
 

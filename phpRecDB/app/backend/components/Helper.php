@@ -105,6 +105,18 @@ class Helper {
         return '#' . $R . $G . $B;
     }
 
+    public static function findAllBySomeAttributes(CActiveRecord $model, array $attributes)
+    {
+        $resultRecords=[];
+        foreach ($attributes as $attribute=>$value) {
+            $records = $model->findAllByAttributes(array($attribute => $value));
+            foreach ($records as $record) {
+                $resultRecords[$record->getPrimaryKey()]=$record;
+            }
+        }
+        return array_values($resultRecords);
+    }
+
 }
 
 ?>

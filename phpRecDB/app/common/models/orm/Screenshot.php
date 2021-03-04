@@ -173,9 +173,8 @@ class Screenshot extends CActiveRecord {
         $recordModel = Record::model()->findByPk($recordId);
 
         $concertStr = $recordModel->concert->artist->name . '_' . $recordModel->concert->date;
-        $timeStamp = time();
 
-        $screenshotname = $concertStr . "_" . $timeStamp;
+        $screenshotname = $concertStr . "_" . uniqid();
 
         $screenshotname = $this->removeEvilChars($screenshotname);
         $screenshotname = $this->convertSpaces($screenshotname);

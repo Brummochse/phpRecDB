@@ -53,9 +53,14 @@ class SiteController extends BaseController implements PrdServiceProvider {
     private $renderer;
     private $actions = array();
 
-    public function getWwwUrlPath()
+    protected function getWwwUrlPath()
     {
-        return '/phpRecDB/app/www';
+        return 'phpRecDB/app/www';
+    }
+
+    protected function getScreenshotPath()
+    {
+        return 'phpRecDB/screenshots';
     }
 
     public function init() {
@@ -190,7 +195,6 @@ class SiteController extends BaseController implements PrdServiceProvider {
         $listDataConfig->setVideoAudioSelection($va);
         $this->renderer->renderList($listDataConfig);
     }
-
 
 }
 
