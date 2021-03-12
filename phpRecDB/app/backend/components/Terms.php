@@ -4,7 +4,7 @@ class Terms {
 
     const SCREENSHOT = 'Screenshots';
     const YOUTUBE = 'Youtube';
-    const INFORMATION = 'Record_Inormation';
+    const INFORMATION = 'Record_Information';
     const SUBLISTS = 'Sublists';
     const STATISTICS = 'Statistics';
     const HELPER = 'Helper';
