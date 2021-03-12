@@ -79,14 +79,7 @@ class AdminEditRecordController extends AdminController {
     }
 
     protected function renderYoutube($data, $row) {
-//        return $this->widget('ext.youtube.JYoutube', array(
-//                    'youtubeId' => $data->youtubeId,
-//                    'width' => '480',
-//                    'height' => '300',), true
-//        );
-
         $youtubeUrl = 'http://www.youtube.com/v/' . $data->youtubeId;
-
         return $this->renderPartial('_youtubeItem', array('youtubeUrl' => $youtubeUrl), true, false);
     }
 
@@ -287,7 +280,7 @@ class AdminEditRecordController extends AdminController {
      * 
      * IMPORTANT! requires the GET variable PARAM_RECORD_ID to decode the record and concert models
      * 
-     * @param type $section
+     * @param string $section
      * @throws CHttpException
      */
     public function actionUpdateRecord($section = Terms::INFORMATION) {
