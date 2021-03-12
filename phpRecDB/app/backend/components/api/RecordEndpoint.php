@@ -21,9 +21,22 @@ class RecordEndpoint extends RestEndpoint
         $this->updateHandlers['type']=$this->createTypeHandler();
         $this->updateHandlers['mediaCount']=$this->createMediaCountHandler();
         $this->updateHandlers['menu']=$this->createMenuHandler();
+        $this->updateHandlers['chapters']=$this->createChaptersHandler();
         $this->updateHandlers['frameRate']=$this->createFramerateHandler();
         $this->updateHandlers['format']=$this->createFormatHandler();
     }
+
+    private function createChaptersHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $record->video->chapters=(int)$value;
+                $record->video->save();
+            }
+        };
+    }
+
     private function createFormatHandler(): UpdateAspectHandler
     {
         return new class() implements UpdateAspectHandler{
@@ -39,7 +52,6 @@ class RecordEndpoint extends RestEndpoint
             }
         };
     }
-
 
     private function createFramerateHandler(): UpdateAspectHandler
     {
@@ -83,7 +95,7 @@ class RecordEndpoint extends RestEndpoint
                     'shortname' => $value,
                     'label' => $value)
                 );
-                RecordEndpoint::writeFileToRoot("log.txt",print_r($mediaTypes,true));
+
                 if (count($mediaTypes)>0) {
                     $record->media_id=$mediaTypes[0]->id;
                 } else {
@@ -206,7 +218,8 @@ class RecordEndpoint extends RestEndpoint
             $result = [
                 "recordDescription" => $recordStr,
                 'concertDescription' => $concertStr,
-                'artist' => $artist
+                'artist' => $artist,
+                'semioticSystem' => $recordModel->getSemioticSystem(),
             ];
             return $result;
         }
@@ -242,25 +255,10 @@ class RecordEndpoint extends RestEndpoint
                 }
             }
             $recordModel->save();
-
-            $this->writeFileToRoot("input.txt",$json);
-
-            $returnArray["status"] = "success";
         } else {
-            $returnArray["status"] = "record not found";
+            $returnArray["error"] = "record not found";
         }
         return $returnArray;
     }
-
-
-    public static function writeFileToRoot(string $file, string $content)
-    {
-        $fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/' . $file, "a" );
-        fwrite($fp, $content."\n");
-        fclose($fp);
-    }
-
-
-
 
 }

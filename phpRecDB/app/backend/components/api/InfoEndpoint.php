@@ -14,10 +14,11 @@ class InfoEndpoint extends RestEndpoint
         return 'info';
     }
 
-
     function getMaximumFileUploadSize()
     {
-        return min($this->convertPHPSizeToBytes(ini_get('post_max_size')), $this->convertPHPSizeToBytes(ini_get('upload_max_filesize')));
+        $postMaxSize = $this->convertPHPSizeToBytes(ini_get('post_max_size'));
+        $uploadMaxFilesize = $this->convertPHPSizeToBytes(ini_get('upload_max_filesize'));
+        return min($postMaxSize, $uploadMaxFilesize);
     }
 
     /**
