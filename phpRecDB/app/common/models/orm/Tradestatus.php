@@ -9,7 +9,7 @@
  * @property string $shortname
  *
  * The followings are the available model relations:
- * @property Recordings[] $recordings
+ * @property Record[] $records
  */
 class Tradestatus extends CActiveRecord
 {
@@ -54,7 +54,7 @@ class Tradestatus extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'recordings' => array(self::HAS_MANY, 'Recordings', 'tradestatus_id'),
+			'records' => array(self::HAS_MANY, 'Record', 'tradestatus_id'),
 		);
 	}
 

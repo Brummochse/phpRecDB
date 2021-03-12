@@ -8,7 +8,7 @@
  * @property string $label
  *
  * The followings are the available model relations:
- * @property Recordings[] $recordings
+ * @property Record[] $records
  */
 class Sublist extends CActiveRecord
 {

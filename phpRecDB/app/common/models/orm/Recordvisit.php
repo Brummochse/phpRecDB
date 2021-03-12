@@ -9,7 +9,7 @@
  * @property integer $visitors
  *
  * The followings are the available model relations:
- * @property Recordings $record
+ * @property Record $record
  */
 class Recordvisit extends CActiveRecord
 {
@@ -54,7 +54,7 @@ class Recordvisit extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'record' => array(self::BELONGS_TO, 'Recordings', 'record_id'),
+            'record' => array(self::BELONGS_TO, 'Record', 'record_id'),
         );
     }
 

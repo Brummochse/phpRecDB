@@ -11,7 +11,6 @@
  * @property string $order_id
  *
  * The followings are the available model relations:
- * @property Video $videoRecordings
  * @property Video $video
  */
 class Screenshot extends CActiveRecord {

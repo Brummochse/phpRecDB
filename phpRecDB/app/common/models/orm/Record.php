@@ -31,15 +31,15 @@
  * @property Screenshot[] $screenshots
  * @property Youtube[] $youtubes
  * @property Audio $audio
- * @property Duration[] $durations
  * @property Concert $concert
  * @property Source $source
  * @property Rectype $rectypes
  * @property Medium $medium
  * @property Tradestatus $tradestatus
- * @property Lists[] $sublists
+ * @property Sublist[] $sublists
+ * @property Sublistassignment[] $sublistassignments
  * @property Video $video
- * @property Youtubesamples[] $youtubesamples
+ * @property Youtube[] $youtubesamples
  */
 class Record extends CActiveRecord {
     
@@ -77,6 +77,16 @@ class Record extends CActiveRecord {
         );
     }
 
+    public function getSemioticSystem() : string {
+        if ($this->video!=null) {
+            return VA::vaIdToStr(VA::VIDEO);
+        }
+        if ($this->audio!=null) {
+            return VA::vaIdToStr(VA::AUDIO);
+        }
+        return VA::vaIdToStr(VA::UNDEFINED);
+    }
+
     /**
      * @return array relational rules.
      */
@@ -85,7 +95,6 @@ class Record extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'audio' => array(self::HAS_ONE, 'Audio', 'recordings_id'),
-            'durations' => array(self::HAS_MANY, 'Duration', 'recordings_id'),
             'concert' => array(self::BELONGS_TO, 'Concert', 'concerts_id'),
             'source' => array(self::BELONGS_TO, 'Source', 'sources_id'),
             'rectype' => array(self::BELONGS_TO, 'Rectype', 'rectypes_id'),
@@ -93,10 +102,9 @@ class Record extends CActiveRecord {
             'tradestatus' => array(self::BELONGS_TO, 'Tradestatus', 'tradestatus_id'),
             'sublists' => array(self::MANY_MANY, 'Sublist', 'sublists(recordings_id, lists_id)'),
             'video' => array(self::HAS_ONE, 'Video', 'recordings_id'),
-            'youtubesamples' => array(self::HAS_MANY, 'Youtubesamples', 'recordings_id'),
-            'sublistassignment' => array(self::HAS_MANY, 'Sublistassignment', 'recordings_id'),
-            'screenshots' => array(self::HAS_MANY, 'Screenshot', 'video_recordings_id'),
             'youtubes' => array(self::HAS_MANY, 'Youtube', 'recordings_id'),
+            'sublistassignments' => array(self::HAS_MANY, 'Sublistassignment', 'recordings_id'),
+            'screenshots' => array(self::HAS_MANY, 'Screenshot', 'video_recordings_id'),
             'recordvisit' => array(self::HAS_ONE,'Recordvisit','record_id')
          );
     }
@@ -203,8 +211,6 @@ class Record extends CActiveRecord {
             $outStr.=' (' . $source . ')';
         if (!empty($sourceIdentification))
             $outStr.=' ' . $sourceIdentification;
-//        if (!empty($visible))
-//            $outStr.=$visible;
         if (count($sublists) > 0) {
             $outStr.='______(SUBLISTS: ___' . implode('___ , ___', $sublists) . '___)';
         }

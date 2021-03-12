@@ -10,7 +10,7 @@
  * @property string $shortname
  *
  * The followings are the available model relations:
- * @property Recordings[] $recordings
+ * @property Record[] $records
  */
 class Medium extends CActiveRecord
 {

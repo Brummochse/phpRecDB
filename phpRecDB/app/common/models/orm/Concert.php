@@ -14,11 +14,11 @@
  * @property integer $misc
  *
  * The followings are the available model relations:
- * @property Countrys $countrys
- * @property Citys $citys
- * @property Venues $venues
- * @property Artists $artists
- * @property Recordings[] $recordings
+ * @property Country $country
+ * @property City $city
+ * @property Venue $venue
+ * @property Artist $artist
+ * @property Record[] $records
  */
 class Concert extends CActiveRecord {
 

@@ -9,7 +9,7 @@
  * @property string $notes
  *
  * The followings are the available model relations:
- * @property Concerts[] $concerts
+ * @property Concert[] $concerts
  */
 class Artist extends CActiveRecord {
 

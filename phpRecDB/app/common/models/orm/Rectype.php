@@ -10,7 +10,7 @@
  * @property string $shortname
  *
  * The followings are the available model relations:
- * @property Recordings[] $recordings
+ * @property Record[] $records
  */
 class Rectype extends CActiveRecord
 {
@@ -56,7 +56,7 @@ class Rectype extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'recordings' => array(self::HAS_MANY, 'Recordings', 'rectypes_id'),
+			'records' => array(self::HAS_MANY, 'Record', 'rectypes_id'),
 		);
 	}
 

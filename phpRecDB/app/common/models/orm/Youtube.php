@@ -11,7 +11,7 @@
  * @property string $order_id
  *
  * The followings are the available model relations:
- * @property Recordings $recordings
+ * @property Record $record
  */
 class Youtube extends CActiveRecord {
 
@@ -54,7 +54,7 @@ class Youtube extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'recordings' => array(self::BELONGS_TO, 'Recordings', 'recordings_id'),
+            'record' => array(self::BELONGS_TO, 'Record', 'recordings_id'),
         );
     }
 

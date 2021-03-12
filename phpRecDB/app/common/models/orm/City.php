@@ -9,9 +9,9 @@
  * @property string $name
  *
  * The followings are the available model relations:
- * @property Countrys $countrys
- * @property Concerts[] $concerts
- * @property Venues[] $venues
+ * @property Country $country
+ * @property Concert[] $concerts
+ * @property Venue[] $venues
  */
 class City extends CActiveRecord {
 
