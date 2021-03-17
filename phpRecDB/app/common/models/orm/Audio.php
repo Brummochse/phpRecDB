@@ -9,6 +9,8 @@
  * @property string $bitrate
  * @property string $frequence
  *
+ * The followings are the available model relations:
+ * @property Record $record
  */
 class Audio extends CActiveRecord {
 
@@ -49,7 +51,9 @@ class Audio extends CActiveRecord {
     public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return [];
+        return array(
+            'record' => array(self::BELONGS_TO, 'Record', 'recordings_id'),
+        );
     }
 
     /**
