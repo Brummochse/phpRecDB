@@ -398,7 +398,8 @@ class AdminEditRecordController extends AdminController {
         $audios = Audio::model()->getAllFromConcert($concertModel);
 
         $itemsVideo = $this->createVAItems($videos, $selectedRecordId, 'Video:', 1);
-        $itemsAudio = $this->createVAItems($audios, $selectedRecordId, 'Audio:', count($itemsVideo));
+        $firstAudioSource = count($itemsVideo)==0?1:count($itemsVideo);
+        $itemsAudio = $this->createVAItems($audios, $selectedRecordId, 'Audio:', $firstAudioSource);
 
         $result = array(
             'recordsCount' => count($videos) + count($audios),
