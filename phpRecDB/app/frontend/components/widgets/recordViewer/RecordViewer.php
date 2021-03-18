@@ -25,6 +25,8 @@ class RI {
     const SOURCEIDENTIFICATION = "SOURCEIDENTIFICATION";
     const VIDEOORAUDIO = "VIDEOORAUDIO";
     const BITRATE = "BITRATE";
+    const SIZE = "SIZE";
+
     
     const USERDEFINED1 = "USERDEFINED1";
     const USERDEFINED2 = "USERDEFINED2";
@@ -49,6 +51,11 @@ class RI {
     const AUTHORER = "AUTHORER";
     const SCREENSHOTS = "SCREENSHOTS";
     const YOUTUBESAMPLES = 'YOUTUBESAMPLES';
+    const WIDTH = 'WIDTH';
+    const HEIGHT = 'HEIGHT';
+    const MENU = 'MENU';
+    const CHAPTERS = 'CHAPTERS';
+    const FRAMERATE = 'FRAMERATE';
 
     //screenshots
     const THUMBNAILFILE = "THUMBNAILFILE";
@@ -94,6 +101,7 @@ class RecordViewer extends CWidget {
             new SqlBuildCol("","sourceidentification",RI::SOURCEIDENTIFICATION),
             new SqlBuildCol("","userdefined1",RI::USERDEFINED1),
             new SqlBuildCol("","userdefined2",RI::USERDEFINED2),
+            new SqlBuildCol("","size",RI::SIZE),
 
             new SqlBuildCol("medium","label",RI::MEDIUM),
             new SqlBuildCol("rectype","label",RI::RECTYPE),
@@ -120,6 +128,11 @@ class RecordViewer extends CWidget {
         $cols = array(
             new SqlBuildCol("","bitrate",RI::BITRATE),
             new SqlBuildCol("","authorer",RI::AUTHORER),
+            new SqlBuildCol("","width",RI::WIDTH),
+            new SqlBuildCol("","height",RI::HEIGHT),
+            new SqlBuildCol("","menu",RI::MENU),
+            new SqlBuildCol("","chapters",RI::CHAPTERS),
+            new SqlBuildCol("","framerate",RI::FRAMERATE),
             new SqlBuildCol("record","id",""),
             new SqlBuildCol("videoformat","label",RI::VIDEOFORMAT),
             new SqlBuildCol("aspectratio","label",RI::ASPECTRATIO),
