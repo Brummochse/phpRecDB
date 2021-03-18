@@ -3,7 +3,6 @@
 	Yii::app()->clientScript->registerCssFile( Yii::app()->getTheme()->getBaseUrl().'/css/newway1.css');
 	Yii::app()->clientScript->registerCssFile( Yii::app()->getTheme()->getBaseUrl().'/css/RecordView1.css');
 	Yii::app()->clientScript->registerCssFile( Yii::app()->getTheme()->getBaseUrl().'/css/artistNav.css');
-	Yii::app()->clientScript->registerCssFile( Yii::app()->getTheme()->getBaseUrl().'/css/slimbox21.css');
 	Yii::app()->clientScript->registerCssFile( Yii::app()->getTheme()->getBaseUrl().'/css/recordList1.css');
 ?>
 <div id="content" class="contentSize">

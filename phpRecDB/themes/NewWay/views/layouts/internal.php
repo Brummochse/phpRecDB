@@ -11,7 +11,6 @@
 			?>
 		</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<script type="text/javascript" src="phpRecDB/themes/NewWay/js/slimbox2.js"></script>
 	</head>
 	<body>
 		<div id="topBar"></div>

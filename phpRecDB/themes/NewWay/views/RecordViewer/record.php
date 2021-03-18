@@ -129,14 +129,13 @@ if ($r[RI::NOTES] != '') {
 <div class="RecordView" id="RV4">
 	<h1>Screenshots</h1>
 	<div class="RVbox">
-	<?php
-		foreach ($v[RI::SCREENSHOTS] as $screenshot) {
-			echo CHtml::link(
-				CHtml::image($screenshotFolder.'/'.$screenshot->thumbnail),$screenshotFolder.'/'.$screenshot->screenshot_filename,
-				array("rel" => "lightbox-rel")
-			);
-		}
-	?>
+        <?php
+        foreach ($v[RI::SCREENSHOTS] as $screenshot) {
+
+            echo CHtml::link(CHtml::image($screenshotFolder.'/'.$screenshot->thumbnail), $screenshotFolder.'/'.$screenshot->screenshot_filename, array("rel"=>"group"));
+        }
+        $this->widget('application.extensions.fancybox.AlFancybox', array('targetDOM' => '#RV4 a'));
+        ?>
 	</div>
 </div>
 <?php
