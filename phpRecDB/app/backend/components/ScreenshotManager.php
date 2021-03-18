@@ -152,10 +152,6 @@ class ScreenshotManager extends CApplicationComponent {
      * @param int $recordId
      */
     public function processUploadedScreenshots(array $screenshotFiles, $recordId) {
-
-        $fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/test.txt' , "wb");
-        fwrite($fp, $recordId);
-        fclose($fp);
         if (isset($screenshotFiles) && count($screenshotFiles) > 0) {
 
             $watermarkModel = new WatermarkForm();
