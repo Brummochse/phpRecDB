@@ -22,7 +22,7 @@
 
 header('Content-Type:text/html; charset=UTF-8');
 
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+//defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 
 //only for deprecated message
