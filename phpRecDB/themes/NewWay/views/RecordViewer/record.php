@@ -67,7 +67,7 @@ if ($r[RI::SETLIST] != '') {
 			<?php
 				if ($r[RI::VIDEOORAUDIO] == RI::VIDEO) {
 			?>
-			<?php if ($r[RI::SUMLENGTH] != '') { ?><label>Length:</label> <?=$r[RI::SUMLENGTH].' min'; } ?>
+            <?php if ($r[RI::SUMLENGTH] != '') { ?><label>Length:</label> <?= number_format($r[RI::SUMLENGTH],2,':','').' min'; } ?>
 			<?php if ($r[RI::QUALITY] != '') { ?><br /><label>Quality:</label> <?=$r[RI::QUALITY].'/10'; } ?>
 			<?php if ($r[RI::MEDIUM] != '') { ?><br /><label>Media:</label> <?=($r[RI::SUMMEDIA] != '' ? $r[RI::SUMMEDIA] . 'x ' : '') . $r[RI::MEDIUM]; } ?>
 			<?php if ($r[RI::SOURCE] != '') { ?><br /><label>Source:</label> <?=$r[RI::SOURCE]; } ?>
@@ -76,23 +76,30 @@ if ($r[RI::SETLIST] != '') {
 			<?php if ($v[RI::ASPECTRATIO] != '') { ?><br /><label>Aspect Ratio:</label> <?=$v[RI::ASPECTRATIO]; } ?>
 			<?php if ($v[RI::VIDEOFORMAT] != '') { ?><br /><label>Videoformat:</label> <?=$v[RI::VIDEOFORMAT]; } ?>
 			<?php if ($v[RI::BITRATE] != '') { ?><br /><label>Bitrate:</label> <?=$v[RI::BITRATE]; } ?>
-                        <?php if ($r[RI::USERDEFINED1] != '') { ?><br><label><?= $r[RI::USERDEFINED1LABEL] ?>:</label> <?=$r[RI::USERDEFINED1]; } ?>
-                        <?php if ($r[RI::USERDEFINED2] != '') { ?><br><label><?= $r[RI::USERDEFINED2LABEL] ?>:</label> <?=$r[RI::USERDEFINED2]; } ?>
+            <?php if ($r[RI::USERDEFINED1] != '') { ?><br><label><?= $r[RI::USERDEFINED1LABEL] ?>:</label> <?=$r[RI::USERDEFINED1]; } ?>
+            <?php if ($r[RI::USERDEFINED2] != '') { ?><br><label><?= $r[RI::USERDEFINED2LABEL] ?>:</label> <?=$r[RI::USERDEFINED2]; } ?>
+            <?php if (!empty($r[RI::SIZE])) { ?><br><label>Size:</label> <?= number_format($r[RI::SIZE],0,',','.')   .' MB'; } ?>
+            <?php if (!empty($v[RI::WIDTH])) { ?><br><label>Resolution:</label> <?=$v[RI::WIDTH].' x '.$v[RI::HEIGHT]; } ?>
+            <?php if (!empty($v[RI::FRAMERATE])) { ?><br><label>Framerate:</label> <?=$v[RI::FRAMERATE]; } ?>
+            <?php if (!empty($v[RI::MENU])) { ?><br><label>Menu:</label> yes<?php } ?>
+            <?php if (!empty($v[RI::CHAPTERS])) { ?><br><label>Chapters:</label> yes<?php } ?>
 			<?php
 				}
 				if ($r[RI::VIDEOORAUDIO] == RI::AUDIO) {
 			?>
-			<?php if ($r[RI::SUMLENGTH] != '') { ?><label>Length:</label> <?=$r[RI::SUMLENGTH].' min'; } ?>
-			<?php if ($r[RI::QUALITY] != '') { ?><br><label>Quality:</label> <?=$r[RI::QUALITY].'/10'; } ?>
+            <?php if ($r[RI::SUMLENGTH] != '') { ?><label>Length:</label> <?= number_format($r[RI::SUMLENGTH],2,':','').' min'; } ?>
+            <?php if ($r[RI::QUALITY] != '') { ?><br><label>Quality:</label> <?=$r[RI::QUALITY].'/10'; } ?>
 			<?php if ($r[RI::MEDIUM] != '') { ?><br><label>Media:</label> <?=($r[RI::SUMMEDIA] != '' ? $r[RI::SUMMEDIA] . 'x ' : '') . $r[RI::MEDIUM]; } ?>
 			<?php if ($r[RI::SOURCE] != '') { ?><br><label>Source:</label> <?=$r[RI::SOURCE]; } ?>
 			<?php if ($r[RI::SOURCENOTES] != '') { ?><br><label>Sourcenotes:</label> <?=nl2br($r[RI::SOURCENOTES]); } ?>
 			<?php if ($r[RI::RECTYPE] != '') { ?><br><label>Recording Type:</label> <?=$r[RI::RECTYPE]; } ?>
 			<?php if ($a[RI::BITRATE] != '') { ?><br><label>Bitrate:</label> <?=$a[RI::BITRATE]; } ?>
 			<?php if ($a[RI::FREQUENCY] != '') { ?><br><label>Frequency:</label> <?=$a[RI::FREQUENCY]; } ?>
-                        <?php if ($r[RI::USERDEFINED1] != '') { ?><br><label><?= $r[RI::USERDEFINED1LABEL] ?>:</label> <?=$r[RI::USERDEFINED1]; } ?>
-                        <?php if ($r[RI::USERDEFINED2] != '') { ?><br><label><?= $r[RI::USERDEFINED2LABEL] ?>:</label> <?=$r[RI::USERDEFINED2]; } ?>
-			<?php
+            <?php if ($r[RI::USERDEFINED1] != '') { ?><br><label><?= $r[RI::USERDEFINED1LABEL] ?>:</label> <?=$r[RI::USERDEFINED1]; } ?>
+            <?php if ($r[RI::USERDEFINED2] != '') { ?><br><label><?= $r[RI::USERDEFINED2LABEL] ?>:</label> <?=$r[RI::USERDEFINED2]; } ?>
+            <?php if (!empty($r[RI::SIZE])) { ?><br><label>Size:</label> <?= number_format($r[RI::SIZE],0,',','.')   .' MB'; } ?>
+
+            <?php
 				}
 			?>
 		</div>
@@ -104,7 +111,7 @@ if ($r[RI::TAPER] != '' || $r[RI::TRANSFERER] != '' || (isset($v[RI::AUTHORER]) 
 		<div class="RVbox">
 			<?php if ($r[RI::TAPER] != '') { ?><label>Taper:</label> <?= $r[RI::TAPER]; } ?>
 			<?php if ($r[RI::TRANSFERER] != '') { ?><br /><label>Transferer:</label> <?= $r[RI::TRANSFERER]; } ?>
-			<?php if ($r[RI::VIDEOORAUDIO] == RI::VIDEO) { 
+			<?php if ($r[RI::VIDEOORAUDIO] == RI::VIDEO) {
 				if ($v[RI::AUTHORER] != '') {
 			?><br /><label>Authorer:</label> <?= $v[RI::AUTHORER]; }
 				}
