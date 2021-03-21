@@ -26,6 +26,7 @@ class RI {
     const VIDEOORAUDIO = "VIDEOORAUDIO";
     const BITRATE = "BITRATE";
     const SIZE = "SIZE";
+    const CODEC = "CODEC";
 
     
     const USERDEFINED1 = "USERDEFINED1";
@@ -102,6 +103,7 @@ class RecordViewer extends CWidget {
             new SqlBuildCol("","userdefined1",RI::USERDEFINED1),
             new SqlBuildCol("","userdefined2",RI::USERDEFINED2),
             new SqlBuildCol("","size",RI::SIZE),
+            new SqlBuildCol("","codec",RI::CODEC),
 
             new SqlBuildCol("medium","label",RI::MEDIUM),
             new SqlBuildCol("rectype","label",RI::RECTYPE),

@@ -6,6 +6,7 @@ class m210223_000000_phprecdb_1_3 extends CDbMigration {
 
     public function safeUp() {
         $this->addColumn('recordings', 'size', 'BIGINT');
+        $this->addColumn('recordings', 'codec', 'text');
         $this->addColumn('video', 'width', 'INT(10)');
         $this->addColumn('video', 'height', 'INT(10)');
         $this->addColumn('video', 'menu', 'tinyint(1)');

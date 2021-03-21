@@ -7,6 +7,8 @@
 <?php if ($r[RI::USERDEFINED1] != '') { ?><br><label><?= $r[RI::USERDEFINED1LABEL] ?>:</label> <?=$r[RI::USERDEFINED1]; } ?>
 <?php if ($r[RI::USERDEFINED2] != '') { ?><br><label><?= $r[RI::USERDEFINED2LABEL] ?>:</label> <?=$r[RI::USERDEFINED2]; } ?>
 <?php if (!empty($r[RI::SIZE])) { ?><br><label>Size:</label> <?= number_format($r[RI::SIZE],0,',','.')   .' MB'; } ?>
+<?php if (!empty($r[RI::CODEC])) { ?><br><label>Codec:</label> <?= $r[RI::CODEC]; } ?>
+
 
 <?php if ($v[RI::ASPECTRATIO] != '') { ?><br><label>Aspect Ratio:</label> <?=$v[RI::ASPECTRATIO]; } ?>
 <?php if ($v[RI::VIDEOFORMAT] != '') { ?><br><label>Video Format:</label> <?=$v[RI::VIDEOFORMAT]; } ?>

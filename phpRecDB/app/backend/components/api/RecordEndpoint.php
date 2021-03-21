@@ -24,6 +24,17 @@ class RecordEndpoint extends RestEndpoint
         $this->updateHandlers['chapters']=$this->createChaptersHandler();
         $this->updateHandlers['frameRate']=$this->createFramerateHandler();
         $this->updateHandlers['format']=$this->createFormatHandler();
+        $this->updateHandlers['codec']=$this->createCodecHandler();
+    }
+
+    private function createCodecHandler(): UpdateAspectHandler
+    {
+        return new class() implements UpdateAspectHandler{
+            public function process(Record $record, string $value)
+            {
+                $record->codec=$value;
+            }
+        };
     }
 
     private function createChaptersHandler(): UpdateAspectHandler
