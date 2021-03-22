@@ -2,7 +2,7 @@
 
 return array(
 
-    'version' => '1.3 Test 4 (2021-03-18)',
+    'version' => '1.3 Test 5 (2021-03-22)',
     'artistMenuMaxChunkSize'=>20,
     'wwwUrl' => '<placeholder to fill in setWwwUrl Filter in Controller>',
     'screenshotsUrl' => '<placeholder to fill in setWwwUrl Filter in Controller>',

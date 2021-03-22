@@ -3,10 +3,10 @@
 class DbConfig {
     
 	public $_CONFIG = array (
-		"host" => "localhost", //fill in here the hostname of your database server . for example "host" => "localhost",
-		"user" => "root", //fill in here the username for example "user" => "username",
+		"host" => "", //fill in here the hostname of your database server . for example "host" => "localhost",
+		"user" => "", //fill in here the username for example "user" => "username",
 		"pass" => "", //fill in here the password for example "pass" => "password",
-		"db"   => "phprecdb" //fill in here the database name for example "db" => "database"
+		"db"   => "" //fill in here the database name for example "db" => "database"
 	);
 
 	public function getHost() {
