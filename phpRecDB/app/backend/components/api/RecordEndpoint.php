@@ -132,7 +132,7 @@ class RecordEndpoint extends RestEndpoint
                 $filesize = filesize($tmpFilename);
                 $error=0;//=OK
 
-                $CUploadedFile = new CUploadedFile(basename($tmpFilename),$tmpFilename,'image/jpeg',$filesize,$error);
+                $CUploadedFile = new CUploadedFile(basename($tmpFilename).'.jpg',$tmpFilename,'image/jpeg',$filesize,$error);
 
                 /** @var ScreenshotManager $screenshotManager */
                 $screenshotManager = Yii::app()->screenshotManager;

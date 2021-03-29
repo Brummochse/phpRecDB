@@ -136,7 +136,7 @@ class AdminEditRecordController extends AdminController {
 
         if (isset($_POST['Screenshot'])) {
             $screenshotFiles = CUploadedFile::getInstancesByName('screenshots');
-            Yii::app()->screenshotManager->proccessUploadedScreenshots($screenshotFiles, $recordId);
+            Yii::app()->screenshotManager->processUploadedScreenshots($screenshotFiles, $recordId);
         }
 
         $dataProvider = new CActiveDataProvider('Screenshot', array(
