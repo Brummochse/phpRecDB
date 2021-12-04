@@ -45,7 +45,7 @@ class SettingsManager extends CApplicationComponent {
     }
 
     public function getPropertyValue($property) {
-        $sqlQuery = "SELECT value FROM " . $this->settingsTableName . "" .
+        $sqlQuery = "SELECT value FROM " . $this->settingsTableName  .
                 " WHERE property='$property'";
         return Yii::app()->db->createCommand($sqlQuery)->queryScalar();
     }
