@@ -1,2 +1,3 @@
-/nbproject/private/
 /.idea
+/phpRecDB/assets/
+!/phpRecDB/assets/.gitkeep
