@@ -4,14 +4,14 @@
  * This is the model class for table "concerts".
  *
  * The followings are the available columns in table 'concerts':
- * @property string $id
- * @property string $artists_id
+ * @property int $id
+ * @property int $artists_id
  * @property string $date
- * @property string $countrys_id
- * @property string $citys_id
- * @property string $venues_id
+ * @property int $countrys_id
+ * @property int $citys_id
+ * @property int $venues_id
  * @property string $supplement
- * @property integer $misc
+ * @property int $misc
  *
  * The followings are the available model relations:
  * @property Country $country

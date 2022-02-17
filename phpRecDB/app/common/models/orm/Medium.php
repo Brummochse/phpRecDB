@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'media':
  * @property string $id
- * @property string $bootlegtypes_id
+ * @property int $bootlegtypes_id
  * @property string $label
  * @property string $shortname
  *

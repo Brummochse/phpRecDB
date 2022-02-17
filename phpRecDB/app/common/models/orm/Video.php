@@ -5,13 +5,13 @@
  *
  * The followings are the available columns in table 'video':
  * @property string $id
- * @property integer $recordings_id
- * @property integer $width
- * @property integer $height
- * @property integer $menu
- * @property integer $chapters
- * @property string $aspectratio_id
- * @property string $videoformat_id
+ * @property int $recordings_id
+ * @property int $width
+ * @property int $height
+ * @property int $menu
+ * @property int $chapters
+ * @property int $aspectratio_id
+ * @property int $videoformat_id
  * @property string $bitrate
  * @property string $authorer
  * @property float $framerate

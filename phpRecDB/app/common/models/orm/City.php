@@ -4,8 +4,8 @@
  * This is the model class for table "citys".
  *
  * The followings are the available columns in table 'citys':
- * @property string $id
- * @property string $countrys_id
+ * @property int $id
+ * @property int $countrys_id
  * @property string $name
  *
  * The followings are the available model relations:

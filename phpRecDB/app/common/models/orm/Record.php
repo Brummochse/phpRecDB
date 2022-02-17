@@ -4,17 +4,17 @@
  * This is the model class for table "recordings".
  *
  * The followings are the available columns in table 'recordings':
- * @property integer $id
- * @property integer $size
- * @property string $concerts_id
- * @property integer $visible
+ * @property int $id
+ * @property int $size
+ * @property int $concerts_id
+ * @property int $visible
  * @property string $sourceidentification
- * @property integer $rectypes_id
- * @property string $sources_id
- * @property string $media_id
+ * @property int rectypes_id
+ * @property int $sources_id
+ * @property int $media_id
  * @property float $sumlength
  * @property string $summedia
- * @property string $quality
+ * @property int $quality
  * @property string $setlist
  * @property string $notes
  * @property string $lastmodified
@@ -22,7 +22,7 @@
  * @property string $sourcenotes
  * @property string $taper
  * @property string $transferer
- * @property string $tradestatus_id
+ * @property int $tradestatus_id
  * @property string $hiddennotes
  * @property string $userdefined1
  * @property string $userdefined2
@@ -34,7 +34,7 @@
  * @property Audio $audio
  * @property Concert $concert
  * @property Source $source
- * @property Rectype $rectypes
+ * @property Rectype $rectype
  * @property Medium $medium
  * @property Tradestatus $tradestatus
  * @property Sublist[] $sublists
@@ -194,7 +194,7 @@ class Record extends CActiveRecord {
         return Record::generateString($length, $quality, $rectype, $media, $summedia, $source, $sourceIdentification, $visible, $sublists);
     }
 
-    public static function generateString($length = null, $quality = null, $rectype = null, $media = null, $summedia = null, $source = null, $sourceIdentification = null, $visible = null, $sublists = array()) {
+    public static function generateString(float $length = null, $quality = null, $rectype = null, $media = null, $summedia = null, $source = null, $sourceIdentification = null, $visible = null, $sublists = array()) {
         $outStr = "";
         if (!empty($length))
             $outStr.=$length . "min";

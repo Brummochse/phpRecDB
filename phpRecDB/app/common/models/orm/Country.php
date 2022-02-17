@@ -4,12 +4,12 @@
  * This is the model class for table "countrys".
  *
  * The followings are the available columns in table 'countrys':
- * @property string $id
+ * @property int $id
  * @property string $name
  *
  * The followings are the available model relations:
- * @property Citys[] $citys
- * @property Concerts[] $concerts
+ * @property City[] $citys
+ * @property Concert[] $concerts
  */
 class Country extends CActiveRecord {
 

@@ -4,7 +4,7 @@
  * This is the model class for table "artists".
  *
  * The followings are the available columns in table 'artists':
- * @property string $id
+ * @property int $id
  * @property string $name
  * @property string $notes
  *
