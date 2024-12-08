@@ -1,0 +1,111 @@
+div#statistics {
+	color: #fff;
+	font-size: 12px;
+}
+
+	div#statistics input[type='submit'],
+	div#statistics input[type='button'] {
+		background: #000;
+		border: 0;
+		margin: 0;
+		padding: 5px 10px 5px 10px;
+		color: #da2a2a;
+		text-transform: uppercase;
+	}
+		div#statistics input[type='submit']:hover,
+		div#statistics input[type='button']:hover {
+			background: #da2a2a;
+			color: #fff;
+		}
+
+div#statistics div#yw0 div span input {
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+
+	div#statistics div#yw0 {
+		text-transform: uppercase;
+	}
+		div#statistics div#yw0 h3 {
+			padding: 10px;
+			font-size: 12px;
+			float: right;
+		}
+			div#statistics div#yw0 h3 span.ui-icon {
+				display: none;
+			}
+			div#statistics div#yw0 h3 a {
+				background: #000 url(../images/table-arrow.png) no-repeat center bottom;
+				padding: 10px;
+				color: #fff;
+				display: block;
+				margin: -10px;
+				font-weight: normal;
+			}
+				div#statistics div#yw0 h3 a:hover {
+					background: #da2a2a url(../images/table-arrow.png) no-repeat center bottom;
+					text-decoration: none;
+				}
+		div#statistics div#yw0 div {
+			background: url(../images/black75.png) repeat;
+			padding: 10px;
+			clear:right;
+			font-size: 10px;
+			vertical-align: middle;
+		}
+	
+	div#statistics h2 {
+		clear: both;
+		padding: 10px;
+		font-size: 12px;
+		text-transform: uppercase;
+		background: #000;
+		font-weight: normal;
+	}
+
+
+
+
+
+
+table.detail-view {
+	display: table;
+	width: 100%;
+	border-spacing: 0;
+	text-align: left;
+	vertical-align: middle;
+}
+
+	table.detail-view th,
+	table.detail-view td {
+		padding: 5px;
+	}
+
+	table.detail-view th {
+		text-align: right;
+		width: 200px;
+		border-right: 2px solid #000;
+	}
+
+	table.detail-view tr.odd {
+		background: url(../images/black50.png) repeat;
+	}
+
+	table.detail-view tr.even {
+		background: url(../images/black75.png) repeat;
+	}
+
+table.detail-view A,
+table.detail-view A:hover
+{
+    color:#FFFFFF;
+}
+
+table.detail-view tr.odd th
+{
+}
+
+table.detail-view tr.even th
+{
+}
