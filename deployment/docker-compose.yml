@@ -1,6 +1,8 @@
 services:
   web:
-    image: php:8.3-apache
+    build:
+      context: .
+      dockerfile: PHP.Dockerfile
     container_name: php-apache
     ports:
       - "8081:80"

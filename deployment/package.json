@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build:docker": "docker-compose build",
     "start:docker": "docker-compose up -d",
     "stop:docker": "docker-compose down"
   }

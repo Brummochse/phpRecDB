@@ -1,3 +1,6 @@
+/nbproject/private/
 /.idea
 /phpRecDB/assets/
 !/phpRecDB/assets/.gitkeep
+/src/phpRecDB/assets/*
+/src/phpRecDB/misc/runtime/cache/*
