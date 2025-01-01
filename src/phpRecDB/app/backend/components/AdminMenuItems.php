@@ -33,6 +33,8 @@ class AdminMenuItems {
 
     public function createAdminMenuItems() {
         return array(
+            array('icon' => 'glyphicon glyphicon-plus', 'url' => array('/adminBase/addRecord')),
+            array('icon'=>'glyphicon glyphicon-list-alt', 'url' => array('/adminBase/listRecords')),
             array('label' => 'Records',
                 'items' => array(
                     array('label' => 'Add Record', 'url' => array('/adminBase/addRecord')),
