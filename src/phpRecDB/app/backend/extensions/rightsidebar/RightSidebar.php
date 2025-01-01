@@ -39,7 +39,7 @@ class RightSidebar extends CWidget {
 
         echo '<div class="right_menu">';
         echo '<div class="title">' . CHtml::encode($this->title);
-        echo CHtml::ajaxLink('&gt;&gt;', '', false, array('id' => 'toggle_right_menu'));
+        echo CHtml::ajaxLink('&gt;&gt;', '', [], array('id' => 'toggle_right_menu'));
         echo '</div>';
 
         parent::init();
