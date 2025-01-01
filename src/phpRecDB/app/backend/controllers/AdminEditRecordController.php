@@ -79,7 +79,7 @@ class AdminEditRecordController extends AdminController {
     }
 
     protected function renderYoutube($data, $row) {
-        $youtubeUrl = 'http://www.youtube.com/v/' . $data->youtubeId;
+        $youtubeUrl = 'https://www.youtube.com/v/' . $data->youtubeId;
         return $this->renderPartial('_youtubeItem', array('youtubeUrl' => $youtubeUrl), true, false);
     }
 

@@ -225,8 +225,8 @@ $.extend($.youtube, {
     DATA_ID: DATA_ID,
 
     // Urls
-    url: 'http://www.youtube.com/',
-    img_url: "http://img.youtube.com/vi/",
+    url: 'https://www.youtube.com/',
+    img_url: "https://img.youtube.com/vi/",
     
     debug: enable_log,
     
