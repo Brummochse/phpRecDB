@@ -248,6 +248,20 @@ class ColUserDefined2 extends ConfigColumn {
     }
 }
 
+class ColFileSize extends ConfigColumn {
+
+    public function getColDefinitions($dataProvider, $isAdmin) {
+        return array(array(
+            'value' => 'isset($data["FileSize"])?FileSizeFormatter::format($data["FileSize"]):""',
+            'name'=>Cols::FILESIZE,
+        ));
+    }
+
+    public function getSqlBuildColNames() {
+        return array(Cols::FILESIZE);
+    }
+}
+
 class Cols {
 
     const ARTIST = 'Artist';
@@ -274,6 +288,7 @@ class Cols {
     const ASPECTRATIO = 'AspectRatio';
     const USERDEFINED1 = 'UserDefined1';
     const USERDEFINED2 = 'UserDefined2';
+    const FILESIZE = 'FileSize';
 
     public static function getAllColNames() {
         $oClass = new ReflectionClass('Cols'); //in php 5.3 i would use static keyword
@@ -353,6 +368,7 @@ class ColumnStock {
         $this->allSqlBuildCols[] = new SqlBuildCol("", "quality",Cols::QUALITY);
         $this->allSqlBuildCols[] = new SqlBuildCol("", "userdefined1",Cols::USERDEFINED1);
         $this->allSqlBuildCols[] = new SqlBuildCol("", "userdefined2",Cols::USERDEFINED2);
+        $this->allSqlBuildCols[] = new SqlBuildCol("", "size",Cols::FILESIZE);
         $this->allSqlBuildCols[] = new SqlBuildCol("", "sourceidentification",Cols::VERSION);
         $this->allSqlBuildCols[] = new SqlBuildCol("concert", "supplement",Cols::SUPPLEMENT);
         $this->allSqlBuildCols[] = new SqlBuildCol("tradestatus", "shortname",Cols::TRADESTATUS);
