@@ -1,0 +1,7 @@
+1.4
+- PHP 8 compatibility
+- shortcut buttons in backend for "add record" and "manage records"
+- youtube https urls
+- new filesize formatting
+- filezise supported in list configuration
+- fix XSS vulnerability ( https://github.com/advisories/GHSA-wpm6-6374-m3g5 )
