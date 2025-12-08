@@ -15,12 +15,12 @@ class FileSizeFormatter
         $unitIndex = 0;
 
         while ($fileSizeInMB >= 1024 && $unitIndex < count($units) - 1) {
-            $fileSizeInMB /= 1024;
+            $fileSizeInMB /= 1024.0;
             $unitIndex++;
         }
 
         $decimals = $fileSizeInMB < 10 ? 2 : ($fileSizeInMB < 100 ? 1 : 0);
-
+        $fileSizeInMB = floor($fileSizeInMB * 100) / 100;
         return number_format($fileSizeInMB, $decimals, ',', '') . ' ' . $units[$unitIndex];
     }
 
