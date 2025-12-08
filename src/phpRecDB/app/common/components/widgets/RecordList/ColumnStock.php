@@ -424,12 +424,20 @@ class ColumnStock {
                         );
                     }
                     $cssColName = isset($colDefinition['name']) ? $colDefinition['name'] : $colName;
-                    $colDefinition['htmlOptions'] = array('class' => 'c' . $cssColName);
+                    $cssClass = array('class' => 'c' . $cssColName);
+                    $colDefinition['htmlOptions'] = $cssClass;
+                    $colDefinition['headerHtmlOptions'] = $cssClass;
                     //
                     $colDefinitions[] = $colDefinition;
                 }
             } else { //add colname directly to array, no special col configuration needed
-                $colDefinitions[] = $colName;
+                $cssClass = array('class' => 'c' . $colName);
+                $colDefinitions[] =
+                [
+                    'name' => $colName,
+                    'htmlOptions' => $cssClass,
+                    'headerHtmlOptions' => $cssClass
+                ];
             }
         }
         return $colDefinitions;
