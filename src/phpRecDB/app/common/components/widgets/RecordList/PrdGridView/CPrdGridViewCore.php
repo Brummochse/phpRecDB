@@ -4,7 +4,7 @@ Yii::import('zii.widgets.grid.CGridView');
 
 class CPrdSort extends CSort {
 
-    public function getOrderBy($criteria = null) {
+    public function getOrderBy($criteria = null): string {
         $orderBy = parent::getOrderBy($criteria);
 
         if (CPrdGridViewCore::parseFirstOrderCol($orderBy) == 'Artist') {
@@ -19,7 +19,7 @@ abstract class CAbstractPrdGridView extends CGridView {
 
     protected abstract function doCreateDataColumn($text);
 
-    protected function createDataColumn($text) {
+    protected function createDataColumn($text): CDataColumn {
         if (!preg_match('/^([\w\.]+)(:(\w*))?(:(.*))?$/', $text, $matches))
             throw new CException(Yii::t('zii', 'The column must be specified in the format of "Name:Type:Label", where "Type" and "Label" are optional.'));
         //// hijacking
@@ -38,7 +38,7 @@ abstract class CAbstractPrdGridView extends CGridView {
 
     protected abstract function doRenderTableHeader();
 
-    public function renderTableHeader() {
+    public function renderTableHeader(): void {
         if (!$this->hideHeader) {
             echo "<thead>\n";
 
@@ -66,9 +66,9 @@ abstract class CAbstractPrdGridView extends CGridView {
         }
     }
 
-    protected abstract function doRenderDataCells($row);
+    protected abstract function doRenderDataCells(int $row);
 
-    protected abstract function doRenderTableRow($row);
+    protected abstract function doRenderTableRow(int $row);
 
     public function renderTableRow($row) {
 
@@ -99,16 +99,16 @@ abstract class CAbstractPrdGridView extends CGridView {
 
 class CPrdGridViewCore extends CAbstractPrdGridView {
 
-    private $mainColumn = Cols::ARTIST;
-    private $orderBy = "";
-    private $ancestorEntry = '_NO_DATA_';
-    private $ancestorVAType = -2; //-1 not posible becasue this is the value for UNDEFINED, -2 means = not set
-    private $ancestorYear = -1;
-    private $ancestorCreateDate = -1;
-    private $tableBreakCols = array(Cols::ARTIST);
-    private $colCount;
-    private $mergeRowCols = array(Cols::DATE, Cols::ARTIST, Cols::LOCATION);
-    private $artistId = -1;
+    private string $mainColumn = Cols::ARTIST;
+    private string $orderBy = "";
+    private string $ancestorEntry = '_NO_DATA_';
+    private int $ancestorVAType = -2; //-1 not posible becasue this is the value for UNDEFINED, -2 means = not set
+    private int $ancestorYear = -1;
+    private string $ancestorCreateDate = '';
+    private array $tableBreakCols = array(Cols::ARTIST);
+    private int $colCount;
+    private array $mergeRowCols = array(Cols::DATE, Cols::ARTIST, Cols::LOCATION);
+    private ?int $artistId = -1;
 
     public function init() {
         $this->nullDisplay = ""; //defaul is &nbsp, but this takes lot of memory on big lists
@@ -160,7 +160,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
      * @param type $row the current checked row
      * @return boolean
      */
-    private function hasSameConcertPredecessor($row) {
+    private function hasSameConcertPredecessor(int $row): bool {
         $data = $this->dataProvider->data;
         if (isset($data[$row]["id"]) && isset($data[$row]['VideoType'])) {
             if (isset($data[$row - 1]["id"]) && isset($data[$row - 1]["VideoType"])) {
@@ -175,7 +175,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
      * @param type $row
      * @return int 
      */
-    private function countConcertSuccessors($row) {
+    private function countConcertSuccessors(int $row): int {
         $successors = 0;
 
         $data = $this->dataProvider->data;
@@ -196,7 +196,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
      *        0 = merge, without start
      *        > 1 = new rowspan starts = count of rowspan
      */
-    public function getRowMergeInfoForCol($row, $colName) {
+    public function getRowMergeInfoForCol(int $row, string $colName): int {
         if (in_array($colName, $this->mergeRowCols)) {
 
             $successors = $this->countConcertSuccessors($row);
@@ -225,11 +225,11 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         return new CPrdDataColumn($this);
     }
 
-    private function isOrderedColumn($column) {
+    private function isOrderedColumn($column): bool {
         return $column instanceof CDataColumn && $this->orderBy == $column->name;
     }
 
-    protected function doRenderTableHeader() {
+    protected function doRenderTableHeader(): void {
         $this->orderBy = CPrdGridViewCore::evaluateOrderBy($this->dataProvider);
         $this->colCount = $this->getColCount();
         $this->artistId = ParamHelper::decodeArtistIdParam();
@@ -256,7 +256,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         echo "</tr>\n";
     }
 
-    protected function doRenderDataCells($row) {
+    protected function doRenderDataCells(int $row): void {
 
         foreach ($this->columns as $column) {
             if (!($this->orderBy == $this->mainColumn && $this->isOrderedColumn($column))) { //do not render main-col-header, because it was alreay rendered as a extra row before
@@ -265,7 +265,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         }
     }
 
-    private function getYears() {
+    private function getYears(): array {
         $years = array();
         foreach ($this->dataProvider->data as $curRow) {
             $misc = $curRow['misc'] ? '_misc' : '';
@@ -390,13 +390,13 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
 
     // static helpers
 
-    public static function evaluateOrderBy($dataProvider) {
+    public static function evaluateOrderBy($dataProvider): string {
         $orderBy = $dataProvider->getSort()->getOrderBy();
 
         return CPrdGridViewCore::parseFirstOrderCol($orderBy);
     }
 
-    public static function parseFirstOrderCol($orderByStr) {
+    public static function parseFirstOrderCol(string $orderByStr): string {
         //cut string if ordering for multiple arguments
         $sperator = ',';
         $pos = strpos($orderByStr, $sperator);
@@ -415,5 +415,3 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
     }
 
 }
-
-?>
