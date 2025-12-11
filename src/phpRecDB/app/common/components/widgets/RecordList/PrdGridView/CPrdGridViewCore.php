@@ -210,6 +210,17 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         return -1;
     }
 
+    public function getColCount(): int
+    {
+       $colCount=0;
+        foreach ($this->columns as $column) {
+            if (!$this->isOrderedColumn($column)) {
+               $colCount++;
+            }
+        }
+        return $colCount;
+    }
+
     protected function doCreateDataColumn($text) {
         return new CPrdDataColumn($this);
     }
@@ -220,14 +231,14 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
 
     protected function doRenderTableHeader() {
         $this->orderBy = CPrdGridViewCore::evaluateOrderBy($this->dataProvider);
-        $this->colCount = count($this->columns);
+        $this->colCount = $this->getColCount();
         $this->artistId = ParamHelper::decodeArtistIdParam();
 
         //generates a extra header row for the main-col-header
         if ($this->orderBy == $this->mainColumn) {
             foreach ($this->columns as $column) {
                 if ($this->isOrderedColumn($column)) {
-                    $colSpan = $this->colCount - 1 /* - 2 */; //- 2 = info link col and tradestatus col
+                    $colSpan = $this->colCount;
                     echo '<tr><th colspan="' . $colSpan . '" >';
                     echo $column->renderHeaderCellContent();
                     echo "</th></tr>";
@@ -237,7 +248,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
 
 
         echo "<tr>\n";
-        for ($i = 0; $i < $this->colCount /* - 2 */; $i++) { //- 2 = info link col and tradestatus col
+        for ($i = 0; $i <= count($this->columns)-1 ; $i++) {
             if (!($this->orderBy == $this->mainColumn && $this->isOrderedColumn($this->columns[$i]))) {
                 $this->columns[$i]->renderHeaderCell();
             }
@@ -309,7 +320,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
                 }
             }
             echo "<tr>";
-            echo '<td colspan="' . ($this->colCount - 1) . '" >';
+            echo '<td colspan="' . $this->colCount . '" >';
             echo '<div class="splittext">' . $orderLabel . ' [' . $counter . ' records]</div>';
 
             //when only 1 artist is shown, it adds a year selection menu
@@ -332,7 +343,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
             $createDate = substr($createDate, 0, 10);
             if ($createDate != $this->ancestorCreateDate) {
                 echo "<tr>";
-                echo '<td colspan="' . ($this->colCount - 1) . '" ><div class="splittext">' . $createDate . '</div></td>';
+                echo '<td colspan="' . $this->colCount . '" ><div class="splittext">' . $createDate . '</div></td>';
                 echo "</tr>";
 
                 $this->ancestorVAType = -2;
@@ -354,7 +365,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
         if ($curVaType != $this->ancestorVAType) {
 
             echo "<tr>";
-            echo '<td colspan="' . ($this->colCount - 1) . '" ><div class="videoaudio">' . VA::vaIdToStr($curVaType) . '</div></td>';
+            echo '<td colspan="' . $this->colCount  . '" ><div class="videoaudio">' . VA::vaIdToStr($curVaType) . '</div></td>';
             echo "</tr>";
 
             $this->ancestorVAType = $curVaType;
@@ -370,7 +381,7 @@ class CPrdGridViewCore extends CAbstractPrdGridView {
             if ($year != $this->ancestorYear) {
                 $misc=$this->dataProvider->data[$row]['misc']?'_misc':'';
                 echo "<tr>";
-                echo '<td id="'.$year.$misc.'" colspan="' . ($this->colCount - 1) . '" ><div class="splittext">' . $year . '</div></td>';
+                echo '<td id="'.$year.$misc.'" colspan="' . $this->colCount  . '" ><div class="splittext">' . $year . '</div></td>';
                 echo "</tr>";
             }
             $this->ancestorYear = $year;
