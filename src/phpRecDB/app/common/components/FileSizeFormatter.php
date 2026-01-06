@@ -2,6 +2,10 @@
 
 class FileSizeFormatter
 {
+
+    private const PATTERN = '/^(\d+(?:[,\.]\d+)?)\s*(MB|GB|TB)$/i';
+
+
     /**
      * Formats a file size in MB into a human-readable string with a maximum of 3 digits.
      *
@@ -22,6 +26,32 @@ class FileSizeFormatter
         $decimals = $fileSizeInMB < 10 ? 2 : ($fileSizeInMB < 100 ? 1 : 0);
         $fileSizeInMB = floor($fileSizeInMB * 100) / 100;
         return number_format($fileSizeInMB, $decimals, ',', '') . ' ' . $units[$unitIndex];
+    }
+
+
+    public static function isValid(string $input): bool
+    {
+        return preg_match(self::PATTERN, trim($input)) === 1;
+    }
+
+    public static function normalizeToMb(string $value): int|null
+    {
+        $value = trim($value);
+
+        if (!preg_match(self::PATTERN, $value, $matches)) {
+            throw new UnexpectedValueException("Invalid file size format: $value");
+        }
+
+        $number = (float) str_replace(',', '.', $matches[1]);
+        $unit   = strtoupper($matches[2]);
+
+        $mb = match ($unit) {
+            'TB' => $number * 1024 * 1024,
+            'GB' => $number * 1024,
+            default => $number,
+        };
+
+        return (int) ceil($mb);
     }
 
 }

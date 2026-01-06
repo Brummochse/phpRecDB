@@ -266,4 +266,22 @@ class Record extends CActiveRecord {
         return false;
     }
 
+    public function beforeValidate()
+    {
+        if (!parent::beforeValidate()) {
+            return false;
+        }
+
+        if ($this->size !== null && !is_numeric($this->size)) {
+            if (FileSizeFormatter::isValid($this->size)) {
+                $this->size = FileSizeFormatter::normalizeToMb($this->size);
+            }
+            else {
+                $this->addError('size', 'wrong format (e.g. 512, 4,7 GB, 3,4 TB)');
+            }
+        }
+
+        return true;
+    }
+
 }

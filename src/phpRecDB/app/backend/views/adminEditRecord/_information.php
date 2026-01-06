@@ -31,7 +31,15 @@
                     <?= $form->textField($model, 'sumlength', array('maxlength' => 10,'class'=>'form-control')); ?>
                 </div>
                 <div class="form-group col-md-7">
-                    <?php echo CHtml::activeLabel($model, 'size'); ?>
+                    <label for="<?= CHtml::activeId($model, 'size') ?>">
+                        <?= CHtml::encode($model->getAttributeLabel('size')) ?>
+                        <span
+                                class="glyphicon glyphicon-info-sign"
+                                data-toggle="tooltip"
+                                title="Allowed input formats: 4200, 4,1 GB, 700 MB, 1 TB (no unit = MB)"
+                                style="cursor: help;"
+                        ></span>
+                    </label>
                     <?= $form->textField($model, 'size', array('maxlength' => 10,'class'=>'form-control')); ?>
                 </div>
             </div>
