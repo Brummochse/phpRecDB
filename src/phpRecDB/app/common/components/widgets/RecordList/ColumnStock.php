@@ -208,7 +208,7 @@ class ColLocation extends ConfigColumn {
                     'name' => 'Location',
                     'header' => $dataProvider->sort->link('Country', 'Location', array('class' => 'sort-link')),
                     'type' => 'raw',
-                    'value' => 'CHtml::encode(stripslashes((isset($data["Country"])?$data["Country"].(isset($data["City"])?", ":""):"") . (isset($data["City"])?$data["City"].(isset($data["Venue"])?" - ":""):"").$data["Venue"]." ".$data["Supplement"]))'
+                    'value' => 'CHtml::encode(stripslashes(Concert::formatLocation($data["Country"]??null, $data["City"]??null, $data["Venue"]??null, $data["Supplement"]??null)))'
                 )
             );
         };
@@ -461,11 +461,6 @@ class ColumnStock {
 
         return $this->baseSqlBuildCols;
     }
-
-
-
-
-
 }
 
 ?>

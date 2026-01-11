@@ -122,18 +122,49 @@ class Concert extends CActiveRecord {
         $outStr = "";
         if (!empty($date))
             $outStr.=" " . $date;
-        if (!empty($country))
-            $outStr.=" " . $country;
-        if (!empty($city))
-            $outStr.=", " . $city;
-        if (!empty($venue))
-            $outStr.=" - " . $venue;
-        if (!empty($supplement))
-            $outStr.=" " . $supplement;
-        if ($misc != NULL && $misc == 1) {
+        $outStr .= self::formatLocation($country, $outStr, $city, $venue, $supplement);
+        if ($misc === 1) {
             $outStr.=" (MISC)";
         }
         return $outStr;
+    }
+
+    public static function formatLocation(?string $country, ?string $city, ?string $venue, ?string $supplement): string
+    {
+        $formatPattern=Yii::app()->settingsManager->getPropertyValue(Settings::LOCATION_FORMAT_PATTERN);
+
+        $values = [
+            '{country}'    => $country,
+            '{city}'       => $city,
+            '{venue}'      => $venue,
+            '{supplement}' => $supplement,
+        ];
+
+        // Split the pattern into parts (placeholders vs. delimiters)
+        $parts = preg_split('/(\{.*?\})/', $formatPattern, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+
+        $formatted = '';
+        $lastDelimiter = '';
+
+        foreach ($parts as $part) {
+            if (isset($values[$part])) {
+                // it is a placeholder
+                $val = trim((string)$values[$part]);
+
+                if ($val !== '') {
+                    $formatted .= $lastDelimiter . $val;
+                    $lastDelimiter = '';
+                }
+            } else {
+                // It's a delimiter (e.g. ", " or " - ")
+                // Remember the delimiter if it is between two values.
+                // If a delimiter is already waiting, ignore this one ("only the first" logic).
+                if ($lastDelimiter === '' && $formatted !== '') {
+                    $lastDelimiter = $part;
+                }
+            }
+        }
+         return $formatted;
     }
 
     public function searchExistingConcerts($artist, $date, $misc) {
