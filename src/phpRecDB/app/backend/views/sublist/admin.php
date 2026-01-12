@@ -10,6 +10,11 @@ $this->beginWidget('booster.widgets.TbPanel', array(
             'id',
             'label',
             array(
+                'name' => 'exclude from global list',
+                'type' => 'boolean',
+                'value' => '$data->exclude',
+            ),
+            array(
                 'class' => 'CButtonColumn',
                 'template' => '{update}{delete}'
             ),

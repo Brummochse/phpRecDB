@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'lists':
  * @property string $id
  * @property string $label
+ * @property int $exclude
  *
  * The followings are the available model relations:
  * @property Record[] $records
@@ -40,9 +41,11 @@ class Sublist extends CActiveRecord
 		return array(
 			array('label', 'required'),
 			array('label', 'length', 'max'=>255),
+			array('exclude', 'boolean'),
+			array('exclude', 'default', 'value'=>0),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, label', 'safe', 'on'=>'search'),
+			array('id, label, exclude', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +69,7 @@ class Sublist extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'label' => 'Label',
+			'exclude' => 'Exclude',
 		);
 	}
 
@@ -82,6 +86,7 @@ class Sublist extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('label',$this->label,true);
+		$criteria->compare('exclude',$this->exclude);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

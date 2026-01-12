@@ -13,6 +13,7 @@ $this->beginWidget('booster.widgets.TbPanel', array(
 ));
     $form = $this->beginWidget('booster.widgets.TbActiveForm', array('id' => 'sublist-form'));
         echo $form->textFieldGroup($model, 'label');
+        echo $form->checkBoxGroup($model, 'exclude', array('label' => 'Exclude from global list'));
         $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'label' => $model->isNewRecord ? 'Create' : 'Save', 'context' => 'primary'));
     $this->endWidget();
 $this->endWidget();

@@ -6,6 +6,7 @@ class m260109_000000_phprecdb_1_5 extends CDbMigration {
 
     public function safeUp() {
 
+        $this->addColumn('lists', 'exclude', 'TINYINT(1) NOT NULL DEFAULT 0');
 
         Yii::app()->settingsManager->setPropertyValue(Settings::LOCATION_FORMAT_PATTERN, '{country}, {city} - {venue} {supplement}');
 
