@@ -70,11 +70,11 @@ class AdminMenuItems {
                         ),
                     ),
                     array('label' => 'List', 'items' => array(
-                            array('label' => 'Columns Frontend', 'url' => array('/adminBase/listColConfigFrontend')),
-                            array('label' => 'Columns Admininistration Panel', 'url' => array('/adminBase/listColConfigBackend')),
+                            array('label' => 'Columns Frontend', 'url' => array('/listFormat/listColConfigFrontend')),
+                            array('label' => 'Columns Admininistration Panel', 'url' => array('/listFormat/listColConfigBackend')),
                             array('label' => 'Sublist Management', 'url' => array('/sublist/admin')),
                             array('label' => 'Location Format', 'url' => array('/listFormat/locationFormat')),
-                            array('label' => 'Caching', 'url' => array('/adminBase/listCaching'), 'visible' => Yii::app()->user->isAdmin()),
+                            array('label' => 'Caching', 'url' => array('/listFormat/listCaching'), 'visible' => Yii::app()->user->isAdmin()),
                         )
                     ),
                     array('label' => 'Backup', 'url' => array('/backup/index'), 'visible' => Yii::app()->user->isAdmin()),                    
