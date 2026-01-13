@@ -1,3 +1,9 @@
+1.5
+- beautiful filesize output format & dynamic filesize unit input
+- configurable sublist-exclusion from global list
+- configurable list location cell format
+- external rendering removed
+
 1.4
 - PHP 8 compatibility
 - shortcut buttons in backend for "add record" and "manage records"

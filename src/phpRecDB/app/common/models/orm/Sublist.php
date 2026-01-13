@@ -4,9 +4,9 @@
  * This is the model class for table "lists".
  *
  * The followings are the available columns in table 'lists':
- * @property string $id
+ * @property int $id
  * @property string $label
- * @property int $exclude
+ * @property bool $exclude
  *
  * The followings are the available model relations:
  * @property Record[] $records

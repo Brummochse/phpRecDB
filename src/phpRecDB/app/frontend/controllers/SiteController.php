@@ -117,7 +117,10 @@ class SiteController extends BaseController implements PrdServiceProvider {
     /////////////////
 
     private function doPrintList($collapsed, $va = VA::VIDEO_AND_AUDIO) {
-        $listConfig = new AllListDataConfig($collapsed);
+        $sublistsToExclude = Sublist::model()->findAllByAttributes(array('exclude' => true));
+        $sublistIdsToExclude = array_map(function(Sublist $sublist):int { return $sublist->id; }, $sublistsToExclude);
+
+        $listConfig = new AllListDataConfig($collapsed,false,$sublistIdsToExclude);
         $listConfig->setVideoAudioSelection($va);
         $this->renderList($listConfig);
     }
