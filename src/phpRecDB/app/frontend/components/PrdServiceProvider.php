@@ -1,19 +1,5 @@
 <?php
 
-class ListActionMap {
-   
-    const NEWS = 'News';
-    const NEWS_Video = 'NewsVideo';
-    const NEWS_Audio = 'NewsAudio';
-    
-    const RECORDS = 'Records';
-    const RECORDS_Video = 'RecordsVideo';
-    const RECORDS_Audio = 'RecordsAudio';
-    
-    const SUBLIST = 'Sublist';
-    const ARTIST = 'Artist';
-
-}
 
 //lastNewsType
 defined('LAST_RECORDS') or define('LAST_RECORDS', 1);

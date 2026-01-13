@@ -1,57 +1,7 @@
 <?php
 
-abstract class Renderer {
-
-    protected $controller;
-
-    public function __construct(CController $controller) {
-        $this->controller = $controller;
-    }
-
-    public function renderList(ListDataConfig $listDataConfig) {
-        $dataFetcher = new RecordsListFetcher($listDataConfig);
-        $this->renderView('list', array('data' => $dataFetcher->getData()));
-        //
-        if (ParamHelper::decodeRecordIdParam()==NULL) { //no record detail page, log a "list" as page userVisit
-            if (!Uservisit::model()->isBotVisitor()) {
-                Uservisit::model()->logPageVisit(get_class($listDataConfig));
-            }
-        }
-    }
-
-    public abstract function renderView($viewName, $options = array());
-
-    public abstract function getLayout();
-}
-
-class YiiExternalRenderer extends Renderer {
-
-    public function renderView($viewName, $options = array()) {
-        $this->controller->render($viewName, $options);
-    }
-
-    public function getLayout() {
-        return 'content';
-    }
-
-}
-
-class YiiInternalRenderer extends Renderer {
-
-    public function renderView($viewName, $options = array()) {
-        $this->controller->renderPartial($viewName, $options);
-    }
-
-    public function getLayout() {
-        return 'internal';
-    }
-
-}
-
 class SiteController extends BaseController implements PrdServiceProvider {
 
-    private $renderer;
-    private $actions = array();
 
     protected function getWwwUrlPath()
     {
@@ -65,22 +15,7 @@ class SiteController extends BaseController implements PrdServiceProvider {
 
     public function init() {
 
-        if (Yii::app()->listDataConfigurator->isDefaultActionDefined()) {
-            //external usage
-            $this->renderer = new YiiExternalRenderer($this);
-        } else {
-            //yii intern usage
-            $this->renderer = new YiiInternalRenderer($this);
-
-            $this->actions = array(
-                'page' => array(
-                    'class' => 'CViewAction',
-                ),
-            );
-        }
-
-        $this->layout = $this->renderer->getLayout();
-
+        $this->layout = 'internal';
 
         //check if theme is loaded via config file
         if (!isset(Yii::app()->theme)) {
@@ -105,35 +40,36 @@ class SiteController extends BaseController implements PrdServiceProvider {
     }
 
     public function actions() {
-        return $this->actions;
+        return array(
+            'page' => array(
+                'class' => 'CViewAction',
+            ),
+        );
     }
 
     public function actionIndex() {
-        if (Yii::app()->listDataConfigurator->isDefaultActionDefined()) {
-
-            if (Yii::app()->params['defaultAction'] == 'statistics') {
-                $this->printStatistics();
-            } else {
-                $listDataConfig = Yii::app()->listDataConfigurator->evalListDataConfig();
-                if ($listDataConfig != NULL) {
-                    $this->renderer->renderList($listDataConfig);
-                } else {
-                    echo ' ERROR: no valid list data config! ';
-                }
-            }
-        } else {
-            $this->render('pages/index');
-        }
+        $this->render('pages/index');
     }
 
     ////////
+
+    private function renderList(ListDataConfig $listDataConfig) {
+        $dataFetcher = new RecordsListFetcher($listDataConfig);
+        $this->renderPartial('list', array('data' => $dataFetcher->getData()));
+        //
+        if (ParamHelper::decodeRecordIdParam()==NULL) { //no record detail page, log a "list" as page userVisit
+            if (!Uservisit::model()->isBotVisitor()) {
+                Uservisit::model()->logPageVisit(get_class($listDataConfig));
+            }
+        }
+    }
 
     public function printArtistList($artistName) {
         $artistModel = Artist::model()->findByAttributes(array('name' => $artistName));
         if ($artistModel == NULL) {
             echo 'ERROR: artist ' . $artistName . ' not found';
         } else {
-            $this->renderer->renderList(new RecordsForArtistDataConfig($artistModel->id));
+            $this->renderList(new RecordsForArtistDataConfig($artistModel->id));
         }
     }
 
@@ -146,7 +82,7 @@ class SiteController extends BaseController implements PrdServiceProvider {
     }
 
     public function printStatistics() {
-        $this->renderer->renderView('statistics');
+        $this->renderPartial('statistics');
         //
         if (!Uservisit::model()->isBotVisitor()) {
             Uservisit::model()->logPageVisit('statistics');
@@ -158,7 +94,7 @@ class SiteController extends BaseController implements PrdServiceProvider {
         if ($sublistModel == NULL) {
             echo 'ERROR: sublist ' . $sublistName . ' not found';
         } else {
-            $this->renderer->renderList(new SublistListDataConfig($sublistModel->id, $collapsed));
+            $this->renderList(new SublistListDataConfig($sublistModel->id, $collapsed));
         }
     }
 
@@ -183,7 +119,7 @@ class SiteController extends BaseController implements PrdServiceProvider {
     private function doPrintList($collapsed, $va = VA::VIDEO_AND_AUDIO) {
         $listConfig = new AllListDataConfig($collapsed);
         $listConfig->setVideoAudioSelection($va);
-        $this->renderer->renderList($listConfig);
+        $this->renderList($listConfig);
     }
 
     private function doPrintNews($newsCount, $newsType, $va = VA::VIDEO_AND_AUDIO) {
@@ -193,7 +129,7 @@ class SiteController extends BaseController implements PrdServiceProvider {
             $listDataConfig = new LastRecordsNewsListDataConfig($newsCount);
         }
         $listDataConfig->setVideoAudioSelection($va);
-        $this->renderer->renderList($listDataConfig);
+        $this->renderList($listDataConfig);
     }
 
 }

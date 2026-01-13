@@ -9,7 +9,6 @@ return array(
     'defaultController' => 'site',
     'basePath' => $appPath . '/frontend',
     'components' => array(
-        'listDataConfigurator' => array('class' => 'ListDataConfigurator'),
          'assetManager' => array(
             'basePath' => $phpRecDbPath . '/assets/',
             'baseUrl' => $phpRecDbUrl .(empty($phpRecDbUrl)?'':'/'). 'assets',
