@@ -4,8 +4,8 @@
  * This is the model class for table "uservisit".
  *
  * The followings are the available columns in table 'recordvisit':
- * @property integer $id
- * @property integer $record_id
+ * @property int $id
+ * @property int $record_id
  * @property string $page
  * @property string $ip 
  * @property string $useragent

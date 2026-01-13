@@ -4,7 +4,7 @@
  * This is the model class for table "tradestatus".
  *
  * The followings are the available columns in table 'tradestatus':
- * @property string $id
+ * @property int $id
  * @property string $label
  * @property string $shortname
  *

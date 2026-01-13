@@ -4,7 +4,7 @@
  * This is the model class for table "user".
  *
  * The followings are the available columns in table 'user':
- * @property integer $id
+ * @property int $id
  * @property string $username
  * @property string $password
  * @property string $salt

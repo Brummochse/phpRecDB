@@ -4,7 +4,7 @@
  * This is the model class for table "bootlegtypes".
  *
  * The followings are the available columns in table 'bootlegtypes':
- * @property string $id
+ * @property int $id
  * @property string $label
  */
 class Bootlegtype extends CActiveRecord

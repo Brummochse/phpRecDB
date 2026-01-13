@@ -4,7 +4,7 @@
  * This is the model class for table "aspectratio".
  *
  * The followings are the available columns in table 'aspectratio':
- * @property string $id
+ * @property int $id
  * @property string $label
  *
  * The followings are the available model relations:

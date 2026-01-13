@@ -4,7 +4,7 @@
  * This is the model class for table "media".
  *
  * The followings are the available columns in table 'media':
- * @property string $id
+ * @property int $id
  * @property int $bootlegtypes_id
  * @property string $label
  * @property string $shortname

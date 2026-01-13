@@ -4,8 +4,8 @@
  * This is the model class for table "audio".
  *
  * The followings are the available columns in table 'audio':
- * @property string $id
- * @property integer $recordings_id
+ * @property int $id
+ * @property int $recordings_id
  * @property string $bitrate
  * @property string $frequence
  *

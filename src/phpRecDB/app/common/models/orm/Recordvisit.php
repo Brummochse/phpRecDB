@@ -4,9 +4,9 @@
  * This is the model class for table "recordvisit".
  *
  * The followings are the available columns in table 'recordvisit':
- * @property integer $id
- * @property integer $record_id
- * @property integer $visitors
+ * @property int $id
+ * @property int $record_id
+ * @property int $visitors
  *
  * The followings are the available model relations:
  * @property Record $record

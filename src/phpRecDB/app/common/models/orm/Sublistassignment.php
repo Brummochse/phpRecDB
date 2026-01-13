@@ -4,8 +4,8 @@
  * This is the model class for table "sublists".
  *
  * The followings are the available columns in table 'sublists':
- * @property integer $recordings_id
- * @property string $lists_id
+ * @property int $recordings_id
+ * @property int $lists_id
  */
 class Sublistassignment extends CActiveRecord {
 

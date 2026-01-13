@@ -4,11 +4,11 @@
  * This is the model class for table "youtubesamples".
  *
  * The followings are the available columns in table 'youtubesamples':
- * @property string $id
+ * @property int $id
  * @property string $title
  * @property string $youtubeId
- * @property integer $recordings_id
- * @property string $order_id
+ * @property int $recordings_id
+ * @property int $order_id
  *
  * The followings are the available model relations:
  * @property Record $record

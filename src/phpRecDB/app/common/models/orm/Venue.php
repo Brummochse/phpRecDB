@@ -4,8 +4,8 @@
  * This is the model class for table "venues".
  *
  * The followings are the available columns in table 'venues':
- * @property string $id
- * @property string $citys_id
+ * @property int $id
+ * @property int $citys_id
  * @property string $name
  * @property string $notes
  *

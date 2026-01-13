@@ -4,18 +4,18 @@
  * This is the model class for table "signature".
  *
  * The followings are the available columns in table 'signature':
- * @property integer $id
+ * @property int $id
  * @property string $name
- * @property integer $enabled
+ * @property int $enabled
  * @property string $additionalText
- * @property integer $bgTransparent
+ * @property int $bgTransparent
  * @property string $bgColor
  * @property string $color1
  * @property string $color2
  * @property string $color3
- * @property integer $quality
- * @property integer $recordsCount
- * @property integer $fontSize
+ * @property int $quality
+ * @property int $recordsCount
+ * @property int $fontSize
  */
 class Signature extends CActiveRecord {
 

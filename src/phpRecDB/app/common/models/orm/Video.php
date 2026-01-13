@@ -4,7 +4,7 @@
  * This is the model class for table "video".
  *
  * The followings are the available columns in table 'video':
- * @property string $id
+ * @property int $id
  * @property int $recordings_id
  * @property int $width
  * @property int $height

@@ -4,8 +4,8 @@
  * This is the model class for table "screenshot".
  *
  * The followings are the available columns in table 'screenshot':
- * @property integer $id
- * @property integer $video_recordings_id
+ * @property int $id
+ * @property int $video_recordings_id
  * @property string $screenshot_filename
  * @property string $thumbnail
  * @property string $order_id

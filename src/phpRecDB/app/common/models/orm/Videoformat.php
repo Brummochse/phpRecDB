@@ -4,7 +4,7 @@
  * This is the model class for table "videoformat".
  *
  * The followings are the available columns in table 'videoformat':
- * @property string $id
+ * @property int $id
  * @property string $label
  *
  * The followings are the available model relations:
