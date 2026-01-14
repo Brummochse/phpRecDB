@@ -122,7 +122,7 @@ class Concert extends CActiveRecord {
         $outStr = "";
         if (!empty($date))
             $outStr.=" " . $date;
-        $outStr .= self::formatLocation($country, $outStr, $city, $venue, $supplement);
+        $outStr .= ' '.self::formatLocation($country, $city, $venue, $supplement);
         if ($misc === 1) {
             $outStr.=" (MISC)";
         }
